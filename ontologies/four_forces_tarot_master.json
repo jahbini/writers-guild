@@ -1,0 +1,194 @@
+{
+  "version": "3.0",
+  "description": "Master schema combining the Four Forces (Logos, Ethos, Pathos, Anima) with Tarot suits and Major Arcana correspondences. Supports both narrative and analytical applications.",
+  "forces": {
+    "Logos": {
+      "domain": "Thought and Expression",
+      "element": "Air",
+      "tarot_suit": "Swords",
+      "summary": "From clarity to confusion — how we shape truth.",
+      "poles": [
+        {
+          "positive": "Rational",
+          "neutral": "Pragmatic",
+          "negative": "Dogmatic",
+          "description": "Reason seeks clarity; balance applies reason flexibly; distortion hardens into rigid certainty."
+        },
+        {
+          "positive": "Empirical",
+          "neutral": "Analytical",
+          "negative": "Reductionist",
+          "description": "Observation enlightens; balance examines context; distortion strips meaning."
+        },
+        {
+          "positive": "Mythic",
+          "neutral": "Symbolic",
+          "negative": "Delusional",
+          "description": "Imagination teaches through story; balance uses metaphor; distortion becomes fantasy detached from truth."
+        },
+        {
+          "positive": "Rhetorical",
+          "neutral": "Didactic",
+          "negative": "Manipulative",
+          "description": "Speech persuades with care; balance instructs; distortion deceives."
+        },
+        {
+          "positive": "Mystic",
+          "neutral": "Contemplative",
+          "negative": "Obscurantist",
+          "description": "Intuitive unity reveals insight; balance reflects quietly; distortion clouds with vagueness."
+        }
+      ]
+    },
+
+    "Ethos": {
+      "domain": "Action and Behavior",
+      "element": "Earth",
+      "tarot_suit": "Pentacles",
+      "summary": "From stewardship to domination — how we act upon the world.",
+      "poles": [
+        {
+          "positive": "Builder",
+          "neutral": "Sustainer",
+          "negative": "Destroyer",
+          "description": "Creation and improvement; balance maintains; distortion tears down."
+        },
+        {
+          "positive": "Guardian",
+          "neutral": "Steward",
+          "negative": "Tyrant",
+          "description": "Protection and care; balance guides fairly; distortion controls."
+        },
+        {
+          "positive": "Leader",
+          "neutral": "Coordinator",
+          "negative": "Demagogue",
+          "description": "Guides by vision; balance organizes; distortion inflames for power."
+        },
+        {
+          "positive": "Healer",
+          "neutral": "Mediator",
+          "negative": "Poisoner",
+          "description": "Restores harmony; balance reconciles; distortion harms under guise of help."
+        },
+        {
+          "positive": "Explorer",
+          "neutral": "Researcher",
+          "negative": "Invader",
+          "description": "Seeks discovery; balance investigates; distortion exploits."
+        }
+      ]
+    },
+
+    "Pathos": {
+      "domain": "Emotion and Relation",
+      "element": "Water",
+      "tarot_suit": "Cups",
+      "summary": "From resonance to dissonance — how we feel and connect.",
+      "poles": [
+        {
+          "positive": "Joy",
+          "neutral": "Contentment",
+          "negative": "Despair",
+          "description": "Uplifting energy; balance steadiness; distortion hopelessness."
+        },
+        {
+          "positive": "Love",
+          "neutral": "Affection",
+          "negative": "Hate",
+          "description": "Connection and care; balance warmth; distortion rejection and cruelty."
+        },
+        {
+          "positive": "Righteous Anger",
+          "neutral": "Assertiveness",
+          "negative": "Blind Rage",
+          "description": "Justice with clarity; balance confidence; distortion fury."
+        },
+        {
+          "positive": "Curiosity",
+          "neutral": "Interest",
+          "negative": "Fear",
+          "description": "Openness to experience; balance alert attention; distortion paralysis."
+        },
+        {
+          "positive": "Peace",
+          "neutral": "Calm",
+          "negative": "Panic",
+          "description": "Centered coherence; balance relaxation; distortion chaos."
+        }
+      ]
+    },
+
+    "Anima": {
+      "domain": "Vital Connection and Creative Polarity",
+      "element": "Fire",
+      "tarot_suit": "Wands",
+      "summary": "From sacred union to separation — how vitality circulates between opposites.",
+      "poles": [
+        {
+          "positive": "Protector (Masculine)",
+          "neutral": "Partner",
+          "negative": "Controller",
+          "description": "Provides structure and safety; balance cooperates; distortion dominates."
+        },
+        {
+          "positive": "Inspirer (Feminine)",
+          "neutral": "Muse",
+          "negative": "Manipulator",
+          "description": "Opens vision and purpose; balance inspires mutually; distortion seduces or deceives."
+        },
+        {
+          "positive": "Generous (Giver)",
+          "neutral": "Exchanger",
+          "negative": "Possessive",
+          "description": "Offers freely; balance reciprocates; distortion clings or hoards."
+        },
+        {
+          "positive": "Receptive (Receiver)",
+          "neutral": "Integrator",
+          "negative": "Dependent",
+          "description": "Welcomes and synthesizes; balance absorbs wisely; distortion becomes needy."
+        },
+        {
+          "positive": "Co-Creative",
+          "neutral": "Complementary",
+          "negative": "Fractured",
+          "description": "Union of masculine spark and feminine field; balance maintains flow; distortion separates vitality."
+        }
+      ]
+    }
+  },
+
+  "tarot_mapping": {
+    "suits": {
+      "Swords": "Logos",
+      "Pentacles": "Ethos",
+      "Cups": "Pathos",
+      "Wands": "Anima"
+    },
+    "major_arcana": {
+      "0_Fool": ["Anima", "Pathos"],
+      "1_Magician": ["Logos", "Ethos"],
+      "2_High_Priestess": ["Pathos", "Anima"],
+      "3_Empress": ["Anima", "Ethos"],
+      "4_Emperor": ["Ethos", "Logos"],
+      "5_Hierophant": ["Logos", "Ethos"],
+      "6_Lovers": ["Anima", "Pathos"],
+      "7_Chariot": ["Ethos", "Pathos"],
+      "8_Strength": ["Pathos", "Ethos"],
+      "9_Hermit": ["Logos", "Anima"],
+      "10_Wheel_of_Fortune": ["Logos", "Ethos", "Pathos", "Anima"],
+      "11_Justice": ["Logos", "Ethos"],
+      "12_Hanged_Man": ["Pathos", "Anima"],
+      "13_Death": ["Anima", "Ethos"],
+      "14_Temperance": ["Pathos", "Logos"],
+      "15_Devil": ["Pathos", "Anima"],
+      "16_Tower": ["Ethos", "Logos"],
+      "17_Star": ["Anima", "Pathos"],
+      "18_Moon": ["Pathos", "Logos"],
+      "19_Sun": ["Anima", "Logos", "Ethos", "Pathos"],
+      "20_Judgement": ["Ethos", "Pathos"],
+      "21_World": ["Logos", "Ethos", "Pathos", "Anima"]
+    }
+  }
+}

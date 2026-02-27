@@ -1,0 +1,97 @@
+{
+  "Logos": {
+    "axis": "Thought and Expression",
+    "summary": "From clarity to confusion — how we shape truth.",
+    "poles": [
+      {
+        "positive": "Rational",
+        "negative": "Dogmatic",
+        "description": "Clear reasoning vs. rigid logic that crushes nuance."
+      },
+      {
+        "positive": "Empirical",
+        "negative": "Reductionist",
+        "description": "Observation that enlightens vs. analysis that drains meaning."
+      },
+      {
+        "positive": "Mythic",
+        "negative": "Delusional",
+        "description": "Symbolic imagination vs. self-deceiving fantasy."
+      },
+      {
+        "positive": "Rhetorical",
+        "negative": "Manipulative",
+        "description": "Persuasive teaching vs. propaganda and deceit."
+      },
+      {
+        "positive": "Mystic",
+        "negative": "Obscurantist",
+        "description": "Intuitive unity vs. mystification and vagueness."
+      }
+    ]
+  },
+
+  "Ethos": {
+    "axis": "Action and Behavior",
+    "summary": "From stewardship to domination — how we act upon the world.",
+    "poles": [
+      {
+        "positive": "Builder",
+        "negative": "Destroyer",
+        "description": "Creates and improves vs. tears down needlessly."
+      },
+      {
+        "positive": "Guardian",
+        "negative": "Tyrant",
+        "description": "Protects and nurtures vs. controls and suppresses."
+      },
+      {
+        "positive": "Leader",
+        "negative": "Demagogue",
+        "description": "Guides by example vs. inflames for power."
+      },
+      {
+        "positive": "Healer",
+        "negative": "Poisoner",
+        "description": "Restores harmony vs. spreads harm under guise of help."
+      },
+      {
+        "positive": "Explorer",
+        "negative": "Invader",
+        "description": "Discovers with curiosity vs. exploits for gain."
+      }
+    ]
+  },
+
+  "Pathos": {
+    "axis": "Emotion and Relation",
+    "summary": "From resonance to dissonance — how we feel and connect.",
+    "poles": [
+      {
+        "positive": "Joy",
+        "negative": "Despair",
+        "description": "Energy that uplifts vs. hopeless collapse."
+      },
+      {
+        "positive": "Love",
+        "negative": "Hate",
+        "description": "Connection and care vs. rejection and cruelty."
+      },
+      {
+        "positive": "Anger (Righteous)",
+        "negative": "Rage (Blind)",
+        "description": "Asserting justice vs. destructive fury."
+      },
+      {
+        "positive": "Curiosity",
+        "negative": "Fear",
+        "description": "Openness vs. retreat and paralysis."
+      },
+      {
+        "positive": "Peace",
+        "negative": "Panic",
+        "description": "Calm coherence vs. chaotic dissolution."
+      }
+    ]
+  }
+}

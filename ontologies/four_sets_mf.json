@@ -1,0 +1,153 @@
+{
+  "version": "2.0",
+  "description": "Four Forces tri-polar covering set — Logos, Ethos, Pathos, Anima",
+  "axes": {
+    "Logos": {
+      "domain": "Thought and Expression",
+      "summary": "From clarity to confusion — how we shape truth.",
+      "poles": [
+        {
+          "positive": "Rational",
+          "neutral": "Pragmatic",
+          "negative": "Dogmatic",
+          "description": "Reason seeks clarity; balance applies reason flexibly; distortion hardens into rigid certainty."
+        },
+        {
+          "positive": "Empirical",
+          "neutral": "Analytical",
+          "negative": "Reductionist",
+          "description": "Observation enlightens; balance examines context; distortion strips meaning."
+        },
+        {
+          "positive": "Mythic",
+          "neutral": "Symbolic",
+          "negative": "Delusional",
+          "description": "Imagination teaches through story; balance uses metaphor; distortion becomes fantasy detached from truth."
+        },
+        {
+          "positive": "Rhetorical",
+          "neutral": "Didactic",
+          "negative": "Manipulative",
+          "description": "Speech persuades with care; balance instructs; distortion deceives."
+        },
+        {
+          "positive": "Mystic",
+          "neutral": "Contemplative",
+          "negative": "Obscurantist",
+          "description": "Intuitive unity reveals insight; balance reflects quietly; distortion clouds with vagueness."
+        }
+      ]
+    },
+
+    "Ethos": {
+      "domain": "Action and Behavior",
+      "summary": "From stewardship to domination — how we act upon the world.",
+      "poles": [
+        {
+          "positive": "Builder",
+          "neutral": "Sustainer",
+          "negative": "Destroyer",
+          "description": "Creation and improvement; balance maintains; distortion tears down."
+        },
+        {
+          "positive": "Guardian",
+          "neutral": "Steward",
+          "negative": "Tyrant",
+          "description": "Protection and care; balance guides fairly; distortion controls."
+        },
+        {
+          "positive": "Leader",
+          "neutral": "Coordinator",
+          "negative": "Demagogue",
+          "description": "Guides by vision; balance organizes; distortion inflames for power."
+        },
+        {
+          "positive": "Healer",
+          "neutral": "Mediator",
+          "negative": "Poisoner",
+          "description": "Restores harmony; balance reconciles; distortion harms under guise of help."
+        },
+        {
+          "positive": "Explorer",
+          "neutral": "Researcher",
+          "negative": "Invader",
+          "description": "Seeks discovery; balance investigates; distortion exploits."
+        }
+      ]
+    },
+
+    "Pathos": {
+      "domain": "Emotion and Relation",
+      "summary": "From resonance to dissonance — how we feel and connect.",
+      "poles": [
+        {
+          "positive": "Joy",
+          "neutral": "Contentment",
+          "negative": "Despair",
+          "description": "Uplifting energy; balance steadiness; distortion hopelessness."
+        },
+        {
+          "positive": "Love",
+          "neutral": "Affection",
+          "negative": "Hate",
+          "description": "Connection and care; balance warmth; distortion rejection and cruelty."
+        },
+        {
+          "positive": "Righteous Anger",
+          "neutral": "Assertiveness",
+          "negative": "Blind Rage",
+          "description": "Justice with clarity; balance confidence; distortion fury."
+        },
+        {
+          "positive": "Curiosity",
+          "neutral": "Interest",
+          "negative": "Fear",
+          "description": "Openness to experience; balance alert attention; distortion paralysis."
+        },
+        {
+          "positive": "Peace",
+          "neutral": "Calm",
+          "negative": "Panic",
+          "description": "Centered coherence; balance relaxation; distortion chaos."
+        }
+      ]
+    },
+
+    "Anima": {
+      "domain": "Vital Connection and Creative Polarity",
+      "summary": "From sacred union to separation — how vitality circulates between opposites.",
+      "poles": [
+        {
+          "positive": "Protector (Masculine)",
+          "neutral": "Partner",
+          "negative": "Controller",
+          "description": "Provides structure and safety; balance cooperates; distortion dominates."
+        },
+        {
+          "positive": "Inspirer (Feminine)",
+          "neutral": "Muse",
+          "negative": "Manipulator",
+          "description": "Opens vision and purpose; balance inspires mutually; distortion seduces or deceives."
+        },
+        {
+          "positive": "Generous (Giver)",
+          "neutral": "Exchanger",
+          "negative": "Possessive",
+          "description": "Offers freely; balance reciprocates; distortion clings or hoards."
+        },
+        {
+          "positive": "Receptive (Receiver)",
+          "neutral": "Integrator",
+          "negative": "Dependent",
+          "description": "Welcomes and synthesizes; balance absorbs wisely; distortion becomes needy."
+        },
+        {
+          "positive": "Co-Creative",
+          "neutral": "Complementary",
+          "negative": "Fractured",
+          "description": "Union of masculine spark and feminine field; balance maintains flow; distortion separates vitality."
+        }
+      ]
+    }
+  }
+}

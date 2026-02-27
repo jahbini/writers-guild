@@ -1,0 +1,16 @@
+{
+  "Eleanor": {
+    "Logos": {"score": 0.6, "keyword": "Pragmatic"},
+    "Ethos": {"score": 0.4, "keyword": "Steward"},
+    "Pathos": {"score": 0.7, "keyword": "Love"},
+    "Anima": {"score": 0.8, "keyword": "Co-Creative"},
+    "archetype": "Lovers VI / Temperance XIV"
+  },
+  "Chidi": {
+    "Logos": {"score": 0.9, "keyword": "Rational"},
+    "Ethos": {"score": 0.6, "keyword": "Builder"},
+    "Pathos": {"score": 0.2, "keyword": "Interest"},
+    "Anima": {"score": 0.3, "keyword": "Partner"},
+    "archetype": "Justice XI / Hierophant V"
+  }
+}

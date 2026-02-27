@@ -1,0 +1,169 @@
+trigrams:
+
+  - id: 1
+    name: "☰ Heaven"
+    chinese: "乾"
+    pinyin: "Qián"
+    energy_core: "Ethos"
+    polarity: "Yang / Active"
+    element: "Sky / Creative"
+    qualities: ["strength", "initiative", "authority", "leadership"]
+    energetic_profile:
+      ethos: 1.0
+      logos: 0.6
+      pathos: 0.2
+      anima_m: 1.0
+      anima_f: 0.2
+    vital_axis:
+      balance: +0.8          # strong outward thrust
+    narrative_function: "Pure creativity and resolve; initiates new cycles."
+    moral_axis: "Vision → Responsibility"
+    tone: "Rising, luminous, commanding"
+    story_tags: ["origin", "leadership", "cosmic order"]
+
+  - id: 2
+    name: "☷ Earth"
+    chinese: "坤"
+    pinyin: "Kūn"
+    energy_core: "Anima"
+    polarity: "Yin / Receptive"
+    element: "Ground / Nurture"
+    qualities: ["yielding", "support", "patience", "maternal wisdom"]
+    energetic_profile:
+      ethos: 0.2
+      logos: 0.3
+      pathos: 0.5
+      anima_m: 0.2
+      anima_f: 1.0
+    vital_axis:
+      balance: -0.8          # deep inward receptivity
+    narrative_function: "The fertile matrix that receives and brings forth."
+    moral_axis: "Obedience → Cooperation"
+    tone: "Soft, embracing, grounding"
+    story_tags: ["nurture", "acceptance", "harvest"]
+
+  - id: 3
+    name: "☵ Water"
+    chinese: "坎"
+    pinyin: "Kǎn"
+    energy_core: "Pathos"
+    polarity: "Yin within Yang"
+    element: "Flow / Risk / Depth"
+    qualities: ["emotion", "danger", "faith", "adaptability"]
+    energetic_profile:
+      ethos: 0.2
+      logos: 0.4
+      pathos: 0.9
+      anima_m: 0.5
+      anima_f: 0.8
+    vital_axis:
+      balance: -0.3          # inward, emotional motion
+    narrative_function: "Trial and perseverance; feeling tested by danger."
+    moral_axis: "Fear → Faith"
+    tone: "Dark, fluid, echoing"
+    story_tags: ["ordeal", "trust", "redemption"]
+
+  - id: 4
+    name: "☲ Fire"
+    chinese: "離"
+    pinyin: "Lí"
+    energy_core: "Logos"
+    polarity: "Yang within Yin"
+    element: "Light / Vision / Clarity"
+    qualities: ["reason", "illumination", "communication", "truth"]
+    energetic_profile:
+      ethos: 0.5
+      logos: 1.0
+      pathos: 0.5
+      anima_m: 0.8
+      anima_f: 0.4
+    vital_axis:
+      balance: +0.4          # outward clarity and expression
+    narrative_function: "Insight and revelation; makes the invisible visible."
+    moral_axis: "Ignorance → Understanding"
+    tone: "Bright, articulate, decisive"
+    story_tags: ["illumination", "speech", "truth"]
+
+  - id: 5
+    name: "☳ Thunder"
+    chinese: "震"
+    pinyin: "Zhèn"
+    energy_core: "Pathos-extreme"
+    polarity: "Yang"
+    element: "Shock / Motion / Awakening"
+    qualities: ["impulse", "eruption", "awakening", "courage"]
+    energetic_profile:
+      ethos: 0.5
+      logos: 0.3
+      pathos: 0.8
+      anima_m: 0.9
+      anima_f: 0.3
+    vital_axis:
+      balance: +0.6          # sudden outward surge
+    narrative_function: "Catalyst of change; the moment that breaks inertia."
+    moral_axis: "Apathy → Awakening"
+    tone: "Explosive, immediate, electric"
+    story_tags: ["shock", "revelation", "call to action"]
+
+  - id: 6
+    name: "☶ Mountain"
+    chinese: "艮"
+    pinyin: "Gèn"
+    energy_core: "Anima-extreme"
+    polarity: "Yin"
+    element: "Stillness / Boundary"
+    qualities: ["restraint", "reflection", "focus", "limit"]
+    energetic_profile:
+      ethos: 0.3
+      logos: 0.4
+      pathos: 0.2
+      anima_m: 0.2
+      anima_f: 0.9
+    vital_axis:
+      balance: -0.7          # still, containing
+    narrative_function: "Rest and introspection; a pause that defines shape."
+    moral_axis: "Restlessness → Peace"
+    tone: "Quiet, centered, immovable"
+    story_tags: ["pause", "boundary", "contemplation"]
+
+  - id: 7
+    name: "☴ Wind / Wood"
+    chinese: "巽"
+    pinyin: "Xùn"
+    energy_core: "Ethos-soft"
+    polarity: "Yin"
+    element: "Air / Influence / Penetration"
+    qualities: ["gentle persistence", "adaptation", "persuasion", "growth"]
+    energetic_profile:
+      ethos: 0.8
+      logos: 0.6
+      pathos: 0.4
+      anima_m: 0.6
+      anima_f: 0.7
+    vital_axis:
+      balance: -0.1          # nearly balanced flow
+    narrative_function: "Subtle influence; spreads change through persuasion."
+    moral_axis: "Rigidity → Flexibility"
+    tone: "Flowing, patient, persuasive"
+    story_tags: ["diplomacy", "adaptation", "moral influence"]
+
+  - id: 8
+    name: "☱ Lake / Marsh"
+    chinese: "兌"
+    pinyin: "Duì"
+    energy_core: "Logos-soft"
+    polarity: "Yang"
+    element: "Joy / Reflection / Communion"
+    qualities: ["communication", "pleasure", "agreement", "beauty"]
+    energetic_profile:
+      ethos: 0.4
+      logos: 0.8
+      pathos: 0.5
+      anima_m: 0.7
+      anima_f: 0.8
+    vital_axis:
+      balance: +0.1          # slight outward joy
+    narrative_function: "Joyful exchange and shared understanding."
+    moral_axis: "Isolation → Connection"
+    tone: "Playful, resonant, harmonic"
+    story_tags: ["celebration", "friendship", "dialogue"]

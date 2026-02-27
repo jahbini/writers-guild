@@ -1,0 +1,17 @@
+include:
+  - "../recipes/plot_character_series.yaml"
+
+run:
+  output_dir: "out"
+  stories:
+    - id: "story_sample_chapter"
+      title: "Sample Chapter"
+      file: "examples/sample_chapter.txt"
+      characters:
+        - "Eleanor"
+        - "Chidi"
+        - "Tahani"
+
+plot_character_extract:
+  schema_ref: "plot_character.yaml"
+  output: "out/plot_character_analysis.json"

@@ -1,0 +1,20 @@
+# AI Writer's Guild — demo recipe
+run:
+  data_dir: "data"
+  output_dir: "out"
+
+guild_analyze:
+  run: "guild/analyze_chapter.coffee"
+  depends_on: []
+  desc: "Analyze chapter and score characters"
+  chapter: "examples/sample_chapter.txt"
+  ontology: "ontologies/four_forces_tarot_master.json"
+  characters: ["Eleanor","Chidi","Tahani"]
+
+guild_generate:
+  run: "guild/generate_chapter.coffee"
+  depends_on: ["guild_analyze"]
+  desc: "Generate a new scene from analyzed profiles"
+  profiles: "examples/sample_profiles.json"
+  tarot: "Temperance XIV"
+  interaction: "Eleanor confronts Chidi about a painful truth"

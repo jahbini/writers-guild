@@ -1,6 +1,9 @@
 # vi
 *.swp
-[12].log
+*.swo
+
+# Logs
+*.log
 
 node_modules/
 pnpm-lock.yaml
@@ -20,6 +23,12 @@ data_report.json
 eval_out/
 run*/
 dist/
+out/
+params/
+logs/
+state/
+experiment.yaml
+pipeline.json
 
 # macOS
 .DS_Store

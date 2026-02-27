@@ -1,0 +1,1213 @@
+hexagrams:
+
+  - id: 1
+    name: "The Creative"
+    chinese: "乾"
+    pinyin: "Qián"
+    upper_trigram: 1   # ☰ Heaven
+    lower_trigram: 1   # ☰ Heaven
+    theme: "Pure creative force; the source of all beginnings."
+    judgement:
+      chinese: "元亨利貞。"
+      english: "Supreme success through perseverance."
+    image:
+      chinese: "天行健，君子以自強不息。"
+      english: "As heaven moves with power, the noble one makes himself strong and untiring."
+    energetic_profile:
+      start: {ethos: 1.0, logos: 0.6, pathos: 0.2, anima_m: 1.0, anima_f: 0.2}
+      delta: {ethos: 0.0, logos: +0.2, pathos: +0.1, anima_m: +0.1, anima_f: +0.2}
+    story_tags: {archetype: "Creator", tone: "Radiant", moral_axis: "Vision → Responsibility"}
+    metadata: {pair_sequence: 2, notes: "Heaven over Heaven."}
+
+  - id: 2
+    name: "The Receptive"
+    chinese: "坤"
+    pinyin: "Kūn"
+    upper_trigram: 2   # ☷ Earth
+    lower_trigram: 2   # ☷ Earth
+    theme: "Pure receptivity; the great yielding."
+    judgement:
+      chinese: "元亨，利牝馬之貞。"
+      english: "Supreme success; the perseverance of a mare brings advantage."
+    image:
+      chinese: "地勢坤，君子以厚德載物。"
+      english: "The earth’s condition is receptive devotion; the noble one sustains all with great virtue."
+    energetic_profile:
+      start: {ethos: 0.2, logos: 0.3, pathos: 0.5, anima_m: 0.2, anima_f: 1.0}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: +0.2, anima_f: 0.0}
+    story_tags: {archetype: "Nurturer", tone: "Soft, grounding", moral_axis: "Obedience → Cooperation"}
+    metadata: {pair_sequence: 1, notes: "Earth over Earth."}
+
+  - id: 3
+    name: "Difficulty at the Beginning"
+    chinese: "屯"
+    pinyin: "Zhūn"
+    upper_trigram: 5   # ☳ Thunder
+    lower_trigram: 3   # ☵ Water
+    theme: "Birth through struggle; chaos before form."
+    judgement:
+      chinese: "元亨，利貞。勿用有攸往，利建侯。"
+      english: "Supreme success; perseverance furthers. Do not act rashly; it is favorable to establish order."
+    image:
+      chinese: "雲雷屯，君子以經綸。"
+      english: "Clouds and thunder: the image of difficulty. The noble one brings order and prepares."
+    energetic_profile:
+      start: {ethos: 0.4, logos: 0.35, pathos: 0.85, anima_m: 0.7, anima_f: 0.55}
+      delta: {ethos: +0.2, logos: +0.1, pathos: -0.3, anima_m: +0.1, anima_f: +0.1}
+    story_tags: {archetype: "Pioneer", tone: "Turbulent → Organized", moral_axis: "Chaos → Form"}
+    metadata: {pair_sequence: 4, notes: "Water below Thunder above."}
+
+  - id: 4
+    name: "Youthful Folly"
+    chinese: "蒙"
+    pinyin: "Méng"
+    upper_trigram: 3   # ☵ Water
+    lower_trigram: 6   # ☶ Mountain
+    theme: "Inexperience seeking guidance."
+    judgement:
+      chinese: "亨，匪我求童蒙，童蒙求我。"
+      english: "Success. It is not I who seek the young fool; the young fool seeks me."
+    image:
+      chinese: "山下出泉，蒙；君子以果行育德。"
+      english: "A spring emerges at the foot of the mountain; the noble one fosters virtue with decisive action."
+    energetic_profile:
+      start: {ethos: 0.25, logos: 0.45, pathos: 0.6, anima_m: 0.35, anima_f: 0.75}
+      delta: {ethos: +0.15, logos: +0.2, pathos: -0.2, anima_m: +0.1, anima_f: 0.0}
+    story_tags: {archetype: "Student", tone: "Uncertain → Enlightened", moral_axis: "Ignorance → Wisdom"}
+    metadata: {pair_sequence: 3, notes: "Mountain below Water above."}
+
+  - id: 5
+    name: "Waiting (Nourishment)"
+    chinese: "需"
+    pinyin: "Xū"
+    upper_trigram: 1   # ☰ Heaven
+    lower_trigram: 3   # ☵ Water
+    theme: "Patience and trust in timing."
+    judgement:
+      chinese: "有孚光亨，貞吉。"
+      english: "Sincere trust brings success. Perseverance brings good fortune."
+    image:
+      chinese: "雲上於天，需；君子以飲食宴樂。"
+      english: "Clouds rise up to heaven: Waiting. The noble one eats and drinks, relaxed and content."
+    energetic_profile:
+      start: {ethos: 0.6, logos: 0.5, pathos: 0.55, anima_m: 0.8, anima_f: 0.4}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.2}
+    story_tags: {archetype: "Seeker", tone: "Tense → Calm", moral_axis: "Impatience → Trust"}
+    metadata: {pair_sequence: 6, notes: "Water below Heaven above."}
+
+  - id: 6
+    name: "Conflict"
+    chinese: "訟"
+    pinyin: "Sòng"
+    upper_trigram: 3   # ☵ Water
+    lower_trigram: 1   # ☰ Heaven
+    theme: "Dispute and justice; clarity through confrontation."
+    judgement:
+      chinese: "有孚窒惕，中吉，終凶。"
+      english: "Sincere in conflict; caution brings good fortune; the end brings misfortune."
+    image:
+      chinese: "天與水違行，訟；君子以作事謀始。"
+      english: "Heaven and water move apart: Conflict. The noble one carefully plans at the beginning."
+    energetic_profile:
+      start: {ethos: 0.7, logos: 0.6, pathos: 0.45, anima_m: 0.9, anima_f: 0.3}
+      delta: {ethos: -0.1, logos: +0.1, pathos: +0.2, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Advocate", tone: "Assertive", moral_axis: "Pride → Justice"}
+    metadata: {pair_sequence: 5, notes: "Heaven below Water above."}
+
+  - id: 7
+    name: "The Army"
+    chinese: "師"
+    pinyin: "Shī"
+    upper_trigram: 2   # ☷ Earth
+    lower_trigram: 3   # ☵ Water
+    theme: "Discipline and collective purpose."
+    judgement:
+      chinese: "貞，丈人吉。"
+      english: "Perseverance furthers; the elder brings good fortune."
+    image:
+      chinese: "地中有水，師；君子以容民畜眾。"
+      english: "Water within the earth: The Army. The noble one tolerates the people and nurtures the masses."
+    energetic_profile:
+      start: {ethos: 0.4, logos: 0.4, pathos: 0.6, anima_m: 0.6, anima_f: 0.6}
+      delta: {ethos: +0.2, logos: +0.1, pathos: -0.2, anima_m: +0.1, anima_f: +0.1}
+    story_tags: {archetype: "Commander", tone: "Disciplined", moral_axis: "Chaos → Order"}
+    metadata: {pair_sequence: 8, notes: "Water below Earth above."}
+
+  - id: 8
+    name: "Holding Together (Union)"
+    chinese: "比"
+    pinyin: "Bǐ"
+    upper_trigram: 3   # ☵ Water
+    lower_trigram: 2   # ☷ Earth
+    theme: "Unity and trust; joining forces."
+    judgement:
+      chinese: "吉，原筮元永貞。"
+      english: "Good fortune. Sincere divination shows lasting perseverance."
+    image:
+      chinese: "地上有水，比；先王以建萬國親諸侯。"
+      english: "Water on the earth forms a lake: Union. The ancient kings founded nations and fostered alliances."
+    energetic_profile:
+      start: {ethos: 0.4, logos: 0.35, pathos: 0.6, anima_m: 0.5, anima_f: 0.7}
+      delta: {ethos: +0.1, logos: +0.2, pathos: -0.2, anima_m: +0.1, anima_f: +0.1}
+    story_tags: {archetype: "Ally", tone: "Warm", moral_axis: "Division → Cooperation"}
+    metadata: {pair_sequence: 7, notes: "Earth below Water above."}
+
+  - id: 9
+    name: "The Taming Power of the Small"
+    chinese: "小畜"
+    pinyin: "Xiǎo Chù"
+    upper_trigram: 7   # ☴ Wind
+    lower_trigram: 1   # ☰ Heaven
+    theme: "Gentle restraint; influence through patience."
+    judgement:
+      chinese: "亨。密雲不雨，自我西郊。"
+      english: "Success. Dense clouds, no rain from our western region."
+    image:
+      chinese: "風行天上，小畜；君子以懿文德。"
+      english: "Wind moving across heaven: the small tames the great; the noble one refines culture."
+    energetic_profile:
+      start: {ethos: 0.9, logos: 0.6, pathos: 0.4, anima_m: 0.8, anima_f: 0.6}
+      delta: {ethos: -0.1, logos: +0.2, pathos: +0.1, anima_m: -0.1, anima_f: +0.2}
+    story_tags: {archetype: "Advisor", tone: "Controlled", moral_axis: "Power → Grace"}
+    metadata: {pair_sequence: 10, notes: "Wind above Heaven."}
+
+  - id: 10
+    name: "Treading (Conduct)"
+    chinese: "履"
+    pinyin: "Lǚ"
+    upper_trigram: 1   # ☰ Heaven
+    lower_trigram: 8   # ☱ Lake
+    theme: "Cautious advance; propriety under power."
+    judgement:
+      chinese: "履虎尾，不咥人，亨。"
+      english: "Treading on the tiger’s tail—he does not bite. Success."
+    image:
+      chinese: "天與澤交，履；君子以辨上下定民志。"
+      english: "Heaven above, lake below: Conduct. The noble one distinguishes levels and stabilizes the people’s will."
+    energetic_profile:
+      start: {ethos: 0.8, logos: 0.7, pathos: 0.4, anima_m: 0.9, anima_f: 0.5}
+      delta: {ethos: 0.0, logos: +0.1, pathos: -0.1, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Diplomat", tone: "Measured", moral_axis: "Recklessness → Respect"}
+    metadata: {pair_sequence: 9, notes: "Heaven above Lake."}
+
+  - id: 11
+    name: "Peace (Prosperity)"
+    chinese: "泰"
+    pinyin: "Tài"
+    upper_trigram: 2   # ☷ Earth
+    lower_trigram: 1   # ☰ Heaven
+    theme: "Harmony between heaven and earth; growth and blessing."
+    judgement:
+      chinese: "小往大來，吉亨。"
+      english: "The small departs, the great approaches. Good fortune."
+    image:
+      chinese: "天地交，泰；后以財成天地之道，輔相天地之宜。"
+      english: "Heaven and earth unite: Peace. The ruler aligns human affairs with nature’s harmony."
+    energetic_profile:
+      start: {ethos: 0.6, logos: 0.5, pathos: 0.5, anima_m: 0.7, anima_f: 0.8}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Peacemaker", tone: "Abundant", moral_axis: "Division → Union"}
+    metadata: {pair_sequence: 12, notes: "Earth above Heaven."}
+
+  - id: 12
+    name: "Standstill (Stagnation)"
+    chinese: "否"
+    pinyin: "Pǐ"
+    upper_trigram: 1   # ☰ Heaven
+    lower_trigram: 2   # ☷ Earth
+    theme: "Heaven and earth separated; blockage and decline."
+    judgement:
+      chinese: "否之匪人，不利君子貞，大往小來。"
+      english: "Evil times; the inferior prevail, the superior depart."
+    image:
+      chinese: "天地不交，否；君子以儉德辟難，不可榮以祿。"
+      english: "Heaven and earth do not unite: Standstill. The noble one withdraws into virtue."
+    energetic_profile:
+      start: {ethos: 0.7, logos: 0.5, pathos: 0.3, anima_m: 0.8, anima_f: 0.4}
+      delta: {ethos: -0.2, logos: -0.1, pathos: +0.2, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Hermit", tone: "Withdrawing", moral_axis: "Corruption → Purity"}
+    metadata: {pair_sequence: 11, notes: "Heaven above Earth."}
+
+  - id: 13
+    name: "Fellowship with Men"
+    chinese: "同人"
+    pinyin: "Tóng Rén"
+    upper_trigram: 1   # ☰ Heaven
+    lower_trigram: 4   # ☲ Fire
+    theme: "Unity through shared ideals."
+    judgement:
+      chinese: "同人于野，亨，利涉大川，利君子貞。"
+      english: "Fellowship in the open. Success in crossing the great water; perseverance benefits the noble one."
+    image:
+      chinese: "天與火同人；君子以類族辨物。"
+      english: "Heaven and fire unite: Fellowship. The noble one organizes groups according to kind."
+    energetic_profile:
+      start: {ethos: 0.8, logos: 0.8, pathos: 0.5, anima_m: 0.9, anima_f: 0.5}
+      delta: {ethos: 0.0, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Comrade", tone: "Bright and open", moral_axis: "Isolation → Brotherhood"}
+    metadata: {pair_sequence: 14, notes: "Heaven above Fire."}
+
+  - id: 14
+    name: "Possession in Great Measure"
+    chinese: "大有"
+    pinyin: "Dà Yǒu"
+    upper_trigram: 4   # ☲ Fire
+    lower_trigram: 1   # ☰ Heaven
+    theme: "Abundance and responsibility."
+    judgement:
+      chinese: "元亨。"
+      english: "Great success."
+    image:
+      chinese: "火在天上，大有；君子以遏惡揚善。"
+      english: "Fire above heaven: Great Possession. The noble one curbs evil and promotes good."
+    energetic_profile:
+      start: {ethos: 0.8, logos: 0.9, pathos: 0.4, anima_m: 0.9, anima_f: 0.4}
+      delta: {ethos: +0.1, logos: 0.0, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Steward", tone: "Radiant responsibility", moral_axis: "Greed → Generosity"}
+    metadata: {pair_sequence: 13, notes: "Fire above Heaven."}
+
+  - id: 15
+    name: "Modesty"
+    chinese: "謙"
+    pinyin: "Qiān"
+    upper_trigram: 6   # ☶ Mountain
+    lower_trigram: 2   # ☷ Earth
+    theme: "Humility that strengthens virtue."
+    judgement:
+      chinese: "亨，君子有終。"
+      english: "Success. The noble one brings things to completion."
+    image:
+      chinese: "地中有山，謙；君子以裒多益寡，稱物平施。"
+      english: "A mountain within the earth: Modesty. The noble one adjusts excess and fills the need."
+    energetic_profile:
+      start: {ethos: 0.4, logos: 0.4, pathos: 0.5, anima_m: 0.4, anima_f: 0.8}
+      delta: {ethos: -0.1, logos: +0.1, pathos: -0.1, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Servant Leader", tone: "Gentle", moral_axis: "Pride → Humility"}
+    metadata: {pair_sequence: 16, notes: "Mountain within Earth."}
+
+  - id: 16
+    name: "Enthusiasm"
+    chinese: "豫"
+    pinyin: "Yù"
+    upper_trigram: 5   # ☳ Thunder
+    lower_trigram: 2   # ☷ Earth
+    theme: "Joyful movement; rallying others with inspiration."
+    judgement:
+      chinese: "亨。利涉大川，利貞。"
+      english: "Success. It furthers to cross the great water and to be steadfast."
+    image:
+      chinese: "雷出地奮，豫；先王以作樂崇德。"
+      english: "Thunder comes forth from the earth: Enthusiasm. The ancient kings made music to honor virtue."
+    energetic_profile:
+      start: {ethos: 0.6, logos: 0.5, pathos: 0.8, anima_m: 0.8, anima_f: 0.6}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.2, anima_m: +0.1, anima_f: 0.0}
+    story_tags: {archetype: "Inspirer", tone: "Upbeat", moral_axis: "Lethargy → Passion"}
+    metadata: {pair_sequence: 15, notes: "Thunder above Earth."}
+
+  - id: 17
+    name: "Following"
+    chinese: "隨"
+    pinyin: "Suí"
+    upper_trigram: 8   # ☱ Lake
+    lower_trigram: 5   # ☳ Thunder
+    theme: "Adaptation and joyful alignment with change."
+    judgement:
+      chinese: "元亨利貞，無咎。"
+      english: "Supreme success; perseverance brings no blame."
+    image:
+      chinese: "澤中有雷，隨；君子以向晦入宴息。"
+      english: "Thunder in the midst of the lake: Following. The noble one relaxes in harmony with nature’s rhythm."
+    energetic_profile:
+      start: {ethos: 0.55, logos: 0.6, pathos: 0.6, anima_m: 0.7, anima_f: 0.7}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: +0.1, anima_f: +0.1}
+    story_tags: {archetype: "Companion", tone: "Harmonic", moral_axis: "Resistance → Flow"}
+    metadata: {pair_sequence: 18, notes: "Lake above Thunder."}
+
+  - id: 18
+    name: "Work on What Has Been Spoiled"
+    chinese: "蠱"
+    pinyin: "Gǔ"
+    upper_trigram: 5   # ☳ Thunder
+    lower_trigram: 6   # ☶ Mountain
+    theme: "Restoration and renewal after decay."
+    judgement:
+      chinese: "元亨，利涉大川，先甲三日，後甲三日。"
+      english: "Great success; it furthers to cross the great water. Three days before and after the turning point."
+    image:
+      chinese: "山下有風，蠱；君子以振民育德。"
+      english: "Wind under the mountain: Decay. The noble one stirs the people and nurtures virtue."
+    energetic_profile:
+      start: {ethos: 0.45, logos: 0.45, pathos: 0.5, anima_m: 0.55, anima_f: 0.75}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: +0.1, anima_f: 0.0}
+    story_tags: {archetype: "Restorer", tone: "Regenerative", moral_axis: "Corruption → Renewal"}
+    metadata: {pair_sequence: 17, notes: "Mountain below Wind above."}
+
+  - id: 19
+    name: "Approach"
+    chinese: "臨"
+    pinyin: "Lín"
+    upper_trigram: 2   # ☷ Earth
+    lower_trigram: 8   # ☱ Lake
+    theme: "Benevolent leadership; approaching others with openness."
+    judgement:
+      chinese: "元亨利貞。至于八月有凶。"
+      english: "Great success; perseverance furthers. But after the eighth month, misfortune."
+    image:
+      chinese: "澤上有地，臨；君子以教思無窮，容保民無疆。"
+      english: "The earth above the lake: Approach. The noble one teaches without end and protects without limit."
+    energetic_profile:
+      start: {ethos: 0.45, logos: 0.6, pathos: 0.55, anima_m: 0.6, anima_f: 0.8}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Mentor", tone: "Open, gracious", moral_axis: "Authority → Compassion"}
+    metadata: {pair_sequence: 20, notes: "Earth above Lake."}
+
+  - id: 20
+    name: "Contemplation (View)"
+    chinese: "觀"
+    pinyin: "Guān"
+    upper_trigram: 7   # ☴ Wind
+    lower_trigram: 2   # ☷ Earth
+    theme: "Observation and insight; seeing truth from stillness."
+    judgement:
+      chinese: "盥而不薦，有孚顒若。"
+      english: "Washing but not yet offering; sincerity inspires reverence."
+    image:
+      chinese: "風行地上，觀；先王以省方觀民設教。"
+      english: "Wind moves over the earth: Observation. The ancient kings surveyed the land and instructed the people."
+    energetic_profile:
+      start: {ethos: 0.65, logos: 0.7, pathos: 0.5, anima_m: 0.6, anima_f: 0.8}
+      delta: {ethos: 0.0, logos: +0.1, pathos: -0.1, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Sage", tone: "Reflective", moral_axis: "Blindness → Vision"}
+    metadata: {pair_sequence: 19, notes: "Wind above Earth."}
+
+  - id: 21
+    name: "Biting Through"
+    chinese: "噬嗑"
+    pinyin: "Shì Kè"
+    upper_trigram: 4   # ☲ Fire
+    lower_trigram: 5   # ☳ Thunder
+    theme: "Resolution through decisive action; clearing obstacles."
+    judgement:
+      chinese: "亨。利用獄。"
+      english: "Success. It is favorable to bring matters to justice."
+    image:
+      chinese: "雷電噬嗑；君子以明罰敕法。"
+      english: "Thunder and lightning combine: Biting Through. The noble one clarifies laws and penalties."
+    energetic_profile:
+      start: {ethos: 0.6, logos: 0.8, pathos: 0.7, anima_m: 0.8, anima_f: 0.5}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.2, anima_m: +0.1, anima_f: 0.0}
+    story_tags: {archetype: "Judge", tone: "Dynamic", moral_axis: "Confusion → Clarity"}
+    metadata: {pair_sequence: 22, notes: "Fire above Thunder."}
+
+  - id: 22
+    name: "Grace"
+    chinese: "賁"
+    pinyin: "Bì"
+    upper_trigram: 4   # ☲ Fire
+    lower_trigram: 6   # ☶ Mountain
+    theme: "Beauty and adornment; outer form expressing inner truth."
+    judgement:
+      chinese: "亨。小利有攸往。"
+      english: "Success. Small advantage in proceeding."
+    image:
+      chinese: "山下有火，賁；君子以明庶政，無敢折獄。"
+      english: "Fire under the mountain: Grace. The noble one clarifies governance and refrains from harsh judgment."
+    energetic_profile:
+      start: {ethos: 0.45, logos: 0.85, pathos: 0.5, anima_m: 0.65, anima_f: 0.6}
+      delta: {ethos: 0.0, logos: +0.1, pathos: 0.0, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Artist", tone: "Refined", moral_axis: "Chaos → Beauty"}
+    metadata: {pair_sequence: 21, notes: "Mountain below Fire above."}
+
+  - id: 23
+    name: "Splitting Apart"
+    chinese: "剝"
+    pinyin: "Bō"
+    upper_trigram: 6   # ☶ Mountain
+    lower_trigram: 2   # ☷ Earth
+    theme: "Decay and loss; structures collapse before renewal."
+    judgement:
+      chinese: "不利有攸往。"
+      english: "It is unfavorable to proceed."
+    image:
+      chinese: "山附于地，剝；上以厚下安宅。"
+      english: "A mountain rests on the earth: Splitting Apart. The superior person supports the lower to secure peace."
+    energetic_profile:
+      start: {ethos: 0.35, logos: 0.4, pathos: 0.3, anima_m: 0.3, anima_f: 0.8}
+      delta: {ethos: -0.1, logos: -0.1, pathos: +0.1, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Releaser", tone: "Somber", moral_axis: "Attachment → Letting Go"}
+    metadata: {pair_sequence: 24, notes: "Mountain above Earth."}
+
+  - id: 24
+    name: "Return (The Turning Point)"
+    chinese: "復"
+    pinyin: "Fù"
+    upper_trigram: 2   # ☷ Earth
+    lower_trigram: 5   # ☳ Thunder
+    theme: "Renewal and cyclical rebirth; return to the Way."
+    judgement:
+      chinese: "亨。出入無疾，朋來無咎。"
+      english: "Success. No harm in going and coming; friends return without blame."
+    image:
+      chinese: "雷在地中，復；先王以至日閉關，商旅不行，后不省方。"
+      english: "Thunder within the earth: Return. The ancient kings closed the passes to rest and renew."
+    energetic_profile:
+      start: {ethos: 0.5, logos: 0.5, pathos: 0.6, anima_m: 0.6, anima_f: 0.7}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.2, anima_m: +0.1, anima_f: 0.0}
+    story_tags: {archetype: "Pilgrim", tone: "Rejuvenating", moral_axis: "Exile → Homecoming"}
+    metadata: {pair_sequence: 23, notes: "Thunder below Earth above."}
+
+  - id: 25
+    name: "Innocence (The Unexpected)"
+    chinese: "無妄"
+    pinyin: "Wú Wàng"
+    upper_trigram: 1   # ☰ Heaven
+    lower_trigram: 5   # ☳ Thunder
+    theme: "Natural integrity; acting without ulterior motive."
+    judgement:
+      chinese: "元亨，利貞。其匪正有眚，不利有攸往。"
+      english: "Supreme success through perseverance. If one is not righteous, misfortune; it is unfavorable to pursue goals."
+    image:
+      chinese: "天下雷行，物與無妄；先王以茂對時，育萬物。"
+      english: "Thunder rolls under heaven: Innocence. The ancient kings aligned with time and nourished all beings."
+    energetic_profile:
+      start: {ethos: 0.8, logos: 0.6, pathos: 0.5, anima_m: 0.9, anima_f: 0.4}
+      delta: {ethos: +0.1, logos: 0.0, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Innocent Hero", tone: "Pure and spontaneous", moral_axis: "Cunning → Truth"}
+    metadata: {pair_sequence: 26, notes: "Heaven above Thunder."}
+
+  - id: 26
+    name: "The Taming Power of the Great"
+    chinese: "大畜"
+    pinyin: "Dà Chù"
+    upper_trigram: 6   # ☶ Mountain
+    lower_trigram: 1   # ☰ Heaven
+    theme: "Restraint of great power through wisdom."
+    judgement:
+      chinese: "利貞。不家食吉。利涉大川。"
+      english: "Perseverance brings benefit. Good fortune when not consuming at home. It furthers to cross the great water."
+    image:
+      chinese: "天在山中，大畜；君子以多識前言往行，以畜其德。"
+      english: "Heaven within the mountain: Great Taming. The noble one studies past words and deeds to cultivate virtue."
+    energetic_profile:
+      start: {ethos: 0.75, logos: 0.6, pathos: 0.4, anima_m: 0.7, anima_f: 0.6}
+      delta: {ethos: 0.0, logos: +0.1, pathos: -0.1, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Strategist", tone: "Contained strength", moral_axis: "Impulsion → Discipline"}
+    metadata: {pair_sequence: 25, notes: "Mountain above Heaven."}
+
+  - id: 27
+    name: "Nourishment"
+    chinese: "頤"
+    pinyin: "Yí"
+    upper_trigram: 6   # ☶ Mountain
+    lower_trigram: 5   # ☳ Thunder
+    theme: "Right sustenance of body and mind."
+    judgement:
+      chinese: "貞吉。觀頤，自求口實。"
+      english: "Perseverance brings good fortune. Watch what one feeds upon and seek the proper nourishment."
+    image:
+      chinese: "山下有雷，頤；君子以慎言語，節飲食。"
+      english: "Thunder beneath the mountain: Nourishment. The noble one is careful in speech and moderate in consumption."
+    energetic_profile:
+      start: {ethos: 0.5, logos: 0.55, pathos: 0.6, anima_m: 0.6, anima_f: 0.7}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Caretaker", tone: "Balanced and reflective", moral_axis: "Excess → Moderation"}
+    metadata: {pair_sequence: 28, notes: "Mountain above Thunder."}
+
+  - id: 28
+    name: "Preponderance of the Great"
+    chinese: "大過"
+    pinyin: "Dà Guò"
+    upper_trigram: 8   # ☱ Lake
+    lower_trigram: 7   # ☴ Wind
+    theme: "Excess of strength and the burden of responsibility."
+    judgement:
+      chinese: "棟橈，利有攸往，亨。"
+      english: "The ridgepole sags; perseverance brings success through movement."
+    image:
+      chinese: "澤滅木，大過；君子以獨立不懼，遯世無悶。"
+      english: "The lake submerges the trees: Preponderance. The noble one stands firm without fear even in isolation."
+    energetic_profile:
+      start: {ethos: 0.7, logos: 0.6, pathos: 0.6, anima_m: 0.8, anima_f: 0.5}
+      delta: {ethos: 0.0, logos: +0.1, pathos: +0.1, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Titan", tone: "Weighty and heroic", moral_axis: "Overreach → Balance"}
+    metadata: {pair_sequence: 27, notes: "Lake above Wind."}
+
+  - id: 29
+    name: "The Abyss (Repetition of Danger)"
+    chinese: "坎"
+    pinyin: "Kǎn"
+    upper_trigram: 3   # ☵ Water
+    lower_trigram: 3   # ☵ Water
+    theme: "Peril and trust; faith through danger."
+    judgement:
+      chinese: "習坎，有孚，維心亨，行有尚。"
+      english: "Repeated danger; sincerity within brings success. Steadfast heart brings passage; movement is honored."
+    image:
+      chinese: "水洊至，習坎；君子以常德行，習教事。"
+      english: "Water flows on and on—this is the Abyss. The noble one practices constant virtue and renews his teaching."
+    energetic_profile:
+      start: {ethos: 0.2, logos: 0.4, pathos: 0.9, anima_m: 0.5, anima_f: 0.8}
+      delta: {ethos: +0.3, logos: +0.1, pathos: -0.5, anima_m: +0.2, anima_f: +0.2}
+    story_tags: {archetype: "Initiate", tone: "Tense → Serene", moral_axis: "Fear → Faith"}
+    metadata: {pair_sequence: 30, notes: "Water over Water."}
+
+  - id: 30
+    name: "The Clinging (Fire)"
+    chinese: "離"
+    pinyin: "Lí"
+    upper_trigram: 4   # ☲ Fire
+    lower_trigram: 4   # ☲ Fire
+    theme: "Illumination and clarity; enlightenment through devotion."
+    judgement:
+      chinese: "利貞，亨。畜牝牛吉。"
+      english: "Perseverance brings advantage and success. Nurturing gentleness like a cow brings good fortune."
+    image:
+      chinese: "明兩作，離；大人以繼明照于四方。"
+      english: "Two lights give brightness: Clinging. The great person continues the light to shine in all directions."
+    energetic_profile:
+      start: {ethos: 0.5, logos: 1.0, pathos: 0.6, anima_m: 0.8, anima_f: 0.4}
+      delta: {ethos: +0.1, logos: 0.0, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Illuminator", tone: "Bright", moral_axis: "Darkness → Clarity"}
+    metadata: {pair_sequence: 29, notes: "Fire over Fire."}
+
+  - id: 31
+    name: "Influence (Wooing)"
+    chinese: "咸"
+    pinyin: "Xián"
+    upper_trigram: 8   # ☱ Lake
+    lower_trigram: 7   # ☴ Wind
+    theme: "Mutual attraction and gentle influence."
+    judgement:
+      chinese: "亨。利貞。取女吉。"
+      english: "Success. Perseverance furthers. To take a woman brings good fortune."
+    image:
+      chinese: "山上有澤，咸；君子以虛受人。"
+      english: "Lake above the mountain: Influence. The noble one is open and receptive to others."
+    energetic_profile:
+      start: {ethos: 0.6, logos: 0.7, pathos: 0.6, anima_m: 0.7, anima_f: 0.8}
+      delta: {ethos: 0.0, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Lover", tone: "Gentle and connecting", moral_axis: "Isolation → Union"}
+    metadata: {pair_sequence: 32, notes: "Lake above Wind."}
+
+  - id: 32
+    name: "Duration (Constancy)"
+    chinese: "恆"
+    pinyin: "Héng"
+    upper_trigram: 7   # ☴ Wind
+    lower_trigram: 5   # ☳ Thunder
+    theme: "Persevering in principle through change."
+    judgement:
+      chinese: "亨。利貞。利有攸往。"
+      english: "Success through perseverance. It furthers to have somewhere to go."
+    image:
+      chinese: "雷風，恆；君子以立不易方。"
+      english: "Thunder and wind move together: Duration. The noble one stands firm and true to purpose."
+    energetic_profile:
+      start: {ethos: 0.65, logos: 0.6, pathos: 0.55, anima_m: 0.7, anima_f: 0.6}
+      delta: {ethos: +0.1, logos: 0.0, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Keeper of the Way", tone: "Steadfast", moral_axis: "Instability → Integrity"}
+    metadata: {pair_sequence: 31, notes: "Wind over Thunder."}
+  - id: 33
+    name: "Retreat"
+    chinese: "遯"
+    pinyin: "Dùn"
+    upper_trigram: 1   # ☰ Heaven
+    lower_trigram: 6   # ☶ Mountain
+    theme: "Strategic withdrawal to preserve integrity."
+    judgement:
+      chinese: "亨。小利貞。"
+      english: "Success. Small advantage in perseverance."
+    image:
+      chinese: "天下有山，遯；君子以遠小人，不惡而嚴。"
+      english: "Heaven above the mountain: Retreat. The noble one distances himself from inferior influences with dignity."
+    energetic_profile:
+      start: {ethos: 0.7, logos: 0.5, pathos: 0.3, anima_m: 0.8, anima_f: 0.5}
+      delta: {ethos: -0.1, logos: +0.1, pathos: -0.1, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Hermit Strategist", tone: "Reserved", moral_axis: "Confrontation → Wisdom"}
+    metadata: {pair_sequence: 34, notes: "Heaven above Mountain."}
+
+  - id: 34
+    name: "The Power of the Great"
+    chinese: "大壯"
+    pinyin: "Dà Zhuàng"
+    upper_trigram: 5   # ☳ Thunder
+    lower_trigram: 1   # ☰ Heaven
+    theme: "Expansion and rightful strength."
+    judgement:
+      chinese: "利貞。"
+      english: "Perseverance furthers."
+    image:
+      chinese: "雷在天上，大壯；君子以非禮勿履。"
+      english: "Thunder above heaven: The Power of the Great. The noble one treads only within propriety."
+    energetic_profile:
+      start: {ethos: 0.85, logos: 0.6, pathos: 0.6, anima_m: 0.9, anima_f: 0.4}
+      delta: {ethos: +0.1, logos: +0.1, pathos: 0.0, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Champion", tone: "Forceful yet principled", moral_axis: "Raw Power → Right Action"}
+    metadata: {pair_sequence: 33, notes: "Thunder above Heaven."}
+
+  - id: 35
+    name: "Progress"
+    chinese: "晉"
+    pinyin: "Jìn"
+    upper_trigram: 4   # ☲ Fire
+    lower_trigram: 2   # ☷ Earth
+    theme: "Advancement and recognition through clarity."
+    judgement:
+      chinese: "康侯用錫馬蕃庶，晝日三接。"
+      english: "The prince is honored with many horses; audiences granted thrice in a day."
+    image:
+      chinese: "明出地上，晉；君子以自昭明德。"
+      english: "The sun rises over the earth: Progress. The noble one makes his virtue shine forth."
+    energetic_profile:
+      start: {ethos: 0.6, logos: 0.8, pathos: 0.5, anima_m: 0.7, anima_f: 0.6}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Rising Star", tone: "Bright and expanding", moral_axis: "Obscurity → Illumination"}
+    metadata: {pair_sequence: 36, notes: "Fire above Earth."}
+
+  - id: 36
+    name: "Darkening of the Light"
+    chinese: "明夷"
+    pinyin: "Míng Yí"
+    upper_trigram: 2   # ☷ Earth
+    lower_trigram: 4   # ☲ Fire
+    theme: "Inner light concealed in adversity."
+    judgement:
+      chinese: "利艱貞。"
+      english: "Perseverance in difficulty brings benefit."
+    image:
+      chinese: "明入地中，明夷；君子以莅眾，用晦而明。"
+      english: "The light has sunk into the earth: Darkening of the Light. The noble one governs by concealing brilliance."
+    energetic_profile:
+      start: {ethos: 0.5, logos: 0.7, pathos: 0.6, anima_m: 0.5, anima_f: 0.8}
+      delta: {ethos: -0.1, logos: -0.1, pathos: +0.1, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Hidden Sage", tone: "Subdued", moral_axis: "Exposure → Preservation"}
+    metadata: {pair_sequence: 35, notes: "Earth above Fire."}
+
+  - id: 37
+    name: "The Family (Clan)"
+    chinese: "家人"
+    pinyin: "Jiā Rén"
+    upper_trigram: 4   # ☲ Fire
+    lower_trigram: 7   # ☴ Wind
+    theme: "Order and harmony in relationships."
+    judgement:
+      chinese: "利女貞。"
+      english: "Favorable for the perseverance of the woman."
+    image:
+      chinese: "風自火出，家人；君子以言有物而行有恆。"
+      english: "Wind comes forth from fire: The Family. The noble one speaks with substance and acts with constancy."
+    energetic_profile:
+      start: {ethos: 0.55, logos: 0.8, pathos: 0.5, anima_m: 0.7, anima_f: 0.7}
+      delta: {ethos: 0.0, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Caretaker", tone: "Balanced and domestic", moral_axis: "Disorder → Harmony"}
+    metadata: {pair_sequence: 38, notes: "Fire above Wind."}
+
+  - id: 38
+    name: "Opposition"
+    chinese: "睽"
+    pinyin: "Kuí"
+    upper_trigram: 4   # ☲ Fire
+    lower_trigram: 8   # ☱ Lake
+    theme: "Contrast and individuality; harmony through difference."
+    judgement:
+      chinese: "小事吉。"
+      english: "Good fortune in small matters."
+    image:
+      chinese: "上火下澤，睽；君子以同而異。"
+      english: "Fire above, lake below: Opposition. The noble one seeks unity within diversity."
+    energetic_profile:
+      start: {ethos: 0.6, logos: 0.8, pathos: 0.6, anima_m: 0.7, anima_f: 0.6}
+      delta: {ethos: 0.0, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Individualist", tone: "Contrasting yet bright", moral_axis: "Conflict → Understanding"}
+    metadata: {pair_sequence: 37, notes: "Fire above Lake."}
+
+  - id: 39
+    name: "Obstruction"
+    chinese: "蹇"
+    pinyin: "Jiǎn"
+    upper_trigram: 3   # ☵ Water
+    lower_trigram: 6   # ☶ Mountain
+    theme: "Difficulty and hindrance as a test of character."
+    judgement:
+      chinese: "利西南，不利東北。利見大人，貞吉。"
+      english: "Favorable in the southwest, unfavorable in the northeast. Meeting a great person brings good fortune."
+    image:
+      chinese: "山上有水，蹇；君子以反身修德。"
+      english: "Water on the mountain: Obstruction. The noble one turns inward to perfect virtue."
+    energetic_profile:
+      start: {ethos: 0.4, logos: 0.5, pathos: 0.7, anima_m: 0.5, anima_f: 0.8}
+      delta: {ethos: +0.1, logos: 0.0, pathos: -0.2, anima_m: +0.1, anima_f: 0.0}
+    story_tags: {archetype: "Endurer", tone: "Strained but faithful", moral_axis: "Struggle → Inner Strength"}
+    metadata: {pair_sequence: 40, notes: "Water above Mountain."}
+
+  - id: 40
+    name: "Deliverance"
+    chinese: "解"
+    pinyin: "Xiè"
+    upper_trigram: 5   # ☳ Thunder
+    lower_trigram: 3   # ☵ Water
+    theme: "Release and renewal after tension."
+    judgement:
+      chinese: "利西南。無所往，其來復吉。有攸往，夙吉。"
+      english: "Favorable in the southwest. If there is nowhere to go, return brings good fortune; movement brings early success."
+    image:
+      chinese: "雷雨作，解；君子以赦過宥罪。"
+      english: "Thunder and rain together: Deliverance. The noble one forgives and renews."
+    energetic_profile:
+      start: {ethos: 0.55, logos: 0.5, pathos: 0.8, anima_m: 0.7, anima_f: 0.7}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.3, anima_m: +0.1, anima_f: 0.0}
+    story_tags: {archetype: "Redeemer", tone: "Releasing, cleansing", moral_axis: "Bondage → Freedom"}
+    metadata: {pair_sequence: 39, notes: "Thunder above Water."}
+  - id: 41
+    name: "Decrease"
+    chinese: "損"
+    pinyin: "Sǔn"
+    upper_trigram: 8   # ☱ Lake
+    lower_trigram: 6   # ☶ Mountain
+    theme: "Voluntary simplicity; losing to gain."
+    judgement:
+      chinese: "有孚元吉，無咎，可貞。利有攸往。"
+      english: "Sincerity brings supreme good fortune without blame. Perseverance furthers; it is favorable to go forward."
+    image:
+      chinese: "山下有澤，損；君子以懲忿窒欲。"
+      english: "A lake at the foot of the mountain: Decrease. The noble one restrains anger and curbs desire."
+    energetic_profile:
+      start: {ethos: 0.45, logos: 0.5, pathos: 0.5, anima_m: 0.5, anima_f: 0.8}
+      delta: {ethos: -0.1, logos: +0.1, pathos: -0.1, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Ascetic", tone: "Restrained", moral_axis: "Excess → Clarity"}
+    metadata: {pair_sequence: 42, notes: "Lake above Mountain."}
+
+  - id: 42
+    name: "Increase"
+    chinese: "益"
+    pinyin: "Yì"
+    upper_trigram: 7   # ☴ Wind
+    lower_trigram: 5   # ☳ Thunder
+    theme: "Growth through generosity and mutual benefit."
+    judgement:
+      chinese: "利有攸往，利涉大川。"
+      english: "It furthers one to have somewhere to go and to cross the great water."
+    image:
+      chinese: "風雷，益；君子以見善則遷，有過則改。"
+      english: "Wind and thunder: Increase. The noble one sees the good and moves toward it; sees error and corrects it."
+    energetic_profile:
+      start: {ethos: 0.65, logos: 0.6, pathos: 0.7, anima_m: 0.8, anima_f: 0.6}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Benefactor", tone: "Expansive", moral_axis: "Scarcity → Generosity"}
+    metadata: {pair_sequence: 41, notes: "Wind above Thunder."}
+
+  - id: 43
+    name: "Break-through (Resoluteness)"
+    chinese: "夬"
+    pinyin: "Guài"
+    upper_trigram: 1   # ☰ Heaven
+    lower_trigram: 8   # ☱ Lake
+    theme: "Decision and courageous declaration."
+    judgement:
+      chinese: "揚于王庭，孚號，有厲。告自邑，不利即戎，利有攸往。"
+      english: "Announcement in the king’s court. Sincerity, yet danger. It is not favorable to resort to arms; favorable to move onward."
+    image:
+      chinese: "澤上于天，夬；君子以施祿及下，居德則忌。"
+      english: "The lake rises to heaven: Break-through. The noble one distributes blessings below and avoids arrogance."
+    energetic_profile:
+      start: {ethos: 0.8, logos: 0.7, pathos: 0.5, anima_m: 0.9, anima_f: 0.5}
+      delta: {ethos: +0.1, logos: 0.0, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Reformer", tone: "Assertive", moral_axis: "Suppression → Declaration"}
+    metadata: {pair_sequence: 44, notes: "Heaven above Lake."}
+
+  - id: 44
+    name: "Coming to Meet"
+    chinese: "姤"
+    pinyin: "Gòu"
+    upper_trigram: 8   # ☱ Lake
+    lower_trigram: 1   # ☰ Heaven
+    theme: "Sudden encounter; attraction requiring discernment."
+    judgement:
+      chinese: "女壯，勿用取女。"
+      english: "The maiden is powerful; do not take her."
+    image:
+      chinese: "天下有風，姤；后以施命誥四方。"
+      english: "Wind under heaven: Encounter. The ruler issues commands to the four quarters."
+    energetic_profile:
+      start: {ethos: 0.75, logos: 0.7, pathos: 0.6, anima_m: 0.8, anima_f: 0.6}
+      delta: {ethos: 0.0, logos: +0.1, pathos: 0.0, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Tempter / Tempted", tone: "Magnetic", moral_axis: "Impulse → Awareness"}
+    metadata: {pair_sequence: 43, notes: "Lake above Heaven."}
+
+  - id: 45
+    name: "Gathering Together"
+    chinese: "萃"
+    pinyin: "Cuì"
+    upper_trigram: 8   # ☱ Lake
+    lower_trigram: 2   # ☷ Earth
+    theme: "Assembly and shared devotion."
+    judgement:
+      chinese: "亨。王假有廟，利見大人，亨利貞，用大牲吉，利有攸往。"
+      english: "Success. The king approaches his temple. Favorable to see the great man; perseverance brings benefit."
+    image:
+      chinese: "澤上于地，萃；君子以除戎器，戒不虞。"
+      english: "The lake rises over the earth: Gathering. The noble one prepares against unexpected events."
+    energetic_profile:
+      start: {ethos: 0.55, logos: 0.6, pathos: 0.6, anima_m: 0.6, anima_f: 0.8}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Convener", tone: "Communal", moral_axis: "Isolation → Cooperation"}
+    metadata: {pair_sequence: 46, notes: "Lake above Earth."}
+
+  - id: 46
+    name: "Pushing Upward"
+    chinese: "升"
+    pinyin: "Shēng"
+    upper_trigram: 7   # ☴ Wind
+    lower_trigram: 2   # ☷ Earth
+    theme: "Gradual advancement; growth through humility."
+    judgement:
+      chinese: "元亨。用見大人，勿恤。南征吉。"
+      english: "Supreme success. It furthers to see the great man; have no anxiety. Southward journey brings good fortune."
+    image:
+      chinese: "地中生木，升；君子以順德積小以高大。"
+      english: "Wood grows within the earth: Ascending. The noble one cultivates virtue, gathering small things to achieve greatness."
+    energetic_profile:
+      start: {ethos: 0.55, logos: 0.6, pathos: 0.55, anima_m: 0.6, anima_f: 0.8}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Climber", tone: "Patient ascent", moral_axis: "Ambition → Achievement"}
+    metadata: {pair_sequence: 45, notes: "Wind above Earth."}
+
+  - id: 47
+    name: "Oppression (Exhaustion)"
+    chinese: "困"
+    pinyin: "Kùn"
+    upper_trigram: 3   # ☵ Water
+    lower_trigram: 8   # ☱ Lake
+    theme: "Confinement; strength through endurance."
+    judgement:
+      chinese: "亨，貞，大人吉，無咎。有言不信。"
+      english: "Success. Perseverance. The great man brings good fortune, no blame. Words may not be believed."
+    image:
+      chinese: "澤無水，困；君子以致命遂志。"
+      english: "A lake without water: Exhaustion. The noble one commits himself completely to his purpose."
+    energetic_profile:
+      start: {ethos: 0.45, logos: 0.5, pathos: 0.8, anima_m: 0.5, anima_f: 0.8}
+      delta: {ethos: +0.1, logos: 0.0, pathos: -0.2, anima_m: +0.1, anima_f: 0.0}
+    story_tags: {archetype: "Endurer", tone: "Constrained yet strong", moral_axis: "Limitation → Perseverance"}
+    metadata: {pair_sequence: 48, notes: "Water above Lake."}
+
+  - id: 48
+    name: "The Well"
+    chinese: "井"
+    pinyin: "Jǐng"
+    upper_trigram: 7   # ☴ Wind
+    lower_trigram: 3   # ☵ Water
+    theme: "Source of renewal; the communal well of life."
+    judgement:
+      chinese: "改邑不改井，無喪無得，往來井井。汔至，亦未繘井，羸其瓶，凶。"
+      english: "Changing the town, not the well. Neither losing nor gaining. Coming and going draws from the well. Almost reaching it but breaking the jug brings misfortune."
+    image:
+      chinese: "木上有水，井；君子以勞民勸相。"
+      english: "Water rises under wood: The Well. The noble one encourages the people to work together for renewal."
+    energetic_profile:
+      start: {ethos: 0.55, logos: 0.6, pathos: 0.6, anima_m: 0.6, anima_f: 0.8}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Healer / Source", tone: "Restorative", moral_axis: "Neglect → Renewal"}
+    metadata: {pair_sequence: 47, notes: "Wind above Water."}
+  - id: 49
+    name: "Revolution (Molting)"
+    chinese: "革"
+    pinyin: "Gé"
+    upper_trigram: 4   # ☲ Fire
+    lower_trigram: 7   # ☴ Wind
+    theme: "Radical change; shedding the old to reveal truth."
+    judgement:
+      chinese: "己日乃孚，元亨利貞，悔亡。"
+      english: "When the day of transformation arrives, sincerity brings supreme success; regret vanishes."
+    image:
+      chinese: "澤中有火，革；君子以治曆明時。"
+      english: "Fire in the lake: Revolution. The noble one clarifies the seasons and aligns with cosmic timing."
+    energetic_profile:
+      start: {ethos: 0.6, logos: 0.8, pathos: 0.7, anima_m: 0.8, anima_f: 0.5}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.2, anima_m: +0.1, anima_f: 0.0}
+    story_tags: {archetype: "Rebel Teacher", tone: "Transformative", moral_axis: "Corruption → Renewal"}
+    metadata: {pair_sequence: 50, notes: "Fire above Wind."}
+
+  - id: 50
+    name: "The Cauldron"
+    chinese: "鼎"
+    pinyin: "Dǐng"
+    upper_trigram: 4   # ☲ Fire
+    lower_trigram: 7   # ☴ Wind
+    theme: "Cultural vessel; renewal through refinement and service."
+    judgement:
+      chinese: "元吉，亨。"
+      english: "Supreme good fortune; success."
+    image:
+      chinese: "木上有火，鼎；君子以正位凝命。"
+      english: "Fire above wood: The Cauldron. The noble one establishes order and consolidates destiny."
+    energetic_profile:
+      start: {ethos: 0.7, logos: 0.9, pathos: 0.6, anima_m: 0.8, anima_f: 0.6}
+      delta: {ethos: +0.1, logos: 0.0, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Alchemist", tone: "Refining and noble", moral_axis: "Chaos → Harmony"}
+    metadata: {pair_sequence: 49, notes: "Fire above Wood (Wind)."}
+
+  - id: 51
+    name: "The Arousing (Shock)"
+    chinese: "震"
+    pinyin: "Zhèn"
+    upper_trigram: 5   # ☳ Thunder
+    lower_trigram: 5   # ☳ Thunder
+    theme: "Sudden awakening; a shock that restores awareness."
+    judgement:
+      chinese: "震來虩虩，笑言啞啞，震驚百里，不喪匕鬯。"
+      english: "Thunder comes resounding – laughter follows; fear and renewal bring clarity without loss of devotion."
+    image:
+      chinese: "洊雷，震；君子以恐懼修省。"
+      english: "Repeated thunder: Shock. The noble one uses awe to examine himself."
+    energetic_profile:
+      start: {ethos: 0.5, logos: 0.5, pathos: 0.9, anima_m: 0.7, anima_f: 0.6}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.3, anima_m: +0.1, anima_f: 0.0}
+    story_tags: {archetype: "Awakener", tone: "Explosive → Revelatory", moral_axis: "Stagnation → Awareness"}
+    metadata: {pair_sequence: 52, notes: "Thunder over Thunder."}
+
+  - id: 52
+    name: "Keeping Still (Mountain)"
+    chinese: "艮"
+    pinyin: "Gèn"
+    upper_trigram: 6   # ☶ Mountain
+    lower_trigram: 6   # ☶ Mountain
+    theme: "Meditative stillness; rooting the mind in quiet."
+    judgement:
+      chinese: "艮其背，不獲其身，行其庭，不見其人，無咎。"
+      english: "Keeping still at the back; he no longer feels his body. Walking in the courtyard, he sees no people — no blame."
+    image:
+      chinese: "兼山，艮；君子以思不出其位。"
+      english: "Mountains standing together: Stillness. The noble one does not leave his station in thought."
+    energetic_profile:
+      start: {ethos: 0.4, logos: 0.5, pathos: 0.4, anima_m: 0.3, anima_f: 0.9}
+      delta: {ethos: 0.0, logos: 0.0, pathos: -0.1, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Meditant", tone: "Serene", moral_axis: "Restlessness → Peace"}
+    metadata: {pair_sequence: 51, notes: "Mountain over Mountain."}
+
+  - id: 53
+    name: "Development (Gradual Progress)"
+    chinese: "漸"
+    pinyin: "Jiàn"
+    upper_trigram: 7   # ☴ Wind
+    lower_trigram: 6   # ☶ Mountain
+    theme: "Steady evolution and mature relationship."
+    judgement:
+      chinese: "女歸吉，利貞。"
+      english: "The marriage of the maiden brings good fortune; perseverance furthers."
+    image:
+      chinese: "山上有木，漸；君子以居賢德善俗。"
+      english: "Trees grow on the mountain: Development. The noble one builds character and customs."
+    energetic_profile:
+      start: {ethos: 0.55, logos: 0.6, pathos: 0.5, anima_m: 0.6, anima_f: 0.8}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Teacher / Guide", tone: "Calm and steadfast", moral_axis: "Impulse → Patience"}
+    metadata: {pair_sequence: 54, notes: "Wind above Mountain."}
+
+  - id: 54
+    name: "The Marrying Maiden"
+    chinese: "歸妹"
+    pinyin: "Guī Mèi"
+    upper_trigram: 5   # ☳ Thunder
+    lower_trigram: 8   # ☱ Lake
+    theme: "Union with conditions; desire bound by role."
+    judgement:
+      chinese: "征凶，無攸利。"
+      english: "Undertaking brings misfortune; nothing favorable."
+    image:
+      chinese: "澤上有雷，歸妹；君子以永終知敝。"
+      english: "Thunder above the lake: The Marrying Maiden. The noble one knows the end and preserves integrity."
+    energetic_profile:
+      start: {ethos: 0.4, logos: 0.6, pathos: 0.7, anima_m: 0.6, anima_f: 0.8}
+      delta: {ethos: 0.0, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Lover Bound", tone: "Complex and emotional", moral_axis: "Infatuation → Loyalty"}
+    metadata: {pair_sequence: 53, notes: "Thunder above Lake."}
+
+  - id: 55
+    name: "Abundance (Fullness)"
+    chinese: "豐"
+    pinyin: "Fēng"
+    upper_trigram: 4   # ☲ Fire
+    lower_trigram: 5   # ☳ Thunder
+    theme: "Peak vitality and creative overflow."
+    judgement:
+      chinese: "亨，王假之，勿憂，宜日中。"
+      english: "Success. The king approaches; no anxiety; the sun at midday is favorable."
+    image:
+      chinese: "雷電皆至，豐；君子以折獄致刑。"
+      english: "Thunder and lightning arrive together: Abundance. The noble one administers justice clearly."
+    energetic_profile:
+      start: {ethos: 0.7, logos: 0.8, pathos: 0.7, anima_m: 0.8, anima_f: 0.6}
+      delta: {ethos: 0.0, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Ruler in Radiance", tone: "Flourishing", moral_axis: "Pride → Purpose"}
+    metadata: {pair_sequence: 56, notes: "Fire above Thunder."}
+
+  - id: 56
+    name: "The Traveler"
+    chinese: "旅"
+    pinyin: "Lǚ"
+    upper_trigram: 4   # ☲ Fire
+    lower_trigram: 6   # ☶ Mountain
+    theme: "Wanderer’s adaptability; finding home through movement."
+    judgement:
+      chinese: "小亨，旅貞吉。"
+      english: "Small success. Perseverance in travel brings good fortune."
+    image:
+      chinese: "山上有火，旅；君子以明慎用刑而不留獄。"
+      english: "Fire on the mountain: The Traveler. The noble one is clear and just, not harsh or lingering."
+    energetic_profile:
+      start: {ethos: 0.6, logos: 0.7, pathos: 0.6, anima_m: 0.7, anima_f: 0.7}
+      delta: {ethos: 0.0, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Wanderer", tone: "Reflective journey", moral_axis: "Restlessness → Belonging"}
+    metadata: {pair_sequence: 55, notes: "Fire above Mountain."}
+  - id: 57
+    name: "The Gentle (Penetrating Wind)"
+    chinese: "巽"
+    pinyin: "Xùn"
+    upper_trigram: 7   # ☴ Wind
+    lower_trigram: 7   # ☴ Wind
+    theme: "Subtle influence; persuasion through constancy."
+    judgement:
+      chinese: "小亨。利有攸往。利見大人。"
+      english: "Small success. Favorable to have a goal; favorable to see the great person."
+    image:
+      chinese: "隨風，巽；君子以申命行事。"
+      english: "Winds following one another: Penetration. The noble one issues commands and carries out affairs."
+    energetic_profile:
+      start: {ethos: 0.65, logos: 0.7, pathos: 0.5, anima_m: 0.6, anima_f: 0.8}
+      delta: {ethos: 0.0, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Diplomat", tone: "Persuasive and gentle", moral_axis: "Force → Subtlety"}
+    metadata: {pair_sequence: 58, notes: "Wind over Wind."}
+
+  - id: 58
+    name: "The Joyous (Lake)"
+    chinese: "兌"
+    pinyin: "Duì"
+    upper_trigram: 8   # ☱ Lake
+    lower_trigram: 8   # ☱ Lake
+    theme: "Joy and open communication."
+    judgement:
+      chinese: "亨，利貞。"
+      english: "Success; perseverance brings benefit."
+    image:
+      chinese: "麗澤，兌；君子以朋友講習。"
+      english: "Lakes joined together: Joyousness. The noble one joins with friends for mutual learning."
+    energetic_profile:
+      start: {ethos: 0.55, logos: 0.6, pathos: 0.7, anima_m: 0.7, anima_f: 0.8}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Companion", tone: "Cheerful", moral_axis: "Isolation → Fellowship"}
+    metadata: {pair_sequence: 57, notes: "Lake over Lake."}
+
+  - id: 59
+    name: "Dispersion (Dissolution)"
+    chinese: "渙"
+    pinyin: "Huàn"
+    upper_trigram: 3   # ☵ Water
+    lower_trigram: 7   # ☴ Wind
+    theme: "Breaking barriers; returning to unity through release."
+    judgement:
+      chinese: "亨。王假有廟。利涉大川。利貞。"
+      english: "Success. The king approaches his temple. Favorable to cross the great water; perseverance furthers."
+    image:
+      chinese: "風行水上，渙；先王以享于帝立廟。"
+      english: "Wind moving over water: Dispersion. The ancient kings offered sacrifice to the divine and built temples."
+    energetic_profile:
+      start: {ethos: 0.6, logos: 0.6, pathos: 0.8, anima_m: 0.7, anima_f: 0.7}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.2, anima_m: +0.1, anima_f: 0.0}
+    story_tags: {archetype: "Healer / Liberator", tone: "Cleansing and freeing", moral_axis: "Rigidity → Flow"}
+    metadata: {pair_sequence: 60, notes: "Wind above Water."}
+
+  - id: 60
+    name: "Limitation"
+    chinese: "節"
+    pinyin: "Jié"
+    upper_trigram: 3   # ☵ Water
+    lower_trigram: 8   # ☱ Lake
+    theme: "Discipline and structure enabling freedom."
+    judgement:
+      chinese: "亨，苦節不可貞。"
+      english: "Success; excessive limitation must not be persevered in."
+    image:
+      chinese: "澤上有水，節；君子以制數度議德行。"
+      english: "Water over lake: Limitation. The noble one establishes measure and moderates conduct."
+    energetic_profile:
+      start: {ethos: 0.5, logos: 0.7, pathos: 0.5, anima_m: 0.6, anima_f: 0.7}
+      delta: {ethos: 0.0, logos: +0.1, pathos: -0.1, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Lawgiver", tone: "Measured", moral_axis: "Excess → Balance"}
+    metadata: {pair_sequence: 59, notes: "Water above Lake."}
+
+  - id: 61
+    name: "Inner Truth"
+    chinese: "中孚"
+    pinyin: "Zhōng Fú"
+    upper_trigram: 8   # ☱ Lake
+    lower_trigram: 7   # ☴ Wind
+    theme: "Integrity and resonance through sincerity."
+    judgement:
+      chinese: "豚魚吉，利涉大川，利貞。"
+      english: "Pigs and fishes—good fortune. It furthers to cross the great water; perseverance furthers."
+    image:
+      chinese: "風澤中孚；君子以議獄緩死。"
+      english: "Wind over lake: Inner Truth. The noble one seeks balance in judgment and mercy in punishment."
+    energetic_profile:
+      start: {ethos: 0.7, logos: 0.7, pathos: 0.7, anima_m: 0.7, anima_f: 0.8}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Truthspeaker", tone: "Harmonious", moral_axis: "Deception → Authenticity"}
+    metadata: {pair_sequence: 62, notes: "Wind above Lake."}
+
+  - id: 62
+    name: "Preponderance of the Small"
+    chinese: "小過"
+    pinyin: "Xiǎo Guò"
+    upper_trigram: 5   # ☳ Thunder
+    lower_trigram: 6   # ☶ Mountain
+    theme: "Attention to detail; humility in action."
+    judgement:
+      chinese: "亨。利貞。可小事，不可大事。飛鳥遺之音，不宜上宜下，大吉。"
+      english: "Success through perseverance. Favorable in small matters, not great. The bird’s call: better to remain below than to fly too high."
+    image:
+      chinese: "山上有雷，小過；君子以行過乎恭，喪過乎哀，用過乎儉。"
+      english: "Thunder on the mountain: Small Excess. The noble one exceeds in courtesy, mourning, and frugality."
+    energetic_profile:
+      start: {ethos: 0.55, logos: 0.6, pathos: 0.6, anima_m: 0.6, anima_f: 0.7}
+      delta: {ethos: 0.0, logos: +0.1, pathos: -0.1, anima_m: -0.1, anima_f: +0.1}
+    story_tags: {archetype: "Craftsman", tone: "Precise", moral_axis: "Pride → Care"}
+    metadata: {pair_sequence: 61, notes: "Thunder above Mountain."}
+
+  - id: 63
+    name: "After Completion"
+    chinese: "既濟"
+    pinyin: "Jì Jì"
+    upper_trigram: 3   # ☵ Water
+    lower_trigram: 4   # ☲ Fire
+    theme: "Harmony achieved; vigilance after success."
+    judgement:
+      chinese: "亨小利貞。初吉終亂。"
+      english: "Success in small matters. Perseverance furthers. At the beginning good fortune; at the end disorder."
+    image:
+      chinese: "水在火上，既濟；君子以思患而豫防之。"
+      english: "Water over fire: After Completion. The noble one considers danger to prevent it."
+    energetic_profile:
+      start: {ethos: 0.7, logos: 0.8, pathos: 0.6, anima_m: 0.7, anima_f: 0.7}
+      delta: {ethos: 0.0, logos: 0.0, pathos: -0.1, anima_m: 0.0, anima_f: +0.1}
+    story_tags: {archetype: "Guardian", tone: "Cautious balance", moral_axis: "Completion → Continuity"}
+    metadata: {pair_sequence: 64, notes: "Water above Fire."}
+
+  - id: 64
+    name: "Before Completion"
+    chinese: "未濟"
+    pinyin: "Wèi Jì"
+    upper_trigram: 4   # ☲ Fire
+    lower_trigram: 3   # ☵ Water
+    theme: "Transition and preparation; chaos before order."
+    judgement:
+      chinese: "亨，小狐汔濟，濡其尾，無攸利。"
+      english: "Success. The little fox almost crosses the stream but wets its tail; nothing is favorable yet."
+    image:
+      chinese: "火在水上，未濟；君子以慎辨物居方。"
+      english: "Fire above water: Before Completion. The noble one carefully distinguishes things and prepares their place."
+    energetic_profile:
+      start: {ethos: 0.6, logos: 0.7, pathos: 0.7, anima_m: 0.7, anima_f: 0.7}
+      delta: {ethos: +0.1, logos: +0.1, pathos: -0.2, anima_m: +0.1, anima_f: 0.0}
+    story_tags: {archetype: "Initiate at Threshold", tone: "Tense yet hopeful", moral_axis: "Confusion → Order"}
+    metadata: {pair_sequence: 63, notes: "Fire above Water."}

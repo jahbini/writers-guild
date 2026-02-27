@@ -1,0 +1,87 @@
+{
+  "version": "1.0",
+  "description": "Schema for scoring and tracking characters across the Four Forces (Logos, Ethos, Pathos, Anima). Supports both keyword labels and numeric values (-1 to +1).",
+  "character_arcs": {
+    "CharacterName": {
+      "summary": "Optional short description of role or archetype.",
+      "timeline": [
+        {
+          "scene": 1,
+          "title": "Opening Scene",
+          "context": "Introduction of the character in their ordinary world.",
+          "Logos": {
+            "score": -0.4,
+            "keyword": "Dogmatic",
+            "axis": "Thought and Expression"
+          },
+          "Ethos": {
+            "score": 0.1,
+            "keyword": "Sustainer",
+            "axis": "Action and Behavior"
+          },
+          "Pathos": {
+            "score": -0.6,
+            "keyword": "Fear",
+            "axis": "Emotion and Relation"
+          },
+          "Anima": {
+            "score": -0.2,
+            "keyword": "Dependent",
+            "axis": "Vital Connection and Creative Polarity"
+          }
+        },
+        {
+          "scene": 5,
+          "title": "Midpoint Revelation",
+          "context": "A key experience shifts understanding and moral direction.",
+          "Logos": {
+            "score": 0.2,
+            "keyword": "Symbolic"
+          },
+          "Ethos": {
+            "score": 0.4,
+            "keyword": "Steward"
+          },
+          "Pathos": {
+            "score": 0.1,
+            "keyword": "Interest"
+          },
+          "Anima": {
+            "score": 0.0,
+            "keyword": "Partner"
+          }
+        },
+        {
+          "scene": 9,
+          "title": "Final Transformation",
+          "context": "Resolution where energies integrate toward balance.",
+          "Logos": {
+            "score": 0.8,
+            "keyword": "Rational"
+          },
+          "Ethos": {
+            "score": 0.7,
+            "keyword": "Builder"
+          },
+          "Pathos": {
+            "score": 0.6,
+            "keyword": "Love"
+          },
+          "Anima": {
+            "score": 0.9,
+            "keyword": "Co-Creative"
+          }
+        }
+      ],
+      "metrics": {
+        "delta": {
+          "Logos": 1.2,
+          "Ethos": 0.6,
+          "Pathos": 1.2,
+          "Anima": 1.1
+        },
+        "growth_direction": "Integrative (toward balance and vitality)"
+      }
+    }
+  }
+}

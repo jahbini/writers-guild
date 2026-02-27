@@ -1,0 +1,761 @@
+# ============================================================================
+# Pipeline B — Plot & Character
+# Fully annotated YAML schema for story generation (structure-only)
+# Ethos: mechanical extraction + deterministic assembly (no meaning/moral framing)
+# ----------------------------------------------------------------------------
+# DESIGN GOALS
+# - Deterministic + auditable: same inputs → same outputs
+# - Neutral phrasing: no moral/therapeutic/spiritual language
+# - Pressure explicit; costs observable; reveals are visibility shifts
+# - Preserve ambiguity: allow unknown + candidate sets + confidence
+# - Identity separate from behavior: masks/wounds are operational patterns
+# - Trajectory-ready outputs per beat:
+#   desire, fear, choice, pressure, cost, reveal, belief_touched,
+#   mask_engaged, wound_triggered
+# ----------------------------------------------------------------------------
+#   # NOTE
+#   # - This schema supports both:
+#   #   (A) extraction from existing text (analysis mode)
+#   #   (B) generation scaffolding (synthesis mode)
+#   # - This file is intentionally verbose and annotated.
+#   # - All IDs are strings so they can be stable across runs and tools.
+#   # ============================================================================
+#
+#   schema:
+#     version: "0.1.0"
+#       name: "pipeline_b_plot_character"
+#         date: "2026-02-27"
+#           ethos:
+#               - mechanical_not_interpretive
+#                   - no_moral_language
+#                       - pressure_explicit
+#                           - observable_costs
+#                               - reveal_as_visibility_shift
+#                                   - preserve_ambiguity
+#                                       - identity_separate# ============================================================================
+# Pipeline B — Plot & Character
+# Fully annotated YAML schema for story generation (structure-only)
+# Ethos: mechanical extraction + deterministic assembly (no meaning/moral framing)
+# ----------------------------------------------------------------------------
+# DESIGN GOALS
+# - Deterministic + auditable: same inputs → same outputs
+# - Neutral phrasing: no moral/therapeutic/spiritual language
+# - Pressure explicit; costs observable; reveals are visibility shifts
+# - Preserve ambiguity: allow unknown + candidate sets + confidence
+# - Identity separate from behavior: masks/wounds are operational patterns
+# - Trajectory-ready outputs per beat:
+#   desire, fear, choice, pressur_from_behavior
+    - deterministic_auditable
+    - trajectory_ready_output
+    - no_spiritual_framing
+
+# ----------------------------------------------------------------------------
+# GLOBAL CONVENTIONS
+# ----------------------------------------------------------------------------
+conventions:
+  ids:
+    format: "lower_snake_case with optional prefixes (ch_, pa_, beat_, seg_, arc_)"
+    stability: "IDs must be stable across edits; never recycle IDs once published."
+  unknowns:
+    representation:
+      - null
+      - "unknown"
+      - "unspecified"
+    ambiguity:
+      candidates_field: "candidates[]"
+      confidence_field: "confidence (0.0–1.0)"
+  evidence:
+    spans:
+      type: "text_span"
+      usage: "Audit extraction: tie fields to source offsets, not interpretations."
+      fields:
+        - source_id
+        - start_char
+        - end_char
+        - quote   # keep short; do not exceed typical excerpt limits if publishing
+  determinism:
+    hashing:
+      method: "sha256"
+      purpose: "Compute stable fingerprints for atoms/beats for caching + audit."
+    normalization:
+      - "trim whitespace"
+      - "normalize quotes"
+      - "collapse repeated spaces"
+      - "preserve original casing for evidence; normalized casing for keys"
+
+# ----------------------------------------------------------------------------
+# CONTROL / CONFIG (generation scaffolding knobs, but still schema-only)
+# ----------------------------------------------------------------------------
+controls:
+  generation:
+    # These are structural constraints, not style prompts.
+    beat_count_target: { min: 8, max: 24 }
+    segment_count_target: { min: 3, max: 7 }
+    cast_size_target: { min: 2, max: 6 }
+    choice_branching:
+      min_options_per_choice: 2
+      max_options_per_choice: 4
+    pressure_escalation:
+      # Structural: pressure must tighten, or shift target, or raise stakes.
+      required: true
+      allowed_modes: [ "tighten", "shift_target", "raise_stakes", "reduce_escape" ]
+    reveal_rate:
+      # Visibility shifts should occur regularly but not necessarily every beat.
+      min_reveals_per_segment: 1
+      max_reveals_per_segment: 4
+    cost_rules:
+      # Costs must be observable or externally describable (even if internal state changes are noted,
+      # they must be tied to observable behavior or commitments).
+      require_observable: true
+      allow_commitments_as_cost: true  # e.g., promises, contracts, wagers, irreversible decisions
+    ambiguity_policy:
+      # If uncertain, emit candidates rather than forcing a single label.
+      preserve_ambiguity: true
+      min_confidence_to_commit: 0.70
+
+# ----------------------------------------------------------------------------
+# TAXONOMIES (Enneagram + Tarot as structural lenses, not spiritual meaning)
+# ----------------------------------------------------------------------------
+taxonomies:
+
+  enneagram:
+    # Enneagram is used as a compact way to parameterize:
+    # - typical desire/fear pairings (operational)
+    # - habitual strategies under pressure (behavioral patterns)
+    # The schema avoids value judgements; it records tendencies as "often observed".
+    types:
+      # Each type provides default "drivers" that can seed character matrices.
+      # These are NOT claims about people; they are story-actor templates.
+      - id: "enn_1"
+        label: "Type 1"
+        default_desire: "order / correctness / improvement"
+        default_fear: "being at fault / being wrong"
+        pressure_strategy_candidates: ["tighten_rules", "self_monitor", "correct_others"]
+      - id: "enn_2"
+        label: "Type 2"
+        default_desire: "connection via helpfulness"
+        default_fear: "being unwanted / unneeded"
+        pressure_strategy_candidates: ["offer_help", "increase_contact", "trade_favors"]
+      - id: "enn_3"
+        label: "Type 3"
+        default_desire: "status / achievement / visible success"
+        default_fear: "failure / loss of value"
+        pressure_strategy_candidates: ["optimize_image", "accelerate_output", "compete"]
+      - id: "enn_4"
+        label: "Type 4"
+        default_desire: "distinct identity / significance"
+        default_fear: "being ordinary / unseen"
+        pressure_strategy_candidates: ["differentiate", "intensify_expression", "withdraw_selectively"]
+      - id: "enn_5"
+        label: "Type 5"
+        default_desire: "competence / understanding / self-sufficiency"
+        default_fear: "depletion / intrusion / incompetence"
+        pressure_strategy_candidates: ["observe", "hoard_resources", "retreat"]
+      - id: "enn_6"
+        label: "Type 6"
+        default_desire: "security / reliable support"
+        default_fear: "instability / betrayal / danger"
+        pressure_strategy_candidates: ["scan_risk", "seek_allies", "test_loyalty"]
+      - id: "enn_7"
+        label: "Type 7"
+        default_desire: "options / freedom / satisfaction"
+        default_fear: "being trapped / deprived"
+        pressure_strategy_candidates: ["diversify_plans", "reframe", "escape_route"]
+      - id: "enn_8"
+        label: "Type 8"
+        default_desire: "control / autonomy / impact"
+        default_fear: "being controlled / harmed"
+        pressure_strategy_candidates: ["confront", "dominate_space", "protect_allies"]
+      - id: "enn_9"
+        label: "Type 9"
+        default_desire: "stability / harmony / ease"
+        default_fear: "conflict / disconnection"
+        pressure_strategy_candidates: ["smooth_over", "delay_decision", "merge_preferences"]
+
+    # Optional: wings and instinctual variants as *modifiers* (not required initially).
+    modifiers:
+      wing:
+        allowed: ["w1","w2","w3","w4","w5","w6","w7","w8","w9"]
+        note: "Express as adjacency modifier; do not overfit."
+      instinct:
+        allowed: ["sp","so","sx"]
+        note: "Use only if you have evidence; otherwise unknown."
+
+  tarot:
+    # Tarot is used here as a compact encoding for:
+    # - which "force channel" is dominant in a beat (Logos/Ethos/Pathos/Anima)
+    # - the observable mode of cost/reveal/pressure (suit-level), and optionally rank-level texture.
+    # This schema treats Tarot as a classification vocabulary; it does not assign spiritual meaning.
+    suits:
+      # User mapping preference:
+      # Cups  -> Pathos (felt/emotive channel, but record as observable affect+relational signals)
+      # Swords-> Logos  (words/reason channel; record as arguments, plans, statements)
+      # Pentacles-> Ethos (resources/values/agreements; record as commitments, goods, labor, duty)
+      # Wands -> Anima  (life-force/initiative; record as drive, momentum, action-ignition)
+      - id: "tarot_cups"
+        force: "pathos"
+        observable_signals: ["bond_shift", "mood_shift", "relationship_temperature", "comfort_withdrawal"]
+      - id: "tarot_swords"
+        force: "logos"
+        observable_signals: ["claim_made", "plan_stated", "argument", "threat_as_words", "rule_invoked"]
+      - id: "tarot_pentacles"
+        force: "ethos"
+        observable_signals: ["deal", "duty", "resource_transfer", "labor", "reputation_stake"]
+      - id: "tarot_wands"
+        force: "anima"
+        observable_signals: ["initiative", "risk_taken", "momentum", "escalation", "action_triggered"]
+
+    ranks:
+      # Ranks are optional; include them when they help differentiate beats mechanically.
+      # Keep ranks descriptive, not interpretive.
+      minors:
+        - "ace"     # inception / first appearance of a force channel
+        - "2"       # pairing / split option
+        - "3"       # triangulation / third-party involvement
+        - "4"       # stabilization / holding pattern
+        - "5"       # contest / friction
+        - "6"       # coordination / transit
+        - "7"       # testing / multiple options
+        - "8"       # acceleration / force concentration
+        - "9"       # nearing limit / saturation
+        - "10"      # culmination / overflow
+        - "page"    # novice signal / message
+        - "knight"  # movement / pursuit
+        - "queen"   # sustaining / holding domain
+        - "king"    # enforcing / directing domain
+    majors:
+      # Major Arcana can be added later as "situation archetypes".
+      enabled: false
+      note: "Leave majors to Pipeline C unless needed for situation indexing."
+
+# ----------------------------------------------------------------------------
+# CORE ENTITIES
+# ----------------------------------------------------------------------------
+entities:
+
+  story:
+    description: >
+      Top-level container for a generated or analyzed story.
+      Does not require prose; prose may be produced later by voice/narrator pipeline.
+    fields:
+      id: "story_<slug>"
+      title: "string"
+      mode: "generation | analysis"
+      source:
+        # For analysis, tie back to input corpus (e.g., file, conversation, prompt).
+        source_id: "string"
+        evidence_spans: []  # list of text_span
+      cast: []        # list of CharacterRef
+      plot_atoms: []  # list of PlotAtom
+      beats: []       # list of Beat (trajectory-ready output)
+      segments: []    # list of Segment
+      arcs: []        # list of Arc (assembly)
+      assembly:
+        graph:
+          # Directed edges between atoms/beats/segments for causal and dependency tracing.
+          nodes: []
+          edges: []
+        constraints_applied: []  # echo of controls actually applied in generation
+      audit:
+        schema_version: "0.1.0"
+        created_at: "iso8601"
+        generator:
+          model: "string"      # e.g., TinyLlama-1.1B-Chat + LoRA name
+          lora_id: "string"
+          seed: "int"
+        fingerprints:
+          story_hash: "sha256"
+          cast_hash: "sha256"
+          plot_hash: "sha256"
+
+  character:
+    description: >
+      Operational character matrix. No diagnoses. No moral framing.
+      Character properties are used to modulate responses to pressure and constrain choices.
+    fields:
+      id: "ch_<slug>"
+      display_name: "string"
+      role:
+        # Structural function in the segment/arc; can vary by segment.
+        primary: "actor | narrator | witness | guide | foil | antagonist | environment"
+        notes: "string"
+      identity:
+        # Stable descriptors; keep sparse; avoid biographies unless needed for plot.
+        tags: []  # e.g., ["sailor", "clerk", "captain"] -- purely descriptive
+      typing:
+        enneagram:
+          type_id: "enn_1..enn_9 | unknown"
+          wing: "w1..w9 | unknown"
+          instinct: "sp|so|sx|unknown"
+          confidence: 0.0
+          evidence_spans: []
+        tarot_profile:
+          # Not a reading; a distribution over suit-forces that tends to dominate expression.
+          # Can be used to pick "force channel" for dialogue/action framing.
+          dominant_suit_id: "tarot_swords|tarot_cups|tarot_pentacles|tarot_wands|unknown"
+          secondary_suit_id: "tarot_swords|tarot_cups|tarot_pentacles|tarot_wands|unknown"
+          confidence: 0.0
+          evidence_spans: []
+      drivers:
+        # These are the structural levers used by Pipeline B.
+        desire:
+          statement: "string | unknown"
+          candidates: []        # list of strings
+          confidence: 0.0
+          evidence_spans: []
+        fear:
+          statement: "string | unknown"
+          candidates: []
+          confidence: 0.0
+          evidence_spans: []
+        belief:
+          # "belief" here means an operational rule the character seems to follow.
+          statement: "string | unknown"
+          candidates: []
+          confidence: 0.0
+          evidence_spans: []
+      patterns:
+        mask:
+          # Mask = outward strategy pattern under social visibility.
+          # Keep neutral: "performs competence", "uses humor", "acts uninvolved".
+          statement: "string | unknown"
+          candidates: []
+          confidence: 0.0
+          evidence_spans: []
+        wound:
+          # Wound = recurring sensitivity pattern that predicts reactions.
+          # Record as trigger/response tendency, not trauma narrative.
+          trigger_pattern: "string | unknown"
+          response_pattern: "string | unknown"
+          candidates: []
+          confidence: 0.0
+          evidence_spans: []
+      capacities:
+        # What they can do (skills/resources/authority), observable.
+        resources: []
+        skills: []
+        authority: []
+        constraints: []   # e.g., "cannot leave ship", "under contract"
+      relationships:
+        # Mechanical relations only: alliances, debts, obligations, friction
+        links: []  # list of RelationshipLink
+      state:
+        # Stateful, changes over beats (but only with observable evidence or declared commitments).
+        current_commitments: []
+        current_risks: []
+        current_visibility:
+          known_to_self: []     # facts the character knows
+          known_to_others: []   # facts others know about them
+        last_updated_beat_id: "beat_<n> | null"
+
+  relationship_link:
+    description: "Mechanical relationship between two characters or character-object."
+    fields:
+      id: "rel_<slug>"
+      a_ref: "ch_<id>"
+      b_ref: "ch_<id> | obj_<id>"
+      kind: "ally | rival | debt | duty | contract | kin | unknown"
+      terms: []           # list of concrete terms (money owed, promise made)
+      stability: "stable | volatile | unknown"
+      evidence_spans: []
+      confidence: 0.0
+
+  plot_atom:
+    description: >
+      Irreducible narrative unit. Emotion-agnostic. Records what changed.
+      Used for both extraction and assembly.
+    fields:
+      id: "pa_<slug>"
+      type:
+        # Keep this compact; expand later if needed.
+        - "trigger"
+        - "action"
+        - "reaction"
+        - "reveal"
+        - "transaction"
+        - "movement"
+        - "constraint"
+        - "accident"
+        - "decision"
+      agent_ref: "ch_<id> | env_<id> | unknown"
+      target_ref: "ch_<id> | obj_<id> | env_<id> | unknown"
+      action: "string"          # verb phrase, neutral
+      outcome: "string"         # immediate effect, neutral
+      cost:
+        # Observable cost. If not observable, record unknown.
+        items: []               # list of CostItem
+        confidence: 0.0
+      reveal:
+        # Visibility shift only.
+        items: []               # list of RevealItem
+        confidence: 0.0
+      timestamp:
+        # Optional story-time positioning.
+        story_time: "string | unknown"     # e.g., "night", "day 3", "2067"
+        order_index: 0                     # deterministic sequence number within story
+      evidence_spans: []
+      confidence: 0.0
+      fingerprint: "sha256"
+
+  cost_item:
+    description: "Concrete consequence or irreversible commitment."
+    fields:
+      kind: "resource_loss | injury | exposure | obligation | time | access | reputation | constraint | unknown"
+      description: "string"
+      observable_marker:
+        # A physical or social marker: "lost coins", "signed contract", "door locked".
+        statement: "string | unknown"
+        evidence_spans: []
+      magnitude:
+        # Optional scalar for assembly heuristics; keep coarse.
+        level: "low | medium | high | unknown"
+      confidence: 0.0
+
+  reveal_item:
+    description: "A fact becomes known (to someone) or becomes publicly visible."
+    fields:
+      fact: "string"
+      becomes_known_to:
+        # References to who now knows it.
+        - "ch_<id>"
+        - "group_<id>"
+        - "public"
+        - "unknown"
+      method: "spoken | observed | discovered | leaked | inferred | unknown"
+      evidence_spans: []
+      confidence: 0.0
+
+  beat:
+    description: >
+      A beat binds plot atoms to the required trajectory-ready outputs.
+      It is the primary unit for Pipeline B’s structured output.
+    fields:
+      id: "beat_<n>"
+      segment_ref: "seg_<id>"
+      atoms: []  # list of PlotAtomRef (ids)
+      pov:
+        # Optional: whose lens; separate from narrator style.
+        pov_character_ref: "ch_<id> | unknown"
+      force_channel:
+        # Tarot suit-force classification for this beat's dominant channel.
+        suit_id: "tarot_cups|tarot_swords|tarot_pentacles|tarot_wands|unknown"
+        rank: "ace|2|3|4|5|6|7|8|9|10|page|knight|queen|king|unknown"
+        confidence: 0.0
+        evidence_spans: []
+      trajectory_ready:
+        # REQUIRED outputs (per ethos item #9).
+        desire:
+          character_ref: "ch_<id> | unknown"
+          statement: "string | unknown"
+          candidates: []
+          confidence: 0.0
+          evidence_spans: []
+        fear:
+          character_ref: "ch_<id> | unknown"
+          statement: "string | unknown"
+          candidates: []
+          confidence: 0.0
+          evidence_spans: []
+        choice:
+          character_ref: "ch_<id> | unknown"
+          options: []          # list of ChoiceOption
+          selected_option_id: "opt_<id> | unknown"
+          confidence: 0.0
+          evidence_spans: []
+        pressure:
+          # Pressure must be explicit and target something.
+          applied_by_ref: "ch_<id> | env_<id> | unknown"
+          target_ref: "ch_<id> | obj_<id> | belief_<id> | unknown"
+          description: "string | unknown"
+          mode: "tighten|shift_target|raise_stakes|reduce_escape|unknown"
+          confidence: 0.0
+          evidence_spans: []
+        cost:
+          # Beat-level summary of observable costs (may aggregate atom costs).
+          items: []            # list of CostItem
+          confidence: 0.0
+          evidence_spans: []
+        reveal:
+          items: []            # list of RevealItem
+          confidence: 0.0
+          evidence_spans: []
+        belief_touched:
+          # Which belief is activated/pressured.
+          character_ref: "ch_<id> | unknown"
+          statement: "string | unknown"
+          candidates: []
+          confidence: 0.0
+          evidence_spans: []
+        mask_engaged:
+          character_ref: "ch_<id> | unknown"
+          statement: "string | unknown"
+          candidates: []
+          confidence: 0.0
+          evidence_spans: []
+        wound_triggered:
+          character_ref: "ch_<id> | unknown"
+          trigger_pattern: "string | unknown"
+          response_pattern: "string | unknown"
+          candidates: []
+          confidence: 0.0
+          evidence_spans: []
+      assembly_links:
+        # Causal/constraint links used when assembling segments/arcs.
+        leads_to_beat_ids: []
+        depends_on_beat_ids: []
+      fingerprint: "sha256"
+
+  choice_option:
+    description: "One option in a choice-set; each must have a cost."
+    fields:
+      id: "opt_<slug>"
+      description: "string"
+      expected_costs: []       # list of CostItem (anticipated)
+      expected_reveals: []     # list of RevealItem (anticipated)
+      reversibility: "reversible | hard_to_reverse | irreversible | unknown"
+      confidence: 0.0
+
+  segment:
+    description: >
+      A segment is a coherent pressure packet: situation → pressure → decision point → carry cost.
+      Segments group beats and provide a unit for assembly.
+    fields:
+      id: "seg_<slug>"
+      title: "string | optional"
+      situation:
+        # External conditions, neutral.
+        location: "string | unknown"
+        time: "string | unknown"
+        constraints: []
+        objects_in_play: []   # list of ObjectRef
+      cast_refs: []          # characters active in this segment
+      beats: []              # beat ids in order
+      segment_pressure:
+        # Segment-level pressure summary; must be explicit.
+        description: "string | unknown"
+        target_ref: "ch_<id> | obj_<id> | belief_<id> | unknown"
+        escalation_pattern: "tighten|shift_target|raise_stakes|reduce_escape|mixed|unknown"
+      segment_reveals: []     # reveal items across beats
+      segment_costs: []       # cost items across beats
+      unresolved_cost:
+        # What is carried forward (observable/commitment).
+        description: "string | unknown"
+        confidence: 0.0
+      exit_state:
+        # What changed by segment end (observable deltas).
+        changed_relationships: []
+        changed_commitments: []
+        changed_access: []
+      fingerprint: "sha256"
+
+  arc:
+    description: >
+      Arc assembles segments into a larger trajectory.
+      This is still structural: no lessons, no growth claims.
+    fields:
+      id: "arc_<slug>"
+      arc_type:
+        # Keep descriptive: "pursuit", "escape", "recovery", "investigation", etc.
+        label: "string"
+      segments: []            # seg ids in order
+      throughline:
+        # Mechanical statement: what is being pursued/avoided/maintained.
+        pursuit: "string | unknown"
+        avoidance: "string | unknown"
+      escalation:
+        # How pressure escalates across segments.
+        mode_sequence: []      # list of modes
+        peak_segment_ref: "seg_<id> | unknown"
+      resolution:
+        # Structural resolution: what decision or constraint locks in at end.
+        terminal_choice_beat_ref: "beat_<n> | unknown"
+        terminal_costs: []
+        terminal_reveals: []
+        open_threads:
+          # Preserve ambiguity; list unresolved items, do not resolve by inference.
+          items: []
+      fingerprint: "sha256"
+
+  object:
+    description: "Objects are plot-relevant items; keep them mechanical."
+    fields:
+      id: "obj_<slug>"
+      label: "string"
+      properties: []         # e.g., ["sealed", "heavy", "owned_by:ch_x"]
+      visibility:
+        known_to: []         # who knows about it
+      evidence_spans: []
+      confidence: 0.0
+
+  environment:
+    description: "Non-character agent (weather, ship, system, law) that can apply pressure."
+    fields:
+      id: "env_<slug>"
+      label: "string"
+      kind: "weather | system | institution | terrain | time | crowd | unknown"
+      pressure_modes: ["tighten","raise_stakes","reduce_escape","shift_target"]
+      evidence_spans: []
+      confidence: 0.0
+
+# ----------------------------------------------------------------------------
+# ASSEMBLY RULES (how atoms → beats → segments → arcs)
+# ----------------------------------------------------------------------------
+assembly:
+
+  atom_to_beat:
+    description: >
+      Beats are built from 1..N atoms.
+      Required: each beat must include explicit pressure and at least one of: choice/cost/reveal.
+    rules:
+      - id: "b1_pressure_required"
+        requirement: "beat.trajectory_ready.pressure.description != unknown"
+      - id: "b2_cost_or_choice_or_reveal"
+        requirement: >
+          at least one of:
+          - beat.trajectory_ready.choice.options length >= 2
+          - beat.trajectory_ready.cost.items length >= 1
+          - beat.trajectory_ready.reveal.items length >= 1
+      - id: "b3_choice_requires_cost"
+        requirement: >
+          if beat.trajectory_ready.choice.options length >= 2
+          then each option.expected_costs length >= 1 OR option.reversibility != unknown
+      - id: "b4_observable_costs"
+        requirement: >
+          all cost_item.observable_marker.statement != unknown
+          OR cost_item.kind == obligation (commitments allowed)
+      - id: "b5_reveal_is_visibility"
+        requirement: >
+          all reveal_item.fact is declarative and includes becomes_known_to
+
+  beat_to_segment:
+    description: >
+      Segments group beats into coherent pressure packets.
+      Required: at least one reveal per segment, and unresolved_cost must exist unless explicitly resolved.
+    rules:
+      - id: "s1_min_reveal"
+        requirement: "segment.segment_reveals length >= controls.generation.reveal_rate.min_reveals_per_segment"
+      - id: "s2_pressure_summary_required"
+        requirement: "segment.segment_pressure.description != unknown"
+      - id: "s3_unresolved_cost_required"
+        requirement: "segment.unresolved_cost.description != unknown"
+
+  segment_to_arc:
+    description: >
+      Arcs are ordered segments with escalated pressure.
+      Required: escalation mode must change or tighten over time.
+    rules:
+      - id: "a1_escalation_required"
+        requirement: "controls.generation.pressure_escalation.required == true"
+      - id: "a2_terminal_choice_or_lock"
+        requirement: >
+          arc.resolution.terminal_choice_beat_ref != unknown
+          OR arc.resolution.terminal_costs length >= 1
+
+# ----------------------------------------------------------------------------
+# EXTRACTION OUTPUT (for analysis mode) — audit-first packaging
+# ----------------------------------------------------------------------------
+analysis_output:
+  description: >
+    Standard packaging for extracted structure from text.
+    Includes evidence spans and confidence per field.
+  fields:
+    story_ref: "story_<id>"
+    extracted_characters: []     # list of character
+    extracted_atoms: []          # list of plot_atom
+    extracted_beats: []          # list of beat
+    extracted_segments: []       # list of segment
+    extracted_arcs: []           # list of arc
+    issues:
+      # Deterministic list of uncertainties and contradictions.
+      - id: "iss_<slug>"
+        kind: "missing_field | contradiction | low_confidence | ambiguous_reference"
+        message: "string"
+        affected_ids: []
+        suggested_candidates: []
+        confidence: 0.0
+
+# ----------------------------------------------------------------------------
+# GENERATION INPUT (for synthesis mode) — “mechanical story spec”
+# ----------------------------------------------------------------------------
+generation_input:
+  description: >
+    Minimal spec that can be fed to a generator (later code) to produce
+    atoms/beats/segments and only then prose via the voice pipeline.
+  fields:
+    story_id: "story_<slug>"
+    cast_seeds:
+      # Seeds can be partial; unknown allowed.
+      - character_seed_ref: "ch_<id>"
+        desired_enneagram_type: "enn_1..enn_9|unknown"
+        desired_tarot_dominant_suit: "tarot_*|unknown"
+        seed_desire: "string|unknown"
+        seed_fear: "string|unknown"
+        constraints: []
+    segment_seeds:
+      - seg_seed_id: "segseed_<slug>"
+        situation_seed:
+          location: "string|unknown"
+          time: "string|unknown"
+          constraints: []
+        pressure_seed:
+          mode: "tighten|shift_target|raise_stakes|reduce_escape|unknown"
+          target: "belief|resource|relationship|access|unknown"
+        required_reveals: []
+        required_costs: []
+    arc_seed:
+      arc_type_label: "string|unknown"
+      segment_order: []
+      escalation_modes: []
+
+# ----------------------------------------------------------------------------
+# EXAMPLE (tiny, illustrative; keep it schematic)
+# ----------------------------------------------------------------------------
+example_stub:
+  story:
+    id: "story_sailing_with_the_gods"
+    title: "Sailing With the Gods (structural stub)"
+    mode: "generation"
+    cast: ["ch_narrator", "ch_captain", "ch_deckhand"]
+    plot_atoms: ["pa_001", "pa_002"]
+    beats: ["beat_1"]
+    segments: ["seg_opening"]
+    arcs: ["arc_pursuit"]
+  characters:
+    - id: "ch_narrator"
+      display_name: "Narrator"
+      role: { primary: "narrator", notes: "Meta voice wrapper; does not decide outcomes." }
+      typing:
+        enneagram: { type_id: "unknown", wing: "unknown", instinct: "unknown", confidence: 0.0, evidence_spans: [] }
+        tarot_profile: { dominant_suit_id: "tarot_swords", secondary_suit_id: "tarot_cups", confidence: 0.6, evidence_spans: [] }
+      drivers:
+        desire: { statement: "maintain narrative control", candidates: [], confidence: 0.6, evidence_spans: [] }
+        fear: { statement: "loss of coherence under time drift", candidates: [], confidence: 0.4, evidence_spans: [] }
+        belief: { statement: "context must precede action", candidates: [], confidence: 0.6, evidence_spans: [] }
+      patterns:
+        mask: { statement: "confident framing through misdirection", candidates: [], confidence: 0.6, evidence_spans: [] }
+        wound:
+          trigger_pattern: "abrupt demands for linearity"
+          response_pattern: "adds framing layers instead of answering"
+          candidates: []
+          confidence: 0.5
+          evidence_spans: []
+  plot_atoms:
+    - id: "pa_001"
+      type: "trigger"
+      agent_ref: "env_sea"
+      target_ref: "ch_captain"
+      action: "weather shifts unexpectedly"
+      outcome: "route becomes uncertain"
+      cost: { items: [{ kind: "time", description: "delayed arrival", observable_marker: { statement: "ship reduces sail", evidence_spans: [] }, magnitude: { level: "medium" }, confidence: 0.6 }], confidence: 0.6 }
+      reveal: { items: [{ fact: "a storm line is closer than expected", becomes_known_to: ["ch_captain"], method: "observed", evidence_spans: [], confidence: 0.7 }], confidence: 0.7 }
+      timestamp: { story_time: "night", order_index: 1 }
+      evidence_spans: []
+      confidence: 0.7
+      fingerprint: "sha256:<placeholder>"
+  environment:
+    - id: "env_sea"
+      label: "Sea / Weather"
+      kind: "weather"
+      pressure_modes: ["tighten","raise_stakes","reduce_escape","shift_target"]
+      evidence_spans: []
+      confidence: 0.8

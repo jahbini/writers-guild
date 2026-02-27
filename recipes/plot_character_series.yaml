@@ -1,0 +1,6 @@
+# Plot + Character extraction recipe (analysis mode)
+# Produces analysis_output-style payloads aligned to plot_character.yaml.
+
+plot_character_extract:
+  run: "guild/extract_plot_character.coffee"
+  depends_on: []
