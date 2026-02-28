@@ -1,5 +1,5 @@
 include:
-  - "../recipes/plot_character_series.yaml"
+  - "plot_character_series.yaml"
 
 run:
   output_dir: "out"

@@ -19,7 +19,7 @@ pipeline:
 
     # 1️⃣ Parse Markdown and extract archetypal/emotional tags
     oracle_kag:
-      run: scripts/oracle_kag.py
+      run: oracle_kag.coffee
       depends_on: []
       params:
         # Path to the source markdown file (relative to dataset dir)
@@ -42,7 +42,7 @@ pipeline:
 
     # 2️⃣ Optional step: build index across hashtags
     kag_index:
-      run: scripts/oracle_kag.py
+      run: oracle_kag.coffee
       depends_on: [oracle_kag]
       params:
         # Reuse outputs of oracle_kag
@@ -74,5 +74,3 @@ oracle_kag:
         max_tokens: 200
         top_n: 15
         min_global: 2
-
-

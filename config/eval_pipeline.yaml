@@ -5,21 +5,21 @@
 manifest:
   depends_on: [ never ]
 pre_eval:
-  run: scripts/042_pre_eval.coffee
+  run: 042_pre_eval.coffee
   depends_on: []
 
 metrics:
-  run: scripts/041_metrics.coffee
+  run: 041_metrics.coffee
   depends_on: [pre_eval]
 
 sanity:
-  run: scripts/042_sanity.coffee
+  run: full/sanity.coffee
   ablations: ablation_generations
   depends_on: [metrics]
 
 #Final evaluation report and policy generation
 eval:
-  run: scripts/05_eval.coffee
+  run: 05_eval.coffee
   inputs:
    - eval_out/ablations.jsonl
    - run/artifacts.json
@@ -30,18 +30,17 @@ eval:
 
 
 entropy:
-  run: scripts/115_entropy.py
+  run: full/entropy.coffee
   depends_on: [never]
 
 prepare_outmd:
-  run: scripts/80_prepare_outmd.py
+  run: 80_prepare_outmd.py
   depends_on: [never]
 
 train_sft:
-  run: scripts/81_train_sft.py
+  run: 81_train_sft.py
   depends_on: [never]
 
 chat:
-  run: scripts/chat.py
+  run: chat.py
   depends_on: [never]
-
