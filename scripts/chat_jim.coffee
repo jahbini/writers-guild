@@ -23,9 +23,13 @@ readline = require 'readline'
 # -------------------------------------------------------------------
 # 1) Model & Prompt Config
 # -------------------------------------------------------------------
-MODEL_NAME  = process.env.MODEL_NAME  or 'microsoft/Phi-3-mini-4k-instruct'
-MODEL_PATH  = process.env.MODEL_PATH  or 'phi3-mlx/model.safetensors'
-MAX_TOKENS  = parseInt(process.env.MAX_TOKENS or '512', 10)
+MODEL_NAME  = process.env.MODEL_NAME
+MODEL_PATH  = process.env.MODEL_PATH
+MAX_TOKENS_RAW = process.env.MAX_TOKENS
+throw new Error "Missing MODEL_NAME env var" unless MODEL_NAME?
+throw new Error "Missing MODEL_PATH env var" unless MODEL_PATH?
+throw new Error "Missing MAX_TOKENS env var" unless MAX_TOKENS_RAW?
+MAX_TOKENS  = parseInt(MAX_TOKENS_RAW, 10)
 
 PROMPT_TEMPLATE = """
 You are St. John's Jim, a myth-weaving, bar-stool Buddha of the Pacific Northwest.

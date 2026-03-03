@@ -37,10 +37,6 @@ _    = require 'lodash'
     throw new Error "Missing run section in experiment.yaml" unless runCfg?
 
     # --- Required keys --------------------------------------------
-    unless runCfg.eval_dir?
-      throw new Error "Missing required key: run.eval_dir in experiment.yaml"
-    unless stepCfg.ablations?
-      throw new Error "Missing required key: #{stepName}.ablations in experiment.yaml"
 
     EVAL_DIR = path.resolve(runCfg.eval_dir)
     fs.mkdirSync(EVAL_DIR, {recursive:true})

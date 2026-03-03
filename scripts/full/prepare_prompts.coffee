@@ -20,8 +20,6 @@ All I/O is via @memo.
     params = (M.theLowdown "params/#{stepName}.json").value
 
     # Required step keys
-    for k in ['contract','prompt_policy','template_name','stop_strings','use_eos_token']
-      throw new Error "Missing step #{stepName}.#{k}" unless params[k]?
 
     CONTRACT_KEY     = params.contract
     POLICY_KEY       = params.prompt_policy

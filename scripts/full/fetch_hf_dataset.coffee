@@ -29,8 +29,6 @@ rand   = require 'seedrandom'
       'min_words','max_words','seed','train','valid',
       'contract','catalog'
     ]
-    for k in needed
-      throw new Error "Missing required param '#{k}' in #{stepName}" unless params[k]?
 
     DATA_DIR     = M.getStepParam stepName, "data_dir"
     CONTRACT_KEY = params.contract

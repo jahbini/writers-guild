@@ -10,7 +10,7 @@ Step 7 — python: external interpreter test
 
   action: (M, stepName) ->
     console.log "[#{stepName}] querying Python version..."
-    resultKey = M.getStepParam(stepName, 'python_result') ? "data/python_result.json"
+    resultKey = M.getStepParam(stepName, 'python_result')
 
     cmd  = 'python'
     args = ['-V']

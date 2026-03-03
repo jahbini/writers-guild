@@ -16,15 +16,18 @@ CoffeeScript.register()
     cfg = M.theLowdown('experiment.yaml')?.value
     throw new Error "Missing experiment.yaml in memo" unless cfg?
     stepCfg = cfg[stepName]
+    throw new Error "Missing step config for '#{stepName}'" unless stepCfg?
 
-    ontoPath = stepCfg.ontology or "ontologies/four_forces_tarot_master.json"
+    ontoPath = stepCfg.ontology
     onto = JSON.parse fs.readFileSync(ontoPath, 'utf8')
 
-    profilesFile = stepCfg.profiles or "examples/sample_profiles.json"
-    profiles = M.theLowdown(profilesFile)?.value ? JSON.parse fs.readFileSync(profilesFile, 'utf8')
+    profilesFile = stepCfg.profiles
+    profilesEntry = M.theLowdown(profilesFile)
+    profiles = profilesEntry.value
+    profiles = await profilesEntry.notifier unless profiles?
 
-    tarotCue = stepCfg.tarot or "Temperance XIV"
-    interaction = stepCfg.interaction or "Two characters meet and change each other."
+    tarotCue = stepCfg.tarot
+    interaction = stepCfg.interaction
 
     prompt = composePrompt profiles, interaction, tarotCue, onto
     M.saveThis "prompt:#{stepName}", prompt
@@ -32,8 +35,8 @@ CoffeeScript.register()
     # Placeholder for model generation
     storyText = "TODO: Generated story text via KAG model.\n\nPrompt was:\n#{prompt}"
 
-    M.saveThis "out/scene.txt", storyText
+    M.saveThis stepCfg.output, storyText
     M.saveThis "done:#{stepName}", true
-    console.log "Generated scene (#{tarotCue}) and saved to out/scene.txt"
+    console.log "Generated scene (#{tarotCue}) and saved to #{stepCfg.output}"
     console.log "JIM", storyText,prompt
     return

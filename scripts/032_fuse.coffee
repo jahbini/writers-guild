@@ -32,8 +32,6 @@ shutil  = require 'fs-extra'
     throw new Error "Missing 'run' section in experiment.yaml" unless runCfg?
 
     # --- Required keys ---
-    for k in ['data_dir','output_dir','artifacts']
-      throw new Error "Missing required run.#{k}" unless k of runCfg
 
     DATA_DIR  = path.resolve(runCfg.data_dir)
     OUT_DIR   = path.resolve(runCfg.output_dir)
@@ -50,9 +48,9 @@ shutil  = require 'fs-extra'
 
     # --- Controls ---
     DO_FUSE = !!stepCfg.do_fuse
-    Q_BITS  = parseInt(stepCfg.q_bits or 4)
-    Q_GROUP = parseInt(stepCfg.q_group or 32)
-    DTYPE   = stepCfg.dtype or 'float16'
+    Q_BITS  = parseInt(stepCfg.q_bits)
+    Q_GROUP = parseInt(stepCfg.q_group)
+    DTYPE   = stepCfg.dtype
     DRY_RUN = !!stepCfg.dry_run
 
     sha256File = (p) ->

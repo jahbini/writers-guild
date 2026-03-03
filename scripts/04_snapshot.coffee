@@ -28,12 +28,6 @@ child   = require 'child_process'
     throw new Error "Missing global 'run' section in experiment.yaml" unless runCfg?
 
     # --- Required keys ---
-    for k in ['data_dir','contract','experiments_csv','snapshot_dir','output_dir','eval_dir','generations','tokmeta']
-      throw new Error "Missing required run.#{k}" unless k of runCfg
-
-    for k in ['prompts','max_new','alt_seed','n_shots','min_words','retries']
-      throw new Error "Missing required param '#{k}' in step '#{stepName}'" unless k of stepCfg
-
     DATA_DIR  = path.resolve(runCfg.data_dir)
     EXPERIMENTS_CSV = path.join(DATA_DIR, runCfg.experiments_csv)
     SNAPSHOT_DIR    = path.join(runCfg.snapshot_dir)

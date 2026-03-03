@@ -20,9 +20,6 @@ Requires:
   action: (M, stepName) ->
     params = (M.theLowdown "params/#{stepName}.json").value
 
-    for k in ['input_md','output_jsonl']
-      throw new Error "Missing step param #{k}" unless params[k]?
-
     DATA_DIR_KEY   = M.getStepParam stepName, "data_dir"  # logical namespace only
     INPUT_MD_KEY   = params.input_md         # memo key containing markdown string
     OUTPUT_JSONL_KEY = params.output_jsonl   # memo key to store JSONL array

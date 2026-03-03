@@ -94,8 +94,6 @@ path = require 'path'
       'epochs','batch_size','grad_accum',
       'max_seq_length','learning_rate','bf16','iters_override'
     ]
-    for k in requiredStepKeys
-      throw new Error "Missing #{k} in step '#{stepName}'" unless params[k]?
 
     EPOCHS         = parseInt(params.epochs)
     BATCH_SIZE     = parseInt(params.batch_size)

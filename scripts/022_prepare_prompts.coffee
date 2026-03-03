@@ -28,11 +28,7 @@ path = require 'path'
     throw new Error "Missing global 'run' section in experiment.yaml" unless runCfg?
 
     # --- Required keys ---
-    for k in ['data_dir']
-      throw new Error "Missing required run.#{k}" unless k of runCfg
 
-    for k in ['contract','prompt_policy','template_name','stop_strings','use_eos_token']
-      throw new Error "Missing required param '#{k}' in step '#{stepName}'" unless k of stepCfg
 
     OUT_DIR  = path.resolve(runCfg.data_dir)
     CONTRACT  = stepCfg.contract

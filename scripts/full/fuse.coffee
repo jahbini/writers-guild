@@ -36,9 +36,9 @@ path = require 'path'
     # -------------------------------------------------------------
     DO_FUSE = !!params.do_fuse
     DRY_RUN = !!params.dry_run
-    Q_BITS  = parseInt(params.q_bits  or 4)
-    Q_GROUP = parseInt(params.q_group or 32)
-    DTYPE   = params.dtype or 'float16'
+    Q_BITS  = parseInt(params.q_bits)
+    Q_GROUP = parseInt(params.q_group)
+    DTYPE   = params.dtype
 
     log = (msg) -> console.log "[fuse] #{msg}"
 

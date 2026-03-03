@@ -29,8 +29,6 @@ shlex   = require 'shell-quote'
 
     # --- Required keys ---
     requiredStep = ['experiments_csv','dry_run','only_model_id','only_row','steps_per_report','steps_per_eval','val_batches']
-    for k in requiredStep
-      throw new Error "Missing required param '#{k}' in step '#{stepName}'" unless k of stepCfg
 
     EXPERIMENTS_CSV = runCfg.experiments_csv
 
@@ -75,11 +73,13 @@ shlex   = require 'shell-quote'
       rows
 
     ensureDirs = (row) ->
+      throw new Error "Missing log_dir in experiment row" unless row.log_dir?
       fs.mkdirSync(path.resolve(row.adapter_path), {recursive:true})
       fs.mkdirSync(path.resolve(row.log_dir), {recursive:true})
 
     buildCmd = (row) ->
-      py = process.env.PYTHON_EXECUTABLE or 'python'
+      py = process.env.PYTHON_EXECUTABLE
+      throw new Error "Missing PYTHON_EXECUTABLE env var" unless py?
       model = row.model_id
       #console.log "JIM model?",model
       data_dir = row.data_dir
@@ -141,7 +141,7 @@ shlex   = require 'shell-quote'
       console.log "\n=== RUN #{i+1}/#{todo.length} ==="
       #console.log "JIM", row
       ensureDirs(row)
-      rc = runCmd(buildCmd(row), path.join(row.log_dir or 'logs', 'lora_last.log'))
+      rc = runCmd(buildCmd(row), path.join(row.log_dir, 'lora_last.log'))
       if rc isnt 0
         console.error "❌ Training failed with returncode=#{rc}"
         break

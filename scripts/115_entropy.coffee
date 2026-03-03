@@ -35,8 +35,6 @@ yaml      = require 'js-yaml'
     throw new Error "Missing 'run' section" unless runCfg?
     throw new Error "Missing step config for '#{stepName}'" unless stepCfg?
 
-    for k in ['output_dir','data_dir','eval_dir']
-      throw new Error "Missing required run.#{k}" unless k of runCfg
 
     EVAL_DIR = path.resolve(runCfg.eval_dir)
     RUN_DIR  = path.resolve(runCfg.output_dir)
@@ -50,16 +48,11 @@ yaml      = require 'js-yaml'
     SUM_PATH       = path.join(EVAL_DIR, 'entropy_summary.csv')
 
     # --- Required files check ---
-    for f in [ARTIFACTS_JSON, GEN_JSONL]
-      unless fs.existsSync(f)
-        throw new Error "Missing required input file: #{f}"
 
     # --- Parameters (strict) ---
     params = stepCfg.params
     throw new Error "Missing #{stepName}.params block" unless params?
 
-    for k in ['max_new_tokens','stop_strings']
-      throw new Error "Missing required #{stepName}.params.#{k}" unless k of params
 
     MAX_NEW = parseInt(params.max_new_tokens)
     STOP_STRS = params.stop_strings

@@ -28,14 +28,14 @@ crypto   = require 'crypto'
     runCfg  = cfg['run']
     dataCfg = cfg['data']
     evalCfg = cfg['eval']
-    throw new Error "Missing required 'run', 'data', or 'eval' sections." unless runCfg? and dataCfg? and evalCfg?
+
 
     DATA_DIR  = path.resolve(runCfg.data_dir)
-    EVAL_DIR  = path.resolve(evalCfg.output_dir or path.join(DATA_DIR, 'eval_out'))
-    CONTRACT  = path.join(DATA_DIR, dataCfg.contract or 'data_contract.json')
-    GEN_JSONL = path.join(EVAL_DIR, "#{evalCfg.generations or 'generations'}.jsonl")
-    OUT_SUM   = path.join(EVAL_DIR, "#{evalCfg.summary or 'summary'}.csv")
-    OUT_JSON  = path.join(EVAL_DIR, "#{evalCfg.analysis or 'analysis'}.json")
+    EVAL_DIR  = path.resolve(evalCfg.output_dir)
+    CONTRACT  = path.join(DATA_DIR, dataCfg.contract)
+    GEN_JSONL = path.join(EVAL_DIR, "#{evalCfg.generations}.jsonl")
+    OUT_SUM   = path.join(EVAL_DIR, "#{evalCfg.summary}.csv")
+    OUT_JSON  = path.join(EVAL_DIR, "#{evalCfg.analysis}.json")
     fs.mkdirSync(EVAL_DIR, {recursive:true})
 
     unless fs.existsSync(GEN_JSONL)

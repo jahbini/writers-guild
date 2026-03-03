@@ -34,8 +34,6 @@ rand   = require 'seedrandom'
       'min_words','max_words','seed','train','valid',
       'contract','catalog'
     ]
-    for k in requiredStepKeys
-      throw new Error "Missing required param '#{k}' in step '#{stepName}'" unless k of stepCfg
 
     DATA_DIR  = runCfg.data_dir
     CONTRACT  = stepCfg.contract

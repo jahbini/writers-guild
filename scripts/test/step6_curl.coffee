@@ -10,7 +10,7 @@ Step 6 — curl: external network test
 
   action: (M, stepName) ->
     console.log "[#{stepName}] running curl..."
-    resultKey = M.getStepParam(stepName, 'curl_result') ? "data/curl_result.json"
+    resultKey = M.getStepParam(stepName, 'curl_result')
 
     cmd  = 'curl'
     args = ['-sI', 'https://example.com']

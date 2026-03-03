@@ -27,11 +27,10 @@ os   = require 'os'
     throw new Error "Missing config for '#{stepName}'" unless stepCfg?
     runCfg  = cfg['run'] or {}
     throw new Error "Missing run section in experiment.yaml" unless runCfg?
-
-    DATA_DIR  = path.resolve(stepCfg.output_dir or runCfg.data_dir or 'run/data')
-    LOG_DIR   = path.resolve(stepCfg.log_dir or path.join(DATA_DIR, 'logs'))
-    INPUT_JSONL  = path.join(DATA_DIR, stepCfg.input_jsonl  or 'out_kag.jsonl')
-    OUTPUT_JSONL = path.join(DATA_DIR, stepCfg.output_jsonl or 'out_kag_keywords.jsonl')
+    DATA_DIR  = path.resolve(stepCfg.output_dir)
+    LOG_DIR   = path.resolve(stepCfg.log_dir)
+    INPUT_JSONL  = path.join(DATA_DIR, stepCfg.input_jsonl)
+    OUTPUT_JSONL = path.join(DATA_DIR, stepCfg.output_jsonl)
 
     for d in [DATA_DIR, LOG_DIR]
       fs.mkdirSync(d, {recursive:true})
@@ -116,8 +115,8 @@ os   = require 'os'
 
     stats =
       timestamp_utc: new Date().toISOString().replace(/\.\d+Z$/, 'Z')
-      total
-      bad
+      total: total
+      bad: bad
       output_jsonl: OUTPUT_JSONL
 
     M.saveThis "#{stepName}:stats", stats

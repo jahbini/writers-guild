@@ -25,8 +25,10 @@ yaml = require 'js-yaml'
 process.env.NODE_NO_WARNINGS = 1
 
 # --- STEP-AWARE CONFIG -----------------------------------------------
-STEP_NAME = process.env.STEP_NAME or 'prepare_outmd'
-CFG_PATH  = process.env.CFG_OVERRIDE or path.join(process.cwd(), 'experiment.yaml')
+STEP_NAME = process.env.STEP_NAME
+CFG_PATH  = process.env.CFG_OVERRIDE
+throw new Error "Missing STEP_NAME env var" unless STEP_NAME?
+throw new Error "Missing CFG_OVERRIDE env var" unless CFG_PATH?
 
 cfgFull = yaml.load(fs.readFileSync(CFG_PATH, 'utf8'))
 unless cfgFull?
@@ -39,9 +41,6 @@ runCfg  = cfgFull['run']
 throw new Error "Missing global 'run' section in experiment.yaml" unless runCfg?
 
 # --- Required parameters (NO defaults) -------------------------------
-for key in ['output_dir','input_md','output_jsonl']
-  unless stepCfg[key]? and String(stepCfg[key]).length
-    throw new Error "Missing required key: #{STEP_NAME}.#{key} in experiment.yaml"
 
 DATA_DIR = path.resolve(stepCfg.output_dir)
 INPUT_MD = path.resolve(stepCfg.input_md)

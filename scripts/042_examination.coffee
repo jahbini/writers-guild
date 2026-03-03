@@ -32,19 +32,20 @@ textwrap = require 'textwrap'
     runCfg  = cfg['run']
     throw new Error "Missing global 'run' section in experiment.yaml" unless runCfg?
 
+
     DATA_DIR  = path.resolve(runCfg.data_dir)
     OUT_DIR   = path.resolve(runCfg.output_dir)
-    EVAL_DIR  = path.resolve(runCfg.eval_dir or path.join(OUT_DIR, 'eval_out'))
+    EVAL_DIR  = path.resolve(runCfg.eval_dir)
     fs.mkdirSync(EVAL_DIR, {recursive:true})
 
     ARTIFACTS = path.join(DATA_DIR, runCfg.artifacts)
-    ABL_JSONL = path.join(EVAL_DIR, "#{stepCfg.ablations or 'ablations'}.jsonl")
-    ABL_YAML  = path.join(EVAL_DIR, "#{stepCfg.ablations or 'ablations'}.yaml")
+    ABL_JSONL = path.join(EVAL_DIR, "#{stepCfg.ablations}.jsonl")
+    ABL_YAML  = path.join(EVAL_DIR, "#{stepCfg.ablations}.yaml")
 
-    ONLY_MODEL_ID = stepCfg.only_model_id or ''
-    PROMPTS       = stepCfg.prompts or ['Share an important thought.']
-    MAX_NEW_SHORT = stepCfg.max_new_short or 64
-    MAX_NEW_LONG  = stepCfg.max_new_long or 128
+    ONLY_MODEL_ID = stepCfg.only_model_id
+    PROMPTS       = stepCfg.prompts
+    MAX_NEW_SHORT = stepCfg.max_new_short
+    MAX_NEW_LONG  = stepCfg.max_new_long
 
     # --- Helpers ---------------------------------------------------
     readJSON = (p) -> JSON.parse(fs.readFileSync(p, 'utf8'))

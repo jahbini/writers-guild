@@ -39,8 +39,10 @@ process.env.NODE_NO_WARNINGS = 1
 # -------------------------------------------------------------------
 # 1) Step-aware configuration
 # -------------------------------------------------------------------
-STEP_NAME = process.env.STEP_NAME or 'crawl_for_voice'
-CFG_PATH  = process.env.CFG_OVERRIDE or path.join(process.cwd(), 'experiment.yaml')
+STEP_NAME = process.env.STEP_NAME
+CFG_PATH  = process.env.CFG_OVERRIDE
+throw new Error "Missing STEP_NAME env var" unless STEP_NAME?
+throw new Error "Missing CFG_OVERRIDE env var" unless CFG_PATH?
 
 cfgFull = yaml.load(fs.readFileSync(CFG_PATH, 'utf8'))
 unless cfgFull?
@@ -50,18 +52,15 @@ stepCfg = cfgFull[STEP_NAME]
 throw new Error "Missing step config for '#{STEP_NAME}' in experiment.yaml" unless stepCfg?
 
 # --- Required keys (no defaults) -----------------------------------
-for key in ['base','output_dir','valid_fraction','min_story_words']
-  unless stepCfg[key]? and String(stepCfg[key]).length
-    throw new Error "Missing required key: #{STEP_NAME}.#{key} in experiment.yaml"
 
 BASE      = stepCfg.base
 OUT_DIR   = path.resolve(stepCfg.output_dir)
 VALID_FRAC = Number(stepCfg.valid_fraction)
 MIN_WORDS  = parseInt(stepCfg.min_story_words)
-MAX_PAGES  = parseInt(stepCfg.max_pages or 1000)
-PAUSE_SEC  = Number(stepCfg.pause_sec or 0.5)
-USER_AGENT = stepCfg.user_agent or 'Mozilla/5.0'
-REQ_TIMEOUT = parseInt(stepCfg.request_timeout or 15000)
+MAX_PAGES  = parseInt(stepCfg.max_pages)
+PAUSE_SEC  = Number(stepCfg.pause_sec)
+USER_AGENT = stepCfg.user_agent
+REQ_TIMEOUT = parseInt(stepCfg.request_timeout)
 
 LOG_DIR   = path.join(OUT_DIR, 'logs')
 TRAIN_JSONL = path.join(OUT_DIR, 'train.jsonl')

@@ -27,11 +27,7 @@ pd   = require 'danfojs-node'  # lightweight DataFrame lib
     throw new Error "Missing global 'run' section in experiment.yaml" unless runCfg?
 
     # --- Required keys ---
-    for k in ['eval_dir','output_dir']
-      throw new Error "Missing required run.#{k}" unless k of runCfg
 
-    for k in ['ablations','report','policy']
-      throw new Error "Missing required param '#{k}' in step '#{stepName}'" unless k of stepCfg
 
     EVAL_DIR = path.resolve(runCfg.eval_dir)
     OUT_DIR  = path.resolve(runCfg.output_dir)

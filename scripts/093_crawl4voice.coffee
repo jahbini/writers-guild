@@ -53,8 +53,6 @@ crypto  = require 'crypto'
     throw new Error "Missing 'run' section" unless runCfg?
     throw new Error "Missing step config for '#{stepName}'" unless stepCfg?
 
-    for k in ['data_dir','contract','report','catalog']
-      throw new Error "Missing required run.#{k}" unless k of runCfg
 
     required = [
       'base','valid_fraction','min_story_words',
@@ -64,7 +62,6 @@ crypto  = require 'crypto'
       'request_timeout','user_agent'
     ]
     for k in required
-      throw new Error "Missing required #{stepName}.#{k}" unless k of stepCfg
 
     DATA_DIR  = path.resolve(runCfg.data_dir)
     CONTRACT  = path.join(DATA_DIR, runCfg.contract)

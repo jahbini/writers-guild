@@ -17,17 +17,19 @@ CoffeeScript.register()
     throw new Error "Missing stepName" unless stepName?
     cfg = M.theLowdown('experiment.yaml')?.value
     throw new Error "Missing experiment.yaml in memo" unless cfg?
-    runCfg  = cfg.run
     stepCfg = cfg[stepName]
+    throw new Error "Missing step config for '#{stepName}'" unless stepCfg?
 
-    chapterFile = stepCfg.chapter or "examples/sample_chapter.txt"
-    text = M.theLowdown(chapterFile)?.value ? fs.readFileSync(chapterFile, 'utf8')
+    chapterFile = stepCfg.chapter
+    textEntry = M.theLowdown(chapterFile)
+    text = textEntry.value
+    text = await textEntry.notifier unless text?
     throw new Error "No chapter text available" unless text?
 
-    ontoPath = stepCfg.ontology or "ontologies/four_forces_tarot_master.json"
+    ontoPath = stepCfg.ontology
     onto = JSON.parse fs.readFileSync(ontoPath, 'utf8')
 
-    charList = stepCfg.characters ? []
+    charList = stepCfg.characters
     arcs = {}
     for name in charList
       arcs[name] =

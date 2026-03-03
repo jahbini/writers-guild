@@ -19,8 +19,6 @@ train.coffee — memo-native MLX LoRA runner (simplified, via M.callMLX)
     # Required step-level keys (control which rows to run)
     # ----------------------------------------------------------------
     requiredStep = ['dry_run','only_model_id','only_row']
-    for k in requiredStep
-      throw new Error "Missing required param '#{k}' in step '#{stepName}'" unless k of params
 
     DRY_RUN       = !!params.dry_run
     ONLY_MODEL_ID = params.only_model_id   # string or ''

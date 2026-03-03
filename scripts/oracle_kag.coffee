@@ -30,15 +30,9 @@ child   = require 'child_process'
     throw new Error "Missing 'run' section" unless runCfg?
     throw new Error "Missing step config for '#{stepName}'" unless stepCfg?
 
-    for k in ['data_dir']
-      throw new Error "Missing required run.#{k}" unless k of runCfg
 
-    for k in ['model','input_md','num_tags','max_tokens','reinforce']
-      throw new Error "Missing required #{stepName}.#{k}" unless k of stepCfg
 
     reinf = stepCfg.reinforce
-    for k in ['top_n','min_global']
-      throw new Error "Missing required #{stepName}.reinforce.#{k}" unless k of reinf
 
     DATA_DIR   = path.resolve(runCfg.data_dir)
     MODEL_ID   = stepCfg.model
@@ -47,7 +41,7 @@ child   = require 'child_process'
     MAX_TOKENS = parseInt(stepCfg.max_tokens)
     TOP_N      = parseInt(reinf.top_n)
     MIN_GLOBAL = parseInt(reinf.min_global)
-    PROMPT     = stepCfg.prompt_template or "List #{NUM_TAGS} emotional or archetypal themes present in this story:"
+    PROMPT     = stepCfg.prompt_template
     OUT_DIR    = path.join(DATA_DIR, 'oracle_kag')
     STORIES_OUT = path.join(OUT_DIR, 'stories_out')
     HASHTAGS_OUT = path.join(OUT_DIR, 'hashtags')

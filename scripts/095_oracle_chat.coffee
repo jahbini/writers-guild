@@ -31,9 +31,10 @@ readline  = require 'readline'
     runCfg  = cfg['run']
     evalCfg = cfg['eval']
     throw new Error "Missing 'run' section" unless runCfg?
+    throw new Error "Missing 'eval' section" unless evalCfg?
 
-    DATA_DIR = path.resolve(runCfg.data_dir or 'run/data')
-    EVAL_DIR = path.resolve(evalCfg?.output_dir or path.join(DATA_DIR, 'eval'))
+    DATA_DIR = path.resolve(runCfg.data_dir)
+    EVAL_DIR = path.resolve(evalCfg.output_dir)
     ARTIFACTS_JSON = path.join(DATA_DIR, 'artifacts.json')
     POLICY_FILE    = path.join(EVAL_DIR, 'policy.yaml')
 

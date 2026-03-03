@@ -51,9 +51,6 @@ timestampUTC = ->
     stepCfg = cfg[stepName]
     throw new Error "Missing config for '#{stepName}' in yaml" unless stepCfg?
     params = stepCfg.params or {}
-    for key in ['input_dir', 'output_dir']
-      unless params[key]? and params[key].length
-        throw new Error "Missing required param '#{key}' for step '#{stepName}'"
 
     inputDir  = params.input_dir
     outputDir = params.output_dir
