@@ -10,10 +10,13 @@ Step 1 — setup: create dummy input data (no defaults)
     greeting = M.getStepParam stepName, 'greeting'
     unless greeting?
       throw new Error "[#{stepName}] Missing required key 'greeting'"
+    value = M.getStepParam stepName, 'value'
+    unless value?
+      throw new Error "[#{stepName}] Missing required key 'value'"
 
-    value = Math.floor(Math.random() * 100)
     data = { greeting, value }
 
-    M.saveThis "data/input.json", data
-    console.log "[#{stepName}] wrote data/input.json"
+    M.put stepName, 'input_data', data
+    M.saveThis "done:#{stepName}", true
+    console.log "[#{stepName}] wrote output artifact input_data"
     return

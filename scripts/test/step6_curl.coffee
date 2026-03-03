@@ -10,7 +10,7 @@ Step 6 — curl: external network test
 
   action: (M, stepName) ->
     console.log "[#{stepName}] running curl..."
-    resultKey = M.getStepParam(stepName, 'curl_result')
+    await M.need(stepName, 'final_summary_json')
 
     cmd  = 'curl'
     args = ['-sI', 'https://example.com']
@@ -18,11 +18,13 @@ Step 6 — curl: external network test
 
     if result.error
       console.error "[#{stepName}] curl failed:", result.error
-      M.saveThis resultKey, { status: 'failed', error: String(result.error) }
+      M.put stepName, 'curl_result', { status: 'failed', error: String(result.error) }
+      M.saveThis "done:#{stepName}", true
       return
 
     output = result.stdout.trim()
     console.log "[#{stepName}] curl completed; length:", output.length
 
-    M.saveThis resultKey, { status: 'ok', output }
+    M.put stepName, 'curl_result', { status: 'ok', output }
+    M.saveThis "done:#{stepName}", true
     return

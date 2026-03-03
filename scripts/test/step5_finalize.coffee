@@ -7,17 +7,9 @@ Step 5 — finalize: aggregate results
   desc: 'Aggregate upstream results into final summary.'
 
   action: (M, stepName) ->
-    inputKey = M.getStepParam stepName, "input"
-    transformedKey = M.getStepParam stepName, "transformed"
-    waitKey = M.getStepParam stepName, "wait"
-    input = M.theLowdown(inputKey)
-    transformed = M.theLowdown(transformedKey)
-    waitedEntry = M.theLowdown(waitKey)
-    # if no value wait for that memo entry to be filled
-    waited = waitedEntry.value
-    waited = await waitedEntry.notifier unless waited?
-    inputVal = input.value
-    transformedVal = transformed.value
+    inputVal = await M.need(stepName, 'input_data')
+    transformedVal = await M.need(stepName, 'transformed_data')
+    waited = await M.need(stepName, 'wait_data')
 
     summary =
       original:  inputVal
@@ -26,8 +18,9 @@ Step 5 — finalize: aggregate results
       waited:    waited
       timestamp: new Date().toISOString()
 
-    M.saveThis "data/final_summary.json", summary
-    M.saveThis "data/final_summary.yaml", summary
-    M.saveThis "data/final_summary.csv", summary
-    console.log "[#{stepName}] wrote data/final_summary.json"
+    M.put stepName, 'final_summary_json', summary
+    M.put stepName, 'final_summary_yaml', summary
+    M.put stepName, 'final_summary_csv', summary
+    M.saveThis "done:#{stepName}", true
+    console.log "[#{stepName}] wrote output artifacts final_summary_*"
     return
