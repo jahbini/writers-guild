@@ -12,7 +12,8 @@ Step 4 — wait: simulate asynchronous work
         done: true
         timestamp: new Date().toISOString()
       setTimeout ->
-        M.saveThis "data/wait.json", payload
+        M.put stepName, 'wait_data', payload
+        M.saveThis "done:#{stepName}", true
         console.log "[#{stepName}] completed wait phase"
         resolve()
       , 1000

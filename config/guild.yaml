@@ -3,33 +3,43 @@ run:
   data_dir: "data"
   output_dir: "out"
 
+artifacts:
+  chapter_text:
+    source: "examples/sample_chapter.txt"
+  ontology:
+    source: "ontologies/four_forces_tarot_master.json"
+  characters:
+    value: ["Eleanor", "Chidi", "Tahani"]
+  arcs:
+    target: "out/arcs.json"
+  scene_text:
+    target: "out/scene.txt"
+  analysis:
+    target: "out/plot_character_analysis.json"
+
 guild_analyze:
   run: "guild/analyze_chapter.coffee"
   depends_on: []
+  needs: ["chapter_text", "ontology", "characters"]
+  makes: ["arcs"]
   desc: "Analyze chapter and score characters"
-  chapter: "/Users/jahbini/development/writers-guild/examples/sample_chapter.txt"
-  ontology: "/Users/jahbini/development/writers-guild/ontologies/four_forces_tarot_master.json"
-  characters: ["Eleanor","Chidi","Tahani"]
 
 guild_generate:
   run: "guild/generate_chapter.coffee"
   depends_on: ["guild_analyze"]
+  needs: ["arcs", "ontology"]
+  makes: ["scene_text"]
   desc: "Generate a new scene from analyzed profiles"
-  profiles: "/Users/jahbini/development/writers-guild/examples/sample_profiles.json"
-  ontology: "/Users/jahbini/development/writers-guild/ontologies/four_forces_tarot_master.json"
   tarot: "Temperance XIV"
   interaction: "Eleanor confronts Chidi about a painful truth"
-  output: "out/scene.txt"
 
 guild_extract_plot_character:
   run: "guild/extract_plot_character.coffee"
   depends_on: []
+  needs: ["chapter_text", "characters"]
+  makes: ["analysis"]
   desc: "Extract plot and character structures from story files"
   schema_ref: "plot_character.yaml"
-  output: "out/plot_character_analysis.json"
   selftest: false
-  stories:
-    - id: "story_sample_chapter"
-      title: "Sample Chapter"
-      file: "/Users/jahbini/development/writers-guild/examples/sample_chapter.txt"
-      characters: ["Eleanor","Chidi","Tahani"]
+  story_id: "story_sample_chapter"
+  story_title: "Sample Chapter"

@@ -7,9 +7,7 @@ Step 3 — table: generate CSV summary
   desc: 'Create tabular summary from transformed data.'
 
   action: (M, stepName) ->
-    summary = M.getStepParam stepName, "summary"
-    transformedKey = M.getStepParam stepName, "transformed"
-    transformed = M.theLowdown(transformedKey).value
+    transformed = await M.need(stepName, 'transformed_data')
     unless transformed?
       throw new Error "[#{stepName}] Missing memo key transformed"
 
@@ -17,6 +15,7 @@ Step 3 — table: generate CSV summary
       greeting: transformed.greeting
       doubled: transformed.doubled
 
-    M.saveThis summary, row
-    console.log "[#{stepName}] wrote", summary
+    M.put stepName, 'summary_row', row
+    M.saveThis "done:#{stepName}", true
+    console.log "[#{stepName}] wrote output artifact summary_row"
     return

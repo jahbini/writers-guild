@@ -360,13 +360,12 @@ mkArc = (storyRef, segId) ->
 
 extractStory = (STORY_CFG) ->
   throw new Error "Each story must be an object" unless STORY_CFG? and typeof STORY_CFG is 'object'
-  throw new Error "Each story requires 'file'" unless typeof STORY_CFG.file is 'string' and STORY_CFG.file.length > 0
+  throw new Error "Each story requires 'text'" unless typeof STORY_CFG.text is 'string' and STORY_CFG.text.length > 0
 
-  SOURCE_PATH = resolveInputPath(STORY_CFG.file)
-  SOURCE_ID = SOURCE_PATH
-  STORY_REF = hashId('story', String(STORY_CFG.id ? path.basename(SOURCE_PATH)), SOURCE_PATH)
+  SOURCE_ID = String(STORY_CFG.source_id ? STORY_CFG.id ? "story_source")
+  STORY_REF = hashId('story', String(STORY_CFG.id ? SOURCE_ID), SOURCE_ID)
 
-  SOURCE_TEXT = fs.readFileSync(SOURCE_PATH, 'utf8')
+  SOURCE_TEXT = STORY_CFG.text
   PARAS = splitParagraphs(SOURCE_TEXT)
 
   NAMES = if Array.isArray(STORY_CFG.characters) and STORY_CFG.characters.length > 0 then STORY_CFG.characters else inferCharacters(SOURCE_TEXT)
@@ -424,44 +423,52 @@ validateCfg = (CFG, STEP_NAME) ->
   throw new Error "Missing experiment.yaml in memo" unless CFG?
   throw new Error "Missing config for step '#{STEP_NAME}'" unless CFG[STEP_NAME]?
   throw new Error "Missing '#{STEP_NAME}.schema_ref'" unless typeof CFG[STEP_NAME].schema_ref is 'string' and CFG[STEP_NAME].schema_ref.length > 0
-  throw new Error "Missing '#{STEP_NAME}.output'" unless typeof CFG[STEP_NAME].output is 'string' and CFG[STEP_NAME].output.length > 0
-  ST = CFG[STEP_NAME].stories ? CFG.run?.stories
-  throw new Error "Missing stories array in '#{STEP_NAME}.stories' or 'run.stories'" unless Array.isArray(ST) and ST.length > 0
-  ST
+  true
+
+selftestEnabled = (argv = process.argv.slice(2), stepFlag) ->
+  return true if stepFlag is true
+  argv.some (arg) -> /^--selftest(?:=.+)?$/.test(String(arg))
 
 @step =
   desc: "Extract plot + character structures from a series of stories"
 
   action: (M, STEP_NAME) ->
     CFG = M.theLowdown('experiment.yaml')?.value
-    STORIES = validateCfg(CFG, STEP_NAME)
-    OUTPUT_PATH_ABS = resolveOutputPath(CFG[STEP_NAME].output)
+    validateCfg(CFG, STEP_NAME)
+    STEP_CFG = CFG[STEP_NAME]
+    CHAPTER_TEXT = await M.need(STEP_NAME, 'chapter_text')
+    CHARACTERS = await M.need(STEP_NAME, 'characters')
+    STORIES = [{
+      id: String(STEP_CFG.story_id ? 'story_sample_chapter')
+      title: String(STEP_CFG.story_title ? 'Sample Chapter')
+      source_id: "artifact:chapter_text"
+      text: CHAPTER_TEXT
+      characters: CHARACTERS
+    }]
 
     LOGGER = createLogger(STEP_NAME,
-      selftest: (CFG[STEP_NAME].selftest is true or process.argv.includes('--selftest'))
+      selftest: selftestEnabled(process.argv.slice(2), STEP_CFG.selftest)
       story_count: STORIES.length
-      output: CFG[STEP_NAME].output
-      output_abs: OUTPUT_PATH_ABS
-      schema_ref: CFG[STEP_NAME].schema_ref
+      output_artifact: 'analysis'
+      schema_ref: STEP_CFG.schema_ref
     )
 
     try
-      if CFG[STEP_NAME].selftest is true or process.argv.includes('--selftest')
+      if selftestEnabled(process.argv.slice(2), STEP_CFG.selftest)
         runSelftest(STORIES)
         LOGGER.info("selftest=ok stories=#{STORIES.length}")
 
       ANALYSES = extractStories(STORIES)
       PAYLOAD =
-        schema_ref: CFG[STEP_NAME].schema_ref
+        schema_ref: STEP_CFG.schema_ref
         mode: "analysis"
         source_count: STORIES.length
         analyses: ANALYSES
 
-      M.saveThis CFG[STEP_NAME].output, PAYLOAD
-      M.saveThis "plot_character:analysis", PAYLOAD
+      M.put STEP_NAME, 'analysis', PAYLOAD
       M.saveThis "done:#{STEP_NAME}", true
       LOGGER.close('ok')
-      console.log "Extracted plot/character analysis for #{STORIES.length} stories -> #{CFG[STEP_NAME].output}"
+      console.log "Extracted plot/character analysis for #{STORIES.length} stories -> artifact analysis"
       return
     catch ERR
       LOGGER.error(ERR.message ? String(ERR))
@@ -470,7 +477,7 @@ validateCfg = (CFG, STEP_NAME) ->
 
 main = ->
   ARGS = process.argv.slice(2)
-  unless ARGS.length >= 1 and ARGS[0] is '--selftest' and ARGS.length <= 2
+  unless ARGS.length >= 1 and /^--selftest(?:=.+)?$/.test(String(ARGS[0])) and ARGS.length <= 2
     throw new Error "Standalone usage: coffee guild/extract_plot_character.coffee --selftest [config.json]"
 
   CFG_PATH = ARGS[1]

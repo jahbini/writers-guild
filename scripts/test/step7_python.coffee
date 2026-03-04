@@ -10,7 +10,7 @@ Step 7 — python: external interpreter test
 
   action: (M, stepName) ->
     console.log "[#{stepName}] querying Python version..."
-    resultKey = M.getStepParam(stepName, 'python_result')
+    await M.need(stepName, 'curl_result')
 
     cmd  = 'python'
     args = ['-V']
@@ -18,11 +18,13 @@ Step 7 — python: external interpreter test
 
     if result.error
       console.error "[#{stepName}] Python failed:", result.error
-      M.saveThis resultKey, { status: 'failed', error: String(result.error) }
+      M.put stepName, 'python_result', { status: 'failed', error: String(result.error) }
+      M.saveThis "done:#{stepName}", true
       return
 
     output = (result.stdout or result.stderr).trim()
     console.log "[#{stepName}] Python responded:", output
 
-    M.saveThis resultKey, { status: 'ok', version: output }
+    M.put stepName, 'python_result', { status: 'ok', version: output }
+    M.saveThis "done:#{stepName}", true
     return

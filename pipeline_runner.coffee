@@ -268,6 +268,48 @@ normalizeDeps = (d) ->
   return [d] if typeof d is 'string'
   []
 
+normalizeArtifactKeys = (d) ->
+  return [] unless d?
+  return d.slice() if Array.isArray(d)
+  return [d] if typeof d is 'string'
+  throw new Error "needs/makes must be string or array"
+
+resolveReadPath = (p, cwd, execDir) ->
+  return null unless typeof p is 'string' and p.length > 0
+  if path.isAbsolute(p)
+    return p if fs.existsSync(p)
+    return null
+  fromCwd = path.resolve(cwd, p)
+  return fromCwd if fs.existsSync(fromCwd)
+  fromExec = path.resolve(execDir, p)
+  return fromExec if fs.existsSync(fromExec)
+  null
+
+readArtifactFile = (p, cwd, execDir) ->
+  full = resolveReadPath(p, cwd, execDir)
+  return null unless full?
+  ext = path.extname(full).toLowerCase()
+  raw = fs.readFileSync(full, 'utf8')
+  value = switch ext
+    when '.json' then JSON.parse(raw)
+    when '.yaml', '.yml' then yaml.load(raw)
+    else raw
+  { full, value }
+
+writeArtifactFile = (p, value, cwd) ->
+  return unless typeof p is 'string' and p.length > 0
+  full = if path.isAbsolute(p) then path.resolve(p) else path.resolve(cwd, p)
+  fs.mkdirSync(path.dirname(full), { recursive: true })
+  ext = path.extname(full).toLowerCase()
+  if ext is '.json'
+    fs.writeFileSync(full, JSON.stringify(value, null, 2), 'utf8')
+  else if ext is '.yaml' or ext is '.yml'
+    fs.writeFileSync(full, yaml.dump(value), 'utf8')
+  else
+    out = if typeof value is 'string' then value else JSON.stringify(value, null, 2)
+    fs.writeFileSync(full, out, 'utf8')
+  full
+
 discoverSteps = (spec) ->
   steps = {}
   for own k, v of spec
@@ -336,10 +378,13 @@ isNewStyleStep = (p) ->
 runStep = (n, def, exp, M, S, active) ->
   new Promise (res, rej) ->
     active.count += 1
+    active.names ?= new Set()
+    active.names.add n
     S.markRunning n
 
     finish = (ok, errMsg=null) ->
       active.count -= 1
+      active.names?.delete n
       if ok
         wantsRestart = M.theLowdown("restart_here:#{n}")?.value is true
         if wantsRestart
@@ -402,6 +447,15 @@ installGetStepParam = (M) ->
 
     undefined
 
+installNeedPut = (M) ->
+  M.need = (stepName, key) ->
+    e = M.theLowdown("in:#{stepName}:#{key}")
+    v = e.value
+    v = await e.notifier if v is undefined
+    v
+  M.put = (stepName, key, value) ->
+    M.saveThis "out:#{stepName}:#{key}", value
+
 # -------------------------------------------------------------------
 # MODIFY main()
 # -------------------------------------------------------------------
@@ -431,6 +485,8 @@ main = ->
   M.saveThis 'experiment.yaml',experiment
 
   steps  = discoverSteps experiment
+  artifacts = experiment.artifacts ? {}
+  throw new Error "experiment.artifacts must be an object" unless isPlainObject(artifacts)
   order  = toposort steps
   graph  = downstreamMap steps
   finals = terminalSteps steps
@@ -442,6 +498,7 @@ main = ->
   M.saveThis "params/_global.json", globalParams
 
   installGetStepParam M
+  installNeedPut M
 
   pipeState = S.readPipeline()
   if pipeState?.status is 'shutdown'
@@ -450,11 +507,66 @@ main = ->
     console.log "  reason:", pipeState.reason
     process.exit(0)
 
-  active = {count: 0}
+  active = {count: 0, names: new Set()}
 
   # ---------------- STEP PARAMS ----------------
+  producedBy = {}
   for n in order
+    unless Object.prototype.hasOwnProperty.call(steps[n], 'needs')
+      throw new Error "Step '#{n}' must declare needs: []"
+    unless Object.prototype.hasOwnProperty.call(steps[n], 'makes')
+      throw new Error "Step '#{n}' must declare makes: []"
+    steps[n].needs = normalizeArtifactKeys(steps[n].needs).sort()
+    steps[n].makes = normalizeArtifactKeys(steps[n].makes).sort()
+    for k in steps[n].makes
+      throw new Error "Artifact '#{k}' is produced by multiple steps: #{producedBy[k]} and #{n}" if producedBy[k]?
+      producedBy[k] = n
     M.saveThis "params/#{n}.json", steps[n]
+
+  # ---------------- ARTIFACT WIRING ----------------
+  resolveArtifact = (artifactKey) ->
+    spec = artifacts[artifactKey]
+    throw new Error "Artifact '#{artifactKey}' not declared in experiment.artifacts" unless spec?
+    if isPlainObject(spec) and spec.hasOwnProperty('value')
+      return spec.value
+    source = if isPlainObject(spec) then spec.source ? spec.key else spec
+    unless source?
+      if producedBy[artifactKey]?
+        outEntry = M.theLowdown("artifact:#{artifactKey}")
+        outVal = outEntry.value
+        outVal = await outEntry.notifier if outVal is undefined
+        return outVal
+      throw new Error "Artifact '#{artifactKey}' missing source/value declaration"
+    if typeof source is 'string'
+      fromFile = readArtifactFile(source, CWD, EXEC)
+      if fromFile?
+        M.saveThis(source, fromFile.value)
+        return fromFile.value
+    srcEntry = M.theLowdown(source)
+    val = srcEntry.value
+    val = await srcEntry.notifier if val is undefined
+    val
+
+  materializeArtifact = (artifactKey, value) ->
+    spec = artifacts[artifactKey]
+    return unless spec?
+    target = if isPlainObject(spec) then spec.target else null
+    if target?
+      writeArtifactFile(target, value, CWD)
+      M.saveThis(target, value)
+    M.saveThis("artifact:#{artifactKey}", value)
+
+  wireInputsForStep = (stepName) ->
+    for k in (steps[stepName].needs ? [])
+      v = await resolveArtifact(k)
+      M.saveThis "in:#{stepName}:#{k}", v
+
+  collectOutputsForStep = (stepName) ->
+    for k in (steps[stepName].makes ? [])
+      outKey = "out:#{stepName}:#{k}"
+      e = M.theLowdown(outKey)
+      throw new Error "Step #{stepName} missing required output #{outKey}" if e.value is undefined
+      await materializeArtifact(k, e.value)
 
   # ---- remainder of main() UNCHANGED ----
   # (startup restore, scheduling, tick loop, etc.)
@@ -497,8 +609,11 @@ main = ->
       start = ->
         return if M.theLowdown("done:#{n}").value is true
         scheduled.add n
-        runStep(n, steps[n], experiment, M, S, active).catch (e) ->
-          console.error "! Step #{n} error:", e.message
+        Promise.resolve(wireInputsForStep(n))
+          .then -> runStep(n, steps[n], experiment, M, S, active)
+          .then -> collectOutputsForStep(n)
+          .catch (e) ->
+            console.error "! Step #{n} error:", e.message
       if deps.length is 0
         start()
       else
@@ -534,8 +649,24 @@ main = ->
 
   tick()
 
-process.on 'SIGINT', ->
-  console.log "\n(CTRL+C) Exiting..."
-  process.exit(130)
+  printActiveSteps = (signalName) ->
+    names = Array.from(active.names ? [])
+    banner "📶 Signal received: #{signalName}"
+    if names.length
+      console.log "  active (#{names.length}):", names.join(', ')
+    else
+      console.log "  active (0): none"
+
+  process.on 'SIGUSR1', ->
+    printActiveSteps('SIGUSR1')
+
+  process.on 'SIGTERM', ->
+    printActiveSteps('SIGTERM')
+    process.exit(143)
+
+  process.on 'SIGINT', ->
+    printActiveSteps('SIGINT')
+    console.log "\n(CTRL+C) Exiting..."
+    process.exit(130)
 
 main()

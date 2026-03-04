@@ -2,7 +2,7 @@
 Utility scoring module for Four Forces
 ###
 
-exports.scoreSegment = (text, onto, cfg) ->
+exports.scoreSegment = (text, onto) ->
   result = {}
   for axis, data of onto.forces
     poles = data.poles
