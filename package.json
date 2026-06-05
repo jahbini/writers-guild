@@ -2,9 +2,8 @@
   "name": "mlx-mlxtrain-starter-config",
   "version": "1.0.0",
   "description": "",
-  "main": "pipeline_runner.coffee",
   "scripts": {
-    "pipeline": "coffee pipeline_runner.coffee"
+    "pipeline": "pipeline"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +13,7 @@
     "coffeescript": "^2.7.0"
   },
   "dependencies": {
+    "@jahbini/pipeline": "github:jahbini/pipeline",
     "coffee": "^5.5.1",
     "d3-dsv": "^3.0.1",
     "fs-extra": "^11.3.2",
