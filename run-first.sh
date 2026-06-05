@@ -8,7 +8,10 @@
 #   2. pnpm run setup   — creates .venv and pip-installs the pipeline
 #                          runtime requirements (MLX, etc.) plus this
 #                          project's own requirements.txt
-#   3. pnpm run pipeline — runs the pipeline named in override.yaml
+#   3. pnpm run ui:reset — copies ui/ and ui_server.coffee from the
+#                          package into the project so `pnpm run ui`
+#                          works
+#   4. pnpm run pipeline — runs the pipeline named in override.yaml
 #
 # Note: this repo ships its own override.yaml (pipeline: jim_story),
 # so `setup` does NOT overwrite it. If you want the package's test
@@ -28,14 +31,17 @@ banner() {
   echo "════════════════════════════════════════════════════════════════════"
 }
 
-banner "1/3  pnpm install — pulling @jahbini/pipeline from GitHub"
+banner "1/4  pnpm install — pulling @jahbini/pipeline from GitHub"
 pnpm install
 
-banner "2/3  pnpm run setup — .venv with MLX (slow first time)"
+banner "2/4  pnpm run setup — .venv with MLX (slow first time)"
 pnpm run setup
 
-banner "3/3  pnpm run pipeline — running the configured pipeline"
-pnpm run pipeline
+banner "3/4  pnpm run ui:reset — hydrating ui/ and ui_server.coffee"
+pnpm run ui:reset
+
+banner "4/4  pnpm run pipeline — running the configured pipeline"
+#pnpm run pipeline
 
 echo
 echo "Done. Edit override.yaml to switch pipelines, or run \`pnpm run ui\`"
