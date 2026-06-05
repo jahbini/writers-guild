@@ -2,8 +2,21 @@
   desc: "Resolve story recipe keys into expanded story parts"
 
   action: (M, stepName) ->
-    bundle = await M.need(stepName, 'story_library')
-    selected = await M.need(stepName, 'story_recipe')
+    console.log "JIM start", stepName
+    readInput = (key) ->
+      memoKey = key
+      entry = M.theLowdown memoKey
+      value = entry?.value
+      if value is undefined
+        if typeof entry?.waitFor is 'function'
+          value = await entry.waitFor()
+        else if entry?.notifier?
+          value = await entry.notifier
+      throw new Error "[#{stepName}] Missing input key '#{memoKey}'" if value is undefined
+      value
+
+    bundle = await readInput 'story_library'
+    selected = await readInput 'story_recipe'
 
     lib = bundle?.library ? {}
     recipe = selected?.recipe ? {}
@@ -35,6 +48,6 @@
       reflection: needKey 'reflections', reflectionKey
       realization: needKey 'realizations', realizationKey
 
-    M.put stepName, 'story_parts', out
+    M.saveThis "story_parts", out
     M.saveThis "done:#{stepName}", true
     return

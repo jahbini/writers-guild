@@ -1,41 +1,56 @@
-capitalizeFirst = (txt) ->
-  sval = String(txt ? '').trim()
-  return '' if sval is ''
-  sval.charAt(0).toUpperCase() + sval.substring(1)
+###
+Assemble expanded story parts into final story text.
+###
 
-ensureSentence = (txt) ->
-  s = String(txt ? '').trim()
-  return '' if s is ''
-  if /[.!?]$/.test(s) then s else s + '.'
+joinParagraphs = (items) ->
+  parts = []
 
-lowerFirst = (txt) ->
-  sval = String(txt ? '').trim()
-  return '' if sval is ''
-  sval.charAt(0).toLowerCase() + sval.substring(1)
+  for item in items
+    continue unless item?
+    text = "#{item}".trim()
+    continue unless text.length > 0
+    parts.push text
+
+  rval = parts.join "\n\n"
+  return rval
 
 @step =
-  desc: "Assemble one Jim story from resolved story parts"
+  desc: "Assemble expanded story parts into final story text"
 
   action: (M, stepName) ->
-    parts = await M.need(stepName, 'story_parts')
+    console.log "JIM start", stepName
 
-    sceneText = ensureSentence capitalizeFirst(parts?.scene?.text)
-    arrivalText = ensureSentence parts?.arrival?.text
-    disturbanceText = ensureSentence capitalizeFirst(parts?.disturbance?.text)
-    reflectionText = ensureSentence capitalizeFirst(parts?.reflection?.text)
-    realizationText = ensureSentence "That was when I realized #{lowerFirst(parts?.realization?.text)}"
+    expandedKey = "expanded_story_parts"
+    expandedEntry = M.theLowdown expandedKey
+    expanded = expandedEntry?.value
+    if expanded is undefined
+      if typeof expandedEntry?.waitFor is 'function'
+        expanded = await expandedEntry.waitFor()
+      else if expandedEntry?.notifier?
+        expanded = await expandedEntry.notifier
+    throw new Error "[#{stepName}] Missing input key '#{expandedKey}'" if expanded is undefined
 
-    p1 = "#{sceneText} #{arrivalText}".trim()
-    p2 = "#{disturbanceText} #{reflectionText}".trim()
-    p3 = realizationText
+    expandedParts = expanded.expanded_parts ? {}
 
-    storyText = "#{p1}\n\n#{p2}\n\n#{p3}\n"
+    sceneText = expandedParts.scene?.text ? ''
+    arrivalText = expandedParts.arrival?.text ? ''
+    disturbanceText = expandedParts.disturbance?.text ? ''
+    reflectionText = expandedParts.reflection?.text ? ''
+    realizationText = expandedParts.realization?.text ? ''
+
+    text = joinParagraphs [
+      sceneText
+      arrivalText
+      disturbanceText
+      reflectionText
+      realizationText
+    ]
 
     out =
-      story_id: parts?.story_id
-      text: storyText
-      parts: parts
+      story_id: expanded.story_id ? null
+      text: text
+      parts: expanded
 
-    M.put stepName, 'story', out
+    M.saveThis "story", out
     M.saveThis "done:#{stepName}", true
     return
