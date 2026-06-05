@@ -447,15 +447,6 @@ installGetStepParam = (M) ->
 
     undefined
 
-installNeedPut = (M) ->
-  M.need = (stepName, key) ->
-    e = M.theLowdown("in:#{stepName}:#{key}")
-    v = e.value
-    v = await e.notifier if v is undefined
-    v
-  M.put = (stepName, key, value) ->
-    M.saveThis "out:#{stepName}:#{key}", value
-
 # -------------------------------------------------------------------
 # MODIFY main()
 # -------------------------------------------------------------------
@@ -498,7 +489,6 @@ main = ->
   M.saveThis "params/_global.json", globalParams
 
   installGetStepParam M
-  installNeedPut M
 
   pipeState = S.readPipeline()
   if pipeState?.status is 'shutdown'
@@ -532,7 +522,7 @@ main = ->
     source = if isPlainObject(spec) then spec.source ? spec.key else spec
     unless source?
       if producedBy[artifactKey]?
-        outEntry = M.theLowdown("artifact:#{artifactKey}")
+        outEntry = M.theLowdown(artifactKey)
         outVal = outEntry.value
         outVal = await outEntry.notifier if outVal is undefined
         return outVal
@@ -554,18 +544,17 @@ main = ->
     if target?
       writeArtifactFile(target, value, CWD)
       M.saveThis(target, value)
-    M.saveThis("artifact:#{artifactKey}", value)
+    M.saveThis(artifactKey, value)
 
   wireInputsForStep = (stepName) ->
     for k in (steps[stepName].needs ? [])
       v = await resolveArtifact(k)
-      M.saveThis "in:#{stepName}:#{k}", v
+      M.saveThis k, v
 
   collectOutputsForStep = (stepName) ->
     for k in (steps[stepName].makes ? [])
-      outKey = "out:#{stepName}:#{k}"
-      e = M.theLowdown(outKey)
-      throw new Error "Step #{stepName} missing required output #{outKey}" if e.value is undefined
+      e = M.theLowdown(k)
+      throw new Error "Step #{stepName} missing required output #{k}" if e.value is undefined
       await materializeArtifact(k, e.value)
 
   # ---- remainder of main() UNCHANGED ----
@@ -632,7 +621,9 @@ main = ->
     doneFinals = true
     anyFail = false
     for f in finals
-      continue unless scheduled.has f
+      unless scheduled.has f
+        doneFinals = false
+        continue
       v = M.theLowdown("done:#{f}").value
       if v isnt true and v isnt false then doneFinals = false
       if v is false then anyFail = true
