@@ -30,6 +30,7 @@ logs/
 state/
 experiment.yaml
 pipeline.json
+runtime.sqlite
 
 # macOS
 .DS_Store
