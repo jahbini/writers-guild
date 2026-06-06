@@ -32,6 +32,7 @@ state/
 experiment.yaml
 pipeline.json
 runtime.sqlite
+build/
 
 # Test artifacts (smoke test outputs; harness itself is tracked)
 test/*.json

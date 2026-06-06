@@ -28,5 +28,7 @@ oracle_brief:
   depends_on: [assemble_ingredients]
   needs: [ingredient_bundle]
   makes: [diary_brief]
-  model: mlx-community/Qwen2.5-7B-Instruct-4bit
-  max_tokens: 1024
+  # Local quantized model produced by the `download_model` recipe.
+  # Run `pipeline: download_model` once to populate build/model4/.
+  model: build/model4
+  max_tokens: 400
