@@ -4,12 +4,9 @@ run:
   params_dir: params
 
 artifacts:
-  story_library:        { target: out/story_library.json }
-  story_recipe:         { target: out/story_recipe.json }
-  story_parts:          { target: out/story_parts.json }
-  expanded_story_parts: { target: out/expanded_story_parts.json }
-  story:                { target: out/story.json }
-  story_polished: { target: out/story_polished.json }
+  story_library:     { target: out/story_library.json }
+  ingredient_bundle: { target: out/ingredient_bundle.json }
+  diary_brief:       { target: out/diary_brief.json }
 
 load_library:
   run: jim/load_library.coffee
@@ -18,33 +15,18 @@ load_library:
   makes: [story_library]
   library_file: data/jim_story_library.yaml
 
-select_story_recipe:
-  run: jim/select_story_recipe.coffee
+assemble_ingredients:
+  run: jim/assemble_ingredients.coffee
   depends_on: [load_library]
   needs: [story_library]
-  makes: [story_recipe]
+  makes: [ingredient_bundle]
   story_id: jim_0001
+  arc_shapes_file: data/arc_shapes.yaml
 
-resolve_story_parts:
-  run: jim/resolve_story_parts.coffee
-  depends_on: [select_story_recipe]
-  needs: [story_library, story_recipe]
-  makes: [story_parts]
-
-expand_story_parts:
-  run: jim/expand_story_parts.coffee
-  depends_on: [resolve_story_parts]
-  needs: [story_parts]
-  makes: [expanded_story_parts]
-
-assemble_story:
-  run: jim/assemble_story.coffee
-  depends_on: [expand_story_parts]
-  needs: [expanded_story_parts]
-  makes: [story]
-
-polish_story:
-  run: jim/polish_story.coffee
-  depends_on: [assemble_story]
-  needs: [story]
-  makes: [story_polished]
+oracle_brief:
+  run: jim/oracle_brief.coffee
+  depends_on: [assemble_ingredients]
+  needs: [ingredient_bundle]
+  makes: [diary_brief]
+  model: mlx-community/Qwen2.5-7B-Instruct-4bit
+  max_tokens: 1024

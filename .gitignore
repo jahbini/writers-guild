@@ -19,7 +19,8 @@ env/
 .ipynb_checkpoints/
 
 # Local data & outputs
-data/
+data/*
+!data/*.yaml
 data_report.json
 eval_out/
 run*/
