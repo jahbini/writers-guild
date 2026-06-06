@@ -48,7 +48,6 @@ assemble_ingredients:
   depends_on: [resolve_story_parts]
   needs: [story_library, story_parts]
   makes: [ingredient_bundle]
-  arc_shapes_file: data/arc_shapes.yaml
 
 oracle_brief:
   run: jim/oracle_brief.coffee

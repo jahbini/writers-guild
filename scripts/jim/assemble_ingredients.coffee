@@ -1,13 +1,7 @@
-fs   = require 'fs'
-path = require 'path'
-yaml = require 'js-yaml'
-
 @step =
   desc: "Assemble ingredient bundle from resolved story_parts for the oracle composer"
 
   action: (M, stepName) ->
-    arcShapesFile = M.getStepParam(stepName, 'arc_shapes_file') ? 'data/arc_shapes.yaml'
-
     library = M.theLowdown('story_library').value
     throw new Error "[#{stepName}] story_library missing from memo" unless library?
 
@@ -20,22 +14,11 @@ yaml = require 'js-yaml'
     source = parts.source_parts ? parts
 
     # Pull story-level metadata (motif, arc_shape, voice notes, world cast).
-    # When per-beat overrides came from the UI, the story_id may still be the
-    # named default; we look up its metadata for arc + motif but use the
-    # resolved parts as the anchors.
     storyDef = library.stories?[storyId] ? {}
     arcName  = storyDef.arc_shape ? 'st_johns_standard'
 
-    execDir = M.theLowdown('env/EXEC')?.value ? process.cwd()
-    cwdDir  = M.theLowdown('env/CWD')?.value  ? process.cwd()
-    resolveInputPath = (p) ->
-      return p if path.isAbsolute(p)
-      candidate = path.resolve(cwdDir, p)
-      return candidate if fs.existsSync(candidate)
-      path.resolve(execDir, p)
-
-    arcDoc = yaml.load fs.readFileSync(resolveInputPath(arcShapesFile), 'utf8')
-    arcShapes = arcDoc.arc_shapes ? {}
+    # arc_shapes come from the same library artifact now (merged in load_library).
+    arcShapes = library.arc_shapes ? {}
     arcShape  = arcShapes[arcName]
     throw new Error "[#{stepName}] Unknown arc_shape #{arcName}" unless arcShape?
     unless Array.isArray(arcShape.emotions) and arcShape.emotions.length is 5

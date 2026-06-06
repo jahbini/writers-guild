@@ -25,11 +25,12 @@ STORY_ID  = process.argv[2] ? 'jim_0001'
 makeMemo = ->
   store = {}
   params =
+    load_library:
+      library_file: 'data/jim_story_library.yaml'
     select_story_recipe:
       story_id: STORY_ID
     resolve_story_parts: {}
-    assemble_ingredients:
-      arc_shapes_file: 'data/arc_shapes.yaml'
+    assemble_ingredients: {}
 
   memo =
     saveThis: (k, v) -> store[k] = v
@@ -47,27 +48,14 @@ makeMemo = ->
 # Load the real library YAML into the memo, then drive the step.
 # ------------------------------------------------------------
 main = ->
-  libraryPath = path.join(REPO_ROOT, 'data/jim_story_library.yaml')
-  unless fs.existsSync(libraryPath)
-    die "Missing #{libraryPath}"
-
-  doc = yaml.load fs.readFileSync(libraryPath, 'utf8')
-  storyLibrary =
-    source_file: libraryPath
-    library: doc.library
-    stories: doc.stories
-
   M = makeMemo()
-  M.saveThis 'story_library', storyLibrary
 
-  # Drive select_story_recipe + resolve_story_parts through the same Memo,
-  # so assemble_ingredients reads a real story_parts shape — the same chain
-  # the live pipeline runs.
-  for stepName in ['select_story_recipe', 'resolve_story_parts']
+  # Drive the full deterministic chain — load_library now does the flatten,
+  # so the harness no longer pre-seeds story_library.
+  for stepName in ['load_library', 'select_story_recipe', 'resolve_story_parts']
     mod = require path.join(REPO_ROOT, "scripts/jim/#{stepName}.coffee")
     s = mod.step ? mod['@step'] ? require.cache[require.resolve(path.join(REPO_ROOT, "scripts/jim/#{stepName}.coffee"))]?.exports?.step
     die "Could not load @step from #{stepName}" unless s?.action?
-    # select_story_recipe takes story_id; both steps consult getStepParam
     await s.action(M, stepName)
 
   stepModule = require path.join(REPO_ROOT, 'scripts/jim/assemble_ingredients.coffee')
