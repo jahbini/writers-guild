@@ -9,6 +9,7 @@ artifacts:
   story_parts:       { target: out/story_parts.json }
   ingredient_bundle: { target: out/ingredient_bundle.json }
   diary_brief:       { target: out/diary_brief.json }
+  diary_file:        { target: out/diary_file.json }
 
 load_library:
   run: jim/load_library.coffee
@@ -56,3 +57,12 @@ oracle_brief:
   makes: [diary_brief]
   # Runtime tuning (model, max_tokens) lives in override/jim_story.yaml
   # per GPT/CONVENTIONS.md.
+
+# Final step — writes diary/<recipe>_<timestamp>.yaml so the UI's
+# Diary Files panel surfaces every run as a separate item.
+write_diary:
+  run: jim/write_diary.coffee
+  depends_on: [oracle_brief]
+  needs: [ingredient_bundle, diary_brief]
+  makes: [diary_file]
+  recipe_name: jim_story

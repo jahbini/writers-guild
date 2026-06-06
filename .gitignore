@@ -34,6 +34,7 @@ pipeline.json
 runtime.sqlite
 build/
 control_override.yaml
+diary/
 
 # Test artifacts (smoke test outputs; harness itself is tracked)
 test/*.json
