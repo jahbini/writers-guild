@@ -218,6 +218,81 @@
       min-height: 260px;
       resize: vertical;
     }
+    .ui-grouped-picker {
+      display: grid;
+      gap: 4px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 6px;
+      font-size: 13px;
+    }
+    .ui-grouped-picker .picker-label {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .ui-grouped-picker .picker-default {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 6px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+    .ui-grouped-picker details {
+      border-top: 1px solid var(--line);
+    }
+    .ui-grouped-picker details:first-of-type {
+      border-top: none;
+    }
+    .ui-grouped-picker summary {
+      cursor: pointer;
+      padding: 4px 6px;
+      user-select: none;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--ink);
+    }
+    .ui-grouped-picker summary::-webkit-details-marker { display: none; }
+    .ui-grouped-picker summary::before {
+      content: '▶';
+      display: inline-block;
+      font-size: 10px;
+      width: 12px;
+      transition: transform 0.1s;
+      color: var(--muted);
+    }
+    .ui-grouped-picker details[open] summary::before { transform: rotate(90deg); }
+    .ui-grouped-picker .group-count {
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .ui-grouped-picker details ul {
+      list-style: none;
+      margin: 0;
+      padding: 2px 6px 6px 26px;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    .ui-grouped-picker details li {
+      padding: 0;
+    }
+    .ui-grouped-picker details li label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 4px;
+      cursor: pointer;
+      color: var(--ink);
+      font-size: 13px;
+    }
+    .ui-grouped-picker details li label:hover {
+      background: rgba(0, 0, 0, 0.04);
+      border-radius: 4px;
+    }
     .yaml-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -704,23 +779,32 @@
           `;
         }
         if (field.type === 'grouped_dropdown') {
-          const base = `<option value="" ${!field.value ? 'selected' : ''}>(default)</option>`;
-          const groups = (field.groups || []).map((group) => {
-            const opts = (group.options || []).map((row) => `
-              <option value="${row.key}" ${row.key === field.value ? 'selected' : ''}>${row.label}</option>
-            `).join('');
-            // bare-list shelves come back with label '' — render as
-            // ungrouped options rather than an empty <optgroup>.
-            if (!group.label) return opts;
-            return `<optgroup label="${group.label}">${opts}</optgroup>`;
+          const safe = field.path.replace(/[^a-zA-Z0-9_]/g, '_');
+          const radioName = `picker_${safe}`;
+          const escapeAttr = (s) => String(s).replace(/"/g, '&quot;');
+          const currentValue = field.value || '';
+          const groupsHtml = (field.groups || []).map((group) => {
+            const opts = (group.options || []).map((row) => {
+              const checked = row.key === currentValue ? 'checked' : '';
+              return `<li><label><input type="radio" name="${radioName}" value="${escapeAttr(row.key)}" ${checked}><span>${row.label}</span></label></li>`;
+            }).join('');
+            // bare-list shelves come back with label '' — render the
+            // options inline without a collapsible header.
+            if (!group.label) {
+              return `<ul class="picker-flat">${opts}</ul>`;
+            }
+            const containsSelected = (group.options || []).some((row) => row.key === currentValue);
+            const openAttr = containsSelected ? 'open' : '';
+            const count = (group.options || []).length;
+            return `<details ${openAttr}><summary><span>${group.label}</span><span class="group-count">${count}</span></summary><ul>${opts}</ul></details>`;
           }).join('');
+          const defaultChecked = !currentValue ? 'checked' : '';
           return `
-            <label>
-              ${field.label}
-              <select class="ui-dropdown" data-path="${field.path}" data-current-value="${field.value || ''}">
-                ${base}${groups}
-              </select>
-            </label>
+            <div class="ui-grouped-picker" data-path="${field.path}">
+              <div class="picker-label">${field.label}</div>
+              <label class="picker-default"><input type="radio" name="${radioName}" value="" ${defaultChecked}><span>(default)</span></label>
+              ${groupsHtml}
+            </div>
           `;
         }
         if (field.type === 'textarea') {
@@ -739,6 +823,21 @@
       uiTarget.querySelectorAll('.ui-dropdown').forEach((node) => {
         const currentValue = node.getAttribute('data-current-value') || '';
         node.value = currentValue;
+      });
+
+      // Accordion behavior: in each .ui-grouped-picker, opening one
+      // <details> closes the others. `toggle` events don't bubble, so
+      // we listen in the capture phase per picker.
+      uiTarget.querySelectorAll('.ui-grouped-picker').forEach((picker) => {
+        if (picker.dataset.accordionWired === '1') return;
+        picker.dataset.accordionWired = '1';
+        picker.addEventListener('toggle', (event) => {
+          const target = event.target;
+          if (!target || target.tagName !== 'DETAILS' || !target.open) return;
+          picker.querySelectorAll('details').forEach((d) => {
+            if (d !== target && d.open) d.open = false;
+          });
+        }, true);
       });
 
       // The previous innerHTML assignment destroyed any existing
@@ -840,6 +939,12 @@
         const path = node.getAttribute('data-path');
         if (!path) return;
         rows[path] = node.value;
+      });
+      document.querySelectorAll('.ui-grouped-picker').forEach((node) => {
+        const path = node.getAttribute('data-path');
+        if (!path) return;
+        const selected = node.querySelector('input[type=radio]:checked');
+        rows[path] = selected ? selected.value : '';
       });
       return rows;
     }
@@ -1125,6 +1230,9 @@
       let value = '';
       if (node.classList.contains('ui-checkbox')) {
         value = node.checked;
+      } else if (node.classList.contains('ui-grouped-picker')) {
+        const selected = node.querySelector('input[type=radio]:checked');
+        value = selected ? selected.value : '';
       } else {
         value = node.value;
       }
@@ -1434,10 +1542,18 @@
       });
     });
     document.addEventListener('change', (event) => {
-      if (!event.target.classList.contains('ui-checkbox') && !event.target.classList.contains('ui-dropdown')) return;
+      const tgt = event.target;
+      let node = null;
+      if (tgt.classList.contains('ui-checkbox') || tgt.classList.contains('ui-dropdown')) {
+        node = tgt;
+      } else if (tgt.type === 'radio') {
+        const picker = tgt.closest('.ui-grouped-picker');
+        if (picker) node = picker;
+      }
+      if (!node) return;
       controlsDirty = true;
       byId('control-override-status').textContent = 'rebuilding control override from recipe UI fields...';
-      saveSingleUiField(event.target).catch((err) => {
+      saveSingleUiField(node).catch((err) => {
         byId('control-override-status').textContent = String(err.message || err);
       });
     });
