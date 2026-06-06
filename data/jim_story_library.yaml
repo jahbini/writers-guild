@@ -112,191 +112,212 @@ library:
       - pauses to listen
       - shakes their head
   disturbances:
-    mind_worm:
-      - People repeating slogans without knowing their origin
-      - Talk radio turning irritation into anger
-      - News cycles that keep everyone slightly afraid
-      - Arguments online that nobody actually reads
-      - Crowds believing headlines more than events
-      - People forwarding rumors before checking them
-      - Outrage spreading faster than facts
-      - Neighbors repeating the same complaint every week
-      - Conversations that sound identical across town
-      - People defending ideas they heard yesterday
-      - Anger triggered by something nobody witnessed
-      - Stories growing larger each time they are told
-      - Rumors traveling faster than the ferry
-      - Citizens arguing about something trivial
-      - People mistaking repetition for truth
-      - Every café table repeating the same complaint
-      - Fear spreading after a vague warning
-      - Strangers arguing over something they read online
-      - Old myths reappearing in new language
-      - People quoting experts they never read
-      - Conspiracy theories appearing overnight
-      - Neighbors repeating the same political phrase
-      - Arguments fueled by half‑remembered facts
-      - People sharing outrage as entertainment
-      - Town gossip mutating like a virus
-      - Citizens repeating statistics they never checked
-      - Social media amplifying the loudest voices
-      - People outraged by headlines they didn’t finish
-      - Political slogans replacing conversation
-      - Every argument ending with the same talking points
-      - Citizens afraid of something nobody can explain
-      - People repeating historical myths
-      - Rumors circulating through the harbor bars
-      - Online arguments spreading into real life
-      - Citizens afraid to question popular ideas
-      - People repeating warnings without evidence
-      - Old grievances revived by new rumors
-      - Anger spreading through short video clips
-      - Citizens arguing about a misunderstood event
-      - People repeating jokes that hide hostility
-      - Neighbors repeating exaggerated crime stories
-      - Online debates replacing real discussions
-      - People defending opinions they barely hold
-      - Arguments fueled by edited videos
-      - Citizens convinced the world is collapsing
-      - People repeating numbers without context
-      - Fear spreading through vague statistics
-      - Town meetings dominated by loud voices
-      - People mistaking sarcasm for fact
-      - Citizens arguing about something trivial
-      - People repeating predictions of disaster
-      - Rumors spreading through messaging apps
-      - Citizens outraged by a misunderstanding
-      - People repeating phrases designed to provoke
-      - Arguments escalating over tiny differences
-      - Citizens sharing fear disguised as advice
-      - People defending beliefs as identity
-      - Rumors spreading through humor
-      - People repeating accusations without evidence
-      - Citizens afraid of unfamiliar ideas
-      - Arguments spreading through copied posts
-      - Citizens repeating warnings from strangers
-      - People repeating stories they cannot verify
-      - Rumors growing through exaggeration
-      - Citizens convinced everyone else is wrong
-      - People repeating dramatic interpretations
-      - Arguments fueled by selective memory
-      - Citizens sharing fear as if it were wisdom
-      - People repeating authority without evidence
-      - Rumors spreading through casual conversation
-      - Citizens misinterpreting harmless events
-      - People repeating emotional headlines
-      - Arguments spreading faster than explanations
+    repetition:
       - Citizens repeating ancient fears in modern language
-      - People repeating slogans designed to divide
-      - Rumors amplified by uncertainty
-      - Citizens mistaking confidence for knowledge
-      - People repeating insults disguised as arguments
-      - Arguments spreading through short messages
-      - Citizens repeating stories that flatter them
-      - People repeating beliefs from their group
-      - Rumors spreading through half‑heard conversations
-      - Citizens defending ideas they barely understand
-      - People repeating emotional reactions
-      - Arguments growing through misunderstanding
-      - Citizens repeating warnings about the future
-      - People repeating convenient explanations
-      - Rumors spreading through community gossip
-      - Citizens reacting before thinking
-      - People repeating fear from television
-      - Arguments escalating through pride
       - Citizens repeating simple answers to complex problems
-      - People repeating what their friends believe
-      - Rumors spreading through casual speculation
-      - Citizens repeating anger from strangers
+      - Citizens repeating statistics they never checked
+      - Citizens repeating stories that flatter them
+      - Citizens repeating warnings about the future
+      - Every café table repeating the same complaint
+      - Neighbors repeating the same complaint every week
+      - Neighbors repeating the same political phrase
+      - People mistaking repetition for truth
+      - People repeating accusations without evidence
+      - People repeating authority without evidence
+      - People repeating convenient explanations
+      - People repeating dramatic interpretations
+      - People repeating emotional headlines
+      - People repeating emotional reactions
       - People repeating familiar narratives
-      - Arguments that nobody intends to resolve
+      - People repeating numbers without context
+      - People repeating slogans without knowing their origin
+      - People repeating stories they cannot verify
+      - People repeating warnings without evidence
+      - People repeating what their friends believe
+    media:
+      - Anger spreading through short video clips
+      - Arguments online that nobody actually reads
+      - Arguments spreading through copied posts
+      - Arguments spreading through short messages
+      - Online arguments spreading into real life
+      - Online debates replacing real discussions
+      - People repeating fear from television
+      - Rumors spreading through messaging apps
+      - Social media amplifying the loudest voices
+      - Strangers arguing over something they read online
+      - Talk radio turning irritation into anger
+    fear:
+      - Citizens afraid of something nobody can explain
+      - Citizens afraid of unfamiliar ideas
+      - Citizens afraid to question popular ideas
       - Citizens repeating stories that justify fear
-      - People repeating beliefs because everyone else does
+      - Citizens sharing fear as if it were wisdom
+      - Citizens sharing fear disguised as advice
+      - Fear spreading after a vague warning
+      - Fear spreading through vague statistics
+      - News cycles that keep everyone slightly afraid
+      - People repeating predictions of disaster
+    credulity:
+      - Crowds believing headlines more than events
+    rumor:
+      - Conspiracy theories appearing overnight
+      - Neighbors repeating exaggerated crime stories
+      - Old grievances revived by new rumors
+      - Old myths reappearing in new language
+      - People forwarding rumors before checking them
+      - People repeating historical myths
+      - Rumors amplified by uncertainty
+      - Rumors circulating through the harbor bars
+      - Rumors growing through exaggeration
       - Rumors spreading because silence feels uncomfortable
+      - Rumors spreading through casual conversation
+      - Rumors spreading through casual speculation
+      - Rumors spreading through community gossip
+      - Rumors spreading through half‑heard conversations
+      - Rumors spreading through humor
+      - Rumors traveling faster than the ferry
+      - Town gossip mutating like a virus
+    outrage:
+      - Anger triggered by something nobody witnessed
+      - Arguments escalating over tiny differences
+      - Arguments escalating through pride
+      - Arguments fueled by edited videos
+      - Arguments fueled by half‑remembered facts
+      - Arguments fueled by selective memory
+      - Arguments growing through misunderstanding
+      - Arguments spreading faster than explanations
+      - Arguments that nobody intends to resolve
+      - Citizens arguing about a misunderstood event
+      - Citizens arguing about something trivial
+      - Citizens arguing about something trivial
+      - Citizens outraged by a misunderstanding
+      - Citizens repeating anger from strangers
+      - Citizens repeating warnings from strangers
+      - Every argument ending with the same talking points
+      - Outrage spreading faster than facts
+      - People outraged by headlines they didn’t finish
+      - People repeating insults disguised as arguments
+      - People repeating jokes that hide hostility
+      - People repeating phrases designed to provoke
+      - People repeating slogans designed to divide
+      - People sharing outrage as entertainment
+    other:
+      - Citizens convinced everyone else is wrong
+      - Citizens convinced the world is collapsing
+      - Citizens misinterpreting harmless events
+      - Citizens mistaking confidence for knowledge
+      - Citizens reacting before thinking
+      - Conversations that sound identical across town
+      - People mistaking sarcasm for fact
+      - People quoting experts they never read
+      - Political slogans replacing conversation
+      - Stories growing larger each time they are told
+      - Town meetings dominated by loud voices
+    identity:
+      - Citizens defending ideas they barely understand
+      - People defending beliefs as identity
+      - People defending ideas they heard yesterday
+      - People defending opinions they barely hold
+      - People repeating beliefs because everyone else does
+      - People repeating beliefs from their group
   reflections:
-    - Ideas move through towns like fog
-    - Rumors spread like sparks in dry grass
-    - Fear runs through crowds like electricity
-    - Arguments multiply like bacteria
-    - Truth travels slower than gossip
-    - Memes drift like pollen in spring
-    - Thoughts echo like bells across water
-    - Habits grow like weeds in quiet corners
-    - Outrage burns like quick paper
-    - Beliefs settle like dust on shelves
-    - Questions ripple like stones in water
-    - Stories travel like migrating birds
-    - Attention flows like a tide
-    - Noise rises like storm waves
-    - Doubts creep like evening shadows
-    - Certainty freezes like winter ice
-    - Curiosity opens like a window
-    - Lies stack like crooked bricks
-    - Patterns appear like constellations
-    - Wisdom grows like slow roots
-    - Anger spreads like wildfire
-    - Calm settles like snow
-    - Rumors bounce like echoes
-    - Ideas bloom like algae in sunlight
-    - Confusion swirls like harbor mist
-    - Truth flickers like a lighthouse
-    - Thoughts gather like clouds
-    - Understanding unfolds like a map
-    - Suspicion crawls like ivy
-    - Excuses pile like driftwood
-    - Insight strikes like lightning
-    - Arguments circle like gulls
-    - Noise fills a room like smoke
-    - Silence spreads like calm water
-    - Hope glows like dawn light
-    - Doubt hums like distant engines
-    - Memory drifts like seaweed
-    - Belief anchors like a heavy stone
-    - Curiosity sparks like flint
-    - Rumor floats like a loose buoy
-    - Old wisdom sleeps like buried treasure
-    - Human habits turn like seasons
+    water:
+      - Attention flows like a tide
+      - Confusion swirls like harbor mist
+      - Excuses pile like driftwood
+      - Human habits turn like seasons
+      - Ideas move through towns like fog
+      - Memes drift like pollen in spring
+      - Memory drifts like seaweed
+      - Noise rises like storm waves
+      - Questions ripple like stones in water
+      - Rumor floats like a loose buoy
+      - Silence spreads like calm water
+      - Thoughts echo like bells across water
+    fire and light:
+      - Anger spreads like wildfire
+      - Curiosity sparks like flint
+      - Fear runs through crowds like electricity
+      - Hope glows like dawn light
+      - Ideas bloom like algae in sunlight
+      - Insight strikes like lightning
+      - Outrage burns like quick paper
+      - Rumors spread like sparks in dry grass
+      - Truth flickers like a lighthouse
+    other:
+      - Arguments multiply like bacteria
+      - Beliefs settle like dust on shelves
+      - Doubts creep like evening shadows
+      - Patterns appear like constellations
+      - Truth travels slower than gossip
+    growth:
+      - Habits grow like weeds in quiet corners
+      - Stories travel like migrating birds
+      - Suspicion crawls like ivy
+      - Wisdom grows like slow roots
+    weather:
+      - Calm settles like snow
+      - Certainty freezes like winter ice
+      - Curiosity opens like a window
+      - Thoughts gather like clouds
+    structure:
+      - Belief anchors like a heavy stone
+      - Lies stack like crooked bricks
+      - Old wisdom sleeps like buried treasure
+      - Understanding unfolds like a map
+    motion and sound:
+      - Arguments circle like gulls
+      - Doubt hums like distant engines
+      - Noise fills a room like smoke
+      - Rumors bounce like echoes
   realizations:
-    - The loudest ideas are rarely the wisest
-    - Most people defend habits more than truth
-    - Fear rarely waits for evidence
-    - A repeated lie eventually sounds ordinary
-    - Thinking is harder than repeating
-    - Crowds prefer certainty over accuracy
-    - Noise often hides the simplest truths
-    - People notice drama before wisdom
-    - Attention decides what survives
-    - Silence can be wiser than argument
-    - Confusion grows where curiosity dies
-    - Habits shape beliefs quietly
-    - Anger spreads faster than understanding
-    - History mostly repeats emotions
-    - Wisdom arrives slowly and leaves quietly
-    - Ideas survive by repetition
-    - Truth usually whispers
-    - Simple observations outlive loud theories
-    - Human nature loves patterns
-    - Most arguments protect identity
-    - The easiest thought is the borrowed one
-    - Fear thrives on imagination
-    - Reality rarely matches the rumor
-    - Patience reveals hidden patterns
-    - Attention is the gatekeeper of thought
-    - Noise rewards exaggeration
-    - Habits build invisible prisons
-    - Wisdom begins with noticing
-    - Anger burns quickly but thinking lasts
-    - Ideas become culture through repetition
-    - People trust familiar stories
-    - Calm thinking is revolutionary
-    - Questions weaken false certainty
-    - Truth prefers patient minds
-    - Fear feeds the loudest voices
-    - Small insights reshape big ideas
-    - Understanding requires slowing down
-    - Most wisdom hides in ordinary moments
-    - Human beings repeat themselves
-    - Observation is the beginning of wisdom
+    noise:
+      - Anger burns quickly but thinking lasts
+      - Noise rewards exaggeration
+      - Silence can be wiser than argument
+      - The loudest ideas are rarely the wisest
+    repetition:
+      - A repeated lie eventually sounds ordinary
+      - Habits build invisible prisons
+      - Habits shape beliefs quietly
+      - History mostly repeats emotions
+      - Human beings repeat themselves
+      - Ideas become culture through repetition
+      - Ideas survive by repetition
+      - Most people defend habits more than truth
+      - People trust familiar stories
+      - The easiest thought is the borrowed one
+      - Thinking is harder than repeating
+    fear:
+      - Fear feeds the loudest voices
+      - Fear rarely waits for evidence
+      - Fear thrives on imagination
+    crowd:
+      - Crowds prefer certainty over accuracy
+      - Human nature loves patterns
+      - Most arguments protect identity
+      - Most wisdom hides in ordinary moments
+    truth:
+      - Anger spreads faster than understanding
+      - Noise often hides the simplest truths
+      - Reality rarely matches the rumor
+      - Small insights reshape big ideas
+      - Truth prefers patient minds
+      - Truth usually whispers
+      - Understanding requires slowing down
+      - Wisdom arrives slowly and leaves quietly
+    noticing:
+      - Attention decides what survives
+      - Attention is the gatekeeper of thought
+      - Observation is the beginning of wisdom
+      - People notice drama before wisdom
+      - Simple observations outlive loud theories
+      - Wisdom begins with noticing
+    other:
+      - Calm thinking is revolutionary
+      - Confusion grows where curiosity dies
+      - Patience reveals hidden patterns
+      - Questions weaken false certainty
 arc_shapes:
   settling:
     desc: A day that begins at unease and resolves into quiet.

@@ -82,42 +82,57 @@ yaml = require 'js-yaml'
       s
 
     # ─── flatten each shelf ────────────────────────────────────────────
-    flatten = (sourceShelf, makeEntry, isGrouped) ->
+    # Auto-detects shape: bare list, dict-of-lists, or legacy dict-of-leaves.
+    flatten = (sourceShelf, makeEntry) ->
       out = {}
-      if isGrouped
-        # dict-of-lists: {harbor: [...], cafe: [...]}
-        for bucketName, items of (sourceShelf ? {})
-          continue unless Array.isArray(items)
-          for item in items
-            entry = makeEntry(item, bucketName)
-            key = slug(entry.text, out)
-            out[key] = entry
-      else
-        # bare list: [...]
-        for item in (sourceShelf ? [])
+      if Array.isArray(sourceShelf)
+        for item in sourceShelf
+          continue unless typeof item is 'string'
           entry = makeEntry(item, null)
           key = slug(entry.text, out)
           out[key] = entry
+      else if sourceShelf? and typeof sourceShelf is 'object'
+        for bucketName, items of sourceShelf
+          if Array.isArray(items)
+            # dict-of-lists: {harbor: [...], cafe: [...]}
+            for item in items
+              continue unless typeof item is 'string'
+              entry = makeEntry(item, bucketName)
+              key = slug(entry.text, out)
+              out[key] = entry
+          else if items? and typeof items is 'object' and items.text?
+            # legacy dict-of-leaves: {key: {text, ...}}
+            entry = { text: items.text }
+            entry[k] = v for own k, v of items when k isnt 'text'
+            key = slug(entry.text, out)
+            out[key] = entry
       out
 
     flatLibrary =
-      scenes: flatten(src.scenes, ((text, location) ->
+      scenes: flatten(src.scenes, (text, location) ->
         e = { text }
         e.location = location if location? and location isnt 'unplaced'
-        e), true)
+        e)
 
-      characters: flatten(src.characters, ((gesture, name) ->
+      characters: flatten(src.characters, (gesture, name) ->
         # Reconstruct the full sentence by prepending the character name.
         full = if name? then "#{name} #{gesture}" else gesture
-        { text: full, character: name }), true)
+        { text: full, character: name })
 
-      disturbances: flatten(src.disturbances, ((text, theme) ->
+      disturbances: flatten(src.disturbances, (text, theme) ->
         e = { text }
         e.theme = theme if theme? and theme isnt 'untagged'
-        e), true)
+        e)
 
-      reflections:  flatten(src.reflections,  ((text) -> { text }), false)
-      realizations: flatten(src.realizations, ((text) -> { text }), false)
+      reflections: flatten(src.reflections, (text, family) ->
+        e = { text }
+        e.family = family if family?
+        e)
+
+      realizations: flatten(src.realizations, (text, family) ->
+        e = { text }
+        e.family = family if family?
+        e)
 
     # ─── stories: resolve literal-text beat refs to flat keys ─────────
     beatShelf = {
