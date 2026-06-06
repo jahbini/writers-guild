@@ -33,6 +33,7 @@ experiment.yaml
 pipeline.json
 runtime.sqlite
 build/
+control_override.yaml
 
 # Test artifacts (smoke test outputs; harness itself is tracked)
 test/*.json

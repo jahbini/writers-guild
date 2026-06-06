@@ -25,8 +25,10 @@ STORY_ID  = process.argv[2] ? 'jim_0001'
 makeMemo = ->
   store = {}
   params =
-    assemble_ingredients:
+    select_story_recipe:
       story_id: STORY_ID
+    resolve_story_parts: {}
+    assemble_ingredients:
       arc_shapes_file: 'data/arc_shapes.yaml'
 
   memo =
@@ -57,6 +59,16 @@ main = ->
 
   M = makeMemo()
   M.saveThis 'story_library', storyLibrary
+
+  # Drive select_story_recipe + resolve_story_parts through the same Memo,
+  # so assemble_ingredients reads a real story_parts shape — the same chain
+  # the live pipeline runs.
+  for stepName in ['select_story_recipe', 'resolve_story_parts']
+    mod = require path.join(REPO_ROOT, "scripts/jim/#{stepName}.coffee")
+    s = mod.step ? mod['@step'] ? require.cache[require.resolve(path.join(REPO_ROOT, "scripts/jim/#{stepName}.coffee"))]?.exports?.step
+    die "Could not load @step from #{stepName}" unless s?.action?
+    # select_story_recipe takes story_id; both steps consult getStepParam
+    await s.action(M, stepName)
 
   stepModule = require path.join(REPO_ROOT, 'scripts/jim/assemble_ingredients.coffee')
   step = stepModule.step ? stepModule['@step']

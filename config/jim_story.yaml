@@ -5,6 +5,8 @@ run:
 
 artifacts:
   story_library:     { target: out/story_library.json }
+  story_recipe:      { target: out/story_recipe.json }
+  story_parts:       { target: out/story_parts.json }
   ingredient_bundle: { target: out/ingredient_bundle.json }
   diary_brief:       { target: out/diary_brief.json }
 
@@ -15,12 +17,37 @@ load_library:
   makes: [story_library]
   library_file: data/jim_story_library.yaml
 
-assemble_ingredients:
-  run: jim/assemble_ingredients.coffee
+# Canonical UI-facing step: 5 dropdowns for the beats; empty selection
+# falls back to the named story_id from data/jim_story_library.yaml.
+select_story_recipe:
+  run: jim/select_story_recipe.coffee
   depends_on: [load_library]
   needs: [story_library]
-  makes: [ingredient_bundle]
+  makes: [story_recipe]
   story_id: jim_0001
+  scene:       [ UI_dropdown, data/jim_story_library.yaml/library/scenes ]
+  arrival:     [ UI_dropdown, data/jim_story_library.yaml/library/characters ]
+  disturbance: [ UI_dropdown, data/jim_story_library.yaml/library/disturbances ]
+  reflection:  [ UI_dropdown, data/jim_story_library.yaml/library/reflections ]
+  realization: [ UI_dropdown, data/jim_story_library.yaml/library/realizations ]
+
+# Materializes story_parts — the artifact downstream diary_ite consumes.
+resolve_story_parts:
+  run: jim/resolve_story_parts.coffee
+  depends_on: [select_story_recipe]
+  needs: [story_library, story_recipe]
+  makes: [story_parts]
+
+# ─── Experimental branch ─────────────────────────────────────────────
+# assemble_ingredients + oracle_brief produce a unified narrative brief
+# from the resolved story_parts. Optional: downstream diary_ite can
+# ignore this and use story_parts directly.
+
+assemble_ingredients:
+  run: jim/assemble_ingredients.coffee
+  depends_on: [resolve_story_parts]
+  needs: [story_library, story_parts]
+  makes: [ingredient_bundle]
   arc_shapes_file: data/arc_shapes.yaml
 
 oracle_brief:
@@ -28,7 +55,5 @@ oracle_brief:
   depends_on: [assemble_ingredients]
   needs: [ingredient_bundle]
   makes: [diary_brief]
-  # Local quantized model produced by the `download_model` recipe.
-  # Run `pipeline: download_model` once to populate build/model4/.
-  model: build/model4
-  max_tokens: 400
+  # Runtime tuning (model, max_tokens) lives in override/jim_story.yaml
+  # per GPT/CONVENTIONS.md.
