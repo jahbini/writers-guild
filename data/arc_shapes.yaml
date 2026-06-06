@@ -1,15 +1,13 @@
-###
-  Named emotional arc shapes for the diary pipeline.
-
-  Each shape lists exactly five emotions, one per beat in the canonical
-  order: scene, arrival, disturbance, reflection, realization.
-
-  These guide assemble_ingredients (preferred emotion per beat) and are
-  recorded in the ingredient bundle for the oracle composer.
-
-  Add new shapes here. Reference them from data/jim_story_library.yaml
-  via `arc_shape:` on a story entry.
-###
+# Named emotional arc shapes for the diary pipeline.
+#
+# Each shape lists exactly five emotions, one per beat in the canonical
+# order: scene, arrival, disturbance, reflection, realization.
+#
+# These guide assemble_ingredients (preferred emotion per beat) and are
+# recorded in the ingredient bundle for the oracle composer.
+#
+# Add new shapes here. Reference them from data/jim_story_library.yaml
+# via `arc_shape:` on a story entry.
 
 arc_shapes:
   settling:
