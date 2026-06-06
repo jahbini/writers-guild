@@ -25,11 +25,11 @@ select_story_recipe:
   needs: [story_library]
   makes: [story_recipe]
   story_id: jim_0001
-  scene:       [ UI_dropdown, data/jim_story_library.yaml/library/scenes ]
-  arrival:     [ UI_dropdown, data/jim_story_library.yaml/library/characters ]
-  disturbance: [ UI_dropdown, data/jim_story_library.yaml/library/disturbances ]
-  reflection:  [ UI_dropdown, data/jim_story_library.yaml/library/reflections ]
-  realization: [ UI_dropdown, data/jim_story_library.yaml/library/realizations ]
+  scene:       [ UI_grouped_dropdown, data/jim_story_library.yaml/library/scenes ]
+  arrival:     [ UI_grouped_dropdown, data/jim_story_library.yaml/library/characters ]
+  disturbance: [ UI_grouped_dropdown, data/jim_story_library.yaml/library/disturbances ]
+  reflection:  [ UI_grouped_dropdown, data/jim_story_library.yaml/library/reflections ]
+  realization: [ UI_grouped_dropdown, data/jim_story_library.yaml/library/realizations ]
 
 # Materializes story_parts — the artifact downstream diary_ite consumes.
 resolve_story_parts:
