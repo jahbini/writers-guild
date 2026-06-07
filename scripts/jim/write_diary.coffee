@@ -13,9 +13,10 @@ yaml = require 'js-yaml'
 
 pad2 = (n) -> (if n < 10 then '0' else '') + n
 
-timestamp = ->
+# Short tag: HH_MM. Runs in the same minute will overwrite.
+runTag = ->
   d = new Date()
-  "#{d.getFullYear()}-#{pad2(d.getMonth()+1)}-#{pad2(d.getDate())}_#{pad2(d.getHours())}-#{pad2(d.getMinutes())}-#{pad2(d.getSeconds())}"
+  "#{pad2(d.getHours())}_#{pad2(d.getMinutes())}"
 
 @step =
   desc: "Write a consolidated diary YAML to diary/ per run"
@@ -44,6 +45,15 @@ timestamp = ->
       blk.theme     = seed.theme     if seed.theme?
       beats[seed.beat] = blk
 
+    # Surface the brief content at the top level so it's the first
+    # thing a reader sees, regardless of what shape oracle_brief
+    # returned (clean JSON, raw text fallback, or something odd).
+    briefText      = brief?.brief
+    structureHints = brief?.structure_hints
+    transitions    = brief?.transitions
+    motifThread    = brief?.motif_thread
+    voiceTarget    = brief?.voice_target
+
     doc =
       generated_at: new Date().toISOString()
       recipe: recipeName
@@ -55,7 +65,13 @@ timestamp = ->
       characters_in_play: bundle.characters_in_play
       locations_in_play:  bundle.locations_in_play
       beats: beats
-      oracle_brief: brief
+
+    doc.brief            = briefText      if briefText?
+    doc.structure_hints  = structureHints if structureHints?
+    doc.transitions      = transitions    if transitions?
+    doc.motif_thread     = motifThread    if motifThread?
+    doc.voice_target     = voiceTarget    if voiceTarget?
+    doc.oracle_brief_raw = brief          # full payload for inspection
 
     # Echo selected per-beat overrides for traceability.
     if recipe?.overrides?.length
@@ -64,7 +80,7 @@ timestamp = ->
     diaryDir = path.join(cwdDir, 'diary')
     fs.mkdirSync(diaryDir, recursive: true) unless fs.existsSync(diaryDir)
 
-    filename = "#{recipeName}_#{timestamp()}.yaml"
+    filename = "#{recipeName}_#{runTag()}.yaml"
     outPath = path.join(diaryDir, filename)
     fs.writeFileSync outPath, yaml.dump(doc, { lineWidth: -1, noRefs: true }), 'utf8'
     console.log "[#{stepName}] wrote #{outPath}"
