@@ -22,16 +22,26 @@ runTag = ->
   desc: "Write a consolidated diary YAML to diary/ per run"
 
   action: (M, stepName) ->
-    bundle = M.theLowdown('ingredient_bundle')?.value
-    brief  = M.theLowdown('diary_brief')?.value
-    parts  = M.theLowdown('story_parts')?.value
-    recipe = M.theLowdown('story_recipe')?.value
+    cwdDir = M.theLowdown('env/CWD')?.value ? process.cwd()
+    recipeName = M.getStepParam(stepName, 'recipe_name') ? 'jim_story'
+
+    # Read the artifacts from disk rather than the memo. The disk files
+    # are what oracle_brief / assemble_ingredients actually wrote this
+    # run; the memo can drift under specific resume/wiring conditions.
+    readDiskJson = (relPath) ->
+      abs = path.join(cwdDir, relPath)
+      return null unless fs.existsSync(abs)
+      try JSON.parse(fs.readFileSync(abs, 'utf8')) catch then null
+
+    bundle = readDiskJson('out/ingredient_bundle.json')  \
+      ? M.theLowdown('ingredient_bundle')?.value
+    brief  = readDiskJson('out/diary_brief.json')        \
+      ? M.theLowdown('diary_brief')?.value
+    recipe = readDiskJson('out/story_recipe.json')       \
+      ? M.theLowdown('story_recipe')?.value
 
     throw new Error "[#{stepName}] ingredient_bundle missing"  unless bundle?
     throw new Error "[#{stepName}] diary_brief missing"        unless brief?
-
-    cwdDir = M.theLowdown('env/CWD')?.value ? process.cwd()
-    recipeName = M.getStepParam(stepName, 'recipe_name') ? 'jim_story'
 
     # Build the per-beat block from the bundle's anchor_seeds so the
     # diary file is readable without cross-referencing the library.
