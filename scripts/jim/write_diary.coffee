@@ -76,12 +76,16 @@ runTag = ->
       locations_in_play:  bundle.locations_in_play
       beats: beats
 
-    doc.brief            = briefText      if briefText?
-    doc.structure_hints  = structureHints if structureHints?
-    doc.transitions      = transitions    if transitions?
-    doc.motif_thread     = motifThread    if motifThread?
-    doc.voice_target     = voiceTarget    if voiceTarget?
-    doc.oracle_brief_raw = brief          # full payload for inspection
+    doc.brief           = briefText      if briefText?
+    doc.structure_hints = structureHints if structureHints?
+    doc.transitions     = transitions    if transitions?
+    doc.motif_thread    = motifThread    if motifThread?
+    doc.voice_target    = voiceTarget    if voiceTarget?
+
+    # Only fall back to the raw brief when the extractor failed —
+    # otherwise it's pure duplication of the surfaced fields above.
+    if not briefText? and brief?
+      doc.oracle_brief_raw = brief
 
     # Echo selected per-beat overrides for traceability.
     if recipe?.overrides?.length
