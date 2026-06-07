@@ -7,4 +7,7 @@ oracle_brief:
   # Local quantized MLX model — symlink build/model4 → a sibling project
   # that already ran `download_model`, or run that recipe once here.
   model: build/model4
-  max_tokens: 400
+  # 400 truncated mid-JSON (brief + structure_hints + transitions hit
+  # the limit before motif_thread/voice_target could close); 800 is
+  # comfortable budget for the full structured response.
+  max_tokens: 800

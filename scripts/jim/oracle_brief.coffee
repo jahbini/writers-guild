@@ -61,13 +61,94 @@ Return JSON of the form:
       prompt: prompt
       'max-tokens': maxTok
 
+    # MLX wraps generation with `==========\n...==========\n` framing and
+    # a trailing stats block. Strip both before searching for JSON, and
+    # use brace-counting (not greedy regex) to find a balanced object.
+    # If the JSON was truncated mid-stream by max_tokens, attempt repair
+    # by closing the outstanding strings/arrays/objects.
+    stripMlxFraming = (text) ->
+      return '' unless typeof text is 'string'
+      # Drop the leading `==========\n` line and anything from the
+      # closing `\n==========\n` to the end.
+      cleaned = text
+        .replace(/^={5,}\s*\n/, '')
+        .replace(/\n={5,}[\s\S]*$/, '')
+      cleaned
+
+    findBalancedJson = (text) ->
+      start = text.indexOf('{')
+      return null if start < 0
+      depth = 0
+      inString = false
+      escape = false
+      for i in [start...text.length]
+        ch = text[i]
+        if escape
+          escape = false
+        else if ch is '\\' and inString
+          escape = true
+        else if ch is '"'
+          inString = !inString
+        else if not inString
+          if ch is '{'
+            depth++
+          else if ch is '}'
+            depth--
+            if depth is 0
+              return { json: text[start..i], truncated: false }
+      # ran off the end — return what we have so the repairer can try
+      { json: text[start..], truncated: true }
+
+    # Best-effort repair for a truncated JSON object: close any open
+    # string, then close arrays/objects in reverse order. Drops a
+    # trailing partial key or value cleanly.
+    repairTruncatedJson = (text) ->
+      depth = 0
+      inString = false
+      escape = false
+      stack = []  # of '{' or '['
+      lastSafeEnd = -1  # index after which we can safely append closers
+      for i in [0...text.length]
+        ch = text[i]
+        if escape
+          escape = false
+        else if ch is '\\' and inString
+          escape = true
+        else if ch is '"'
+          inString = !inString
+          lastSafeEnd = i if not inString
+        else if not inString
+          if ch is '{' or ch is '['
+            stack.push ch
+          else if ch is '}' or ch is ']'
+            stack.pop()
+          if ch in [',', ':', '{', '[']
+            # ok midway; lastSafeEnd updates on whitespace/closers below
+            true
+          if /[\s\}\]\d"]/.test(ch) and not inString
+            lastSafeEnd = i
+      head = if lastSafeEnd >= 0 then text[..lastSafeEnd] else text
+      # Trim any trailing comma or partial key like  `, "voice_target`
+      head = head.replace(/,\s*"?[A-Za-z_]*\s*:?\s*$/, '')
+      head = head.replace(/,\s*$/, '')
+      # Close anything left open.
+      stack.reverse().reduce(((acc, open) ->
+        acc + (if open is '{' then '}' else ']')), head)
+
     extractJSON = (text) ->
       return null unless text?
-      blk = text.match(/\{[\s\S]*\}/)?[0]
-      return null unless blk?
-      try JSON.parse(blk) catch then null
+      cleaned = stripMlxFraming(text)
+      found = findBalancedJson(cleaned)
+      return null unless found?
+      candidate = found.json
+      try return JSON.parse(candidate) catch then null
+      # First parse failed — try repair.
+      if found.truncated
+        try return JSON.parse(repairTruncatedJson(candidate)) catch then null
+      null
 
-    brief = extractJSON(raw) ? { brief: raw, parse_error: true }
+    parsed = extractJSON(raw)
+    brief = parsed ? { brief: raw, parse_error: true }
     brief.story_id  = bundle.story_id
     brief.motif     = bundle.motif
     brief.arc_shape = bundle.arc_shape
