@@ -1,10 +1,7 @@
 @step =
-  desc: "Select story recipe by per-beat UI overrides or fall back to story_id"
+  desc: "Build story recipe from per-beat UI overrides, falling back to recipe_defaults"
 
   action: (M, stepName) ->
-    # Per-beat overrides come from UI_dropdown fields in config/jim_story.yaml.
-    # An empty string from the UI means "no override" — fall through to the
-    # named story.
     pick = (k) ->
       v = M.getStepParam(stepName, k)
       if typeof v is 'string' and v.length > 0 then v else null
@@ -25,21 +22,15 @@
         bundle = await libraryEntry.notifier
     throw new Error "[#{stepName}] Missing input key 'story_library'" if bundle is undefined
 
-    storyId = M.getStepParam(stepName, 'story_id') ? 'jim_0001'
-    stories = bundle?.stories ? {}
-    base = stories[storyId] ? {}
+    defaults = bundle?.recipe_defaults ? {}
 
-    # If the named story is missing AND no per-beat overrides were provided,
-    # that's an error. If overrides cover the missing slots, we're fine.
     recipe = {}
     for k in ['scene','arrival','disturbance','reflection','realization']
-      recipe[k] = overrides[k] ? base[k]
+      recipe[k] = overrides[k] ? defaults[k]
       unless recipe[k]?
-        known = Object.keys(stories)
-        throw new Error "[#{stepName}] no value for '#{k}' (story_id=#{storyId}, known: #{known.join(', ')})"
+        throw new Error "[#{stepName}] no value for '#{k}' (no UI override, no recipe_defaults entry)"
 
     out =
-      story_id: storyId
       recipe: recipe
       overrides: (k for k, v of overrides when v?)
 

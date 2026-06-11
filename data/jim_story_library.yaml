@@ -10,17 +10,21 @@ library:
       - Seagulls arguing over scraps
       - Harbor tide slapping the pier
       - Distant laughter from the docks
-      - Fog swallowing the harbor lights
+      - text: Fog swallowing the harbor lights
+        time_affinity: [evening, night]
       - Crates of fish stacked by the pier
-      - Harbor lights blinking awake
+      - text: Harbor lights blinking awake
+        time_affinity: [dawn]
       - Clouds sliding past the harbor
     town:
       - Espresso machine hissing
       - Smell of burnt scones
-      - Morning light through fog
+      - text: Morning light through fog
+        time_affinity: [dawn, morning]
       - Fishing nets drying on rails
       - Old newspaper pages rustling
-      - Evening sun on the water
+      - text: Evening sun on the water
+        time_affinity: [evening]
       - Chill air through the open door
       - Rain dripping from umbrellas
       - Boat engines rumbling
@@ -29,8 +33,10 @@ library:
       - Books stacked on a nearby shelf
       - Cold glass against warm palms
       - Old radio murmuring softly
-      - Wood smoke drifting from chimneys
-      - Foot traffic fading at dusk
+      - text: Wood smoke drifting from chimneys
+        time_affinity: [evening, night]
+      - text: Foot traffic fading at dusk
+        time_affinity: [evening]
       - Fog dampening every sound
     cafe:
       - Rain tapping on café windows
@@ -38,7 +44,8 @@ library:
       - Snow collecting on the window
       - Warm bakery smell
       - Wooden chairs scraping the café floor
-      - Dim yellow café lights
+      - text: Dim yellow café lights
+        time_affinity: [evening, night]
       - Wind rattling the café sign
       - Fresh bread cooling on the counter
       - Quiet murmur of café conversations
@@ -49,10 +56,13 @@ library:
       - Quiet corner table by the window
     street:
       - Cold wind down Water Street
-      - Wet pavement reflecting streetlights
+      - text: Wet pavement reflecting streetlights
+        time_affinity: [evening, night]
       - Street musician playing softly
-      - Footsteps on wet cobblestones
-      - Streetlamp flickering
+      - text: Footsteps on wet cobblestones
+        time_affinity: [evening, night]
+      - text: Streetlamp flickering
+        time_affinity: [night]
   characters:
     Southwick:
       - folds his newspaper carefully
@@ -112,6 +122,51 @@ library:
       - pauses to listen
       - shakes their head
   disturbances:
+    # Concrete event-shaped disturbances — something occurs, something
+    # shifts, something demands the narrator notice. Pick from here when
+    # you want the diary to TELL A SMALL STORY rather than describe one.
+    # Cast and locations are constrained to the library's named world:
+    # Southwick / Roger / Tommy / the bartender / the waitress / a
+    # stranger / a fisherman / a student / a passerby, in cafe / harbor
+    # / street / town.
+    #
+    # The thematic sub-buckets below (repetition / fear / outrage / etc.)
+    # are the abstract "true-of-the-world" framings; pick from those when
+    # you want atmospheric trouble rather than a particular incident.
+    events:
+      # ── cafe ───────────────────────────────────────────────────────
+      - The coffee grinder cuts out mid-pour and the room notices the silence
+      - A glass slips off the bar and rolls without breaking
+      - Southwick stops talking mid-sentence and looks at the door
+      - Roger pushes his cup away half-full and stares at it
+      - The waitress drops a check on a table where nobody is sitting
+      - A stranger settles into Southwick's usual chair before he arrives
+      - The radio behind the counter switches stations on its own
+      - A passerby ducks in for shelter and stays through two refills
+      - The bartender slides a drink in front of me I didn't order
+      - Tommy points at me to back him up on something I didn't say
+      - The cafe falls quiet when a name nobody wants to say comes up
+      # ── harbor ─────────────────────────────────────────────────────
+      - A boat horn blows the wrong number of times
+      - A fisherman drops his catch on the pier and starts swearing quietly
+      - Gulls dive at someone carrying a paper bag down the dock
+      - The ferry pulls in carrying nobody at all
+      - The tide brings something dark up against the seawall
+      - A rope on one of the boats slips and the boat starts drifting
+      - The harbor bell starts ringing on its own in the fog
+      - Someone stands too long looking down at the water
+      # ── street ─────────────────────────────────────────────────────
+      - A car alarm goes off and nobody comes out to check
+      - The streetlamp on the corner flickers and then stays dark
+      - A passerby drops something and walks on without noticing
+      - Two strangers cross the street to avoid each other
+      - A street musician changes songs mid-verse without finishing
+      - Rain starts suddenly and the street empties
+      # ── town ───────────────────────────────────────────────────────
+      - Southwick walks past the cafe without coming in
+      - A stranger reads the bulletin board for a long time and walks away
+      - The town clock chimes the wrong hour
+      - A piece of paper blows past in a direction the wind isn't going
     repetition:
       - Citizens repeating ancient fears in modern language
       - Citizens repeating simple answers to complex problems
@@ -351,39 +406,32 @@ arc_shapes:
       - fear
       - contentment
       - frustration
-stories:
-  jim_0001:
-    motif: mind_worm
-    arc_shape: st_johns_standard
-    characters_in_play:
-      - Southwick
-    locations_in_play:
-      - harbor
-      - cafe
-      - town
-    voice_notes: St. John's diary, first-person, sensory-dense
-    scene: Fog rolling into the harbor
-    arrival: Southwick folds his newspaper carefully
-    disturbance: People repeating slogans without knowing their origin
-    reflection: Ideas move through towns like fog
-    realization: The loudest ideas are rarely the wisest
-  jim_0002:
-    arc_shape: st_johns_standard
-    characters_in_play: []
-    locations_in_play: []
-    voice_notes: St. John's diary, first-person, sensory-dense
-    scene: Espresso machine hissing
-    arrival: Roger stirs coffee absentmindedly
-    disturbance: Talk radio turning irritation into anger
-    reflection: Rumors spread like sparks in dry grass
-    realization: Most people defend habits more than truth
-  jim_0003:
-    arc_shape: st_johns_standard
-    characters_in_play: []
-    locations_in_play: []
-    voice_notes: St. John's diary, first-person, sensory-dense
-    scene: Gulls circling over docks
-    arrival: Tommy bursts in talking loudly
-    disturbance: News cycles that keep everyone slightly afraid
-    reflection: Fear runs through crowds like electricity
-    realization: Fear rarely waits for evidence
+
+# Enum for the time_of_day UI dropdown on assemble_ingredients.
+# Scenes can carry an optional `time_affinity: [...]` to express
+# which entries belong to which times — see harbor's "Harbor lights
+# blinking awake" (dawn) or town's "Foot traffic fading at dusk".
+time_of_day:
+  - dawn
+  - morning
+  - afternoon
+  - evening
+  - night
+
+recipe_defaults:
+  motif: mind_worm
+  arc_shape: st_johns_standard
+  time_of_day: morning
+  characters_in_play:
+    - Southwick
+  locations_in_play:
+    - harbor
+    - cafe
+    - town
+  voice_notes: St. John's diary, first-person, sensory-dense
+  # Fallback beat picks if the UI selections are empty.
+  scene: Fog rolling into the harbor
+  arrival: Southwick folds his newspaper carefully
+  disturbance: People repeating slogans without knowing their origin
+  reflection: Ideas move through towns like fog
+  realization: The loudest ideas are rarely the wisest

@@ -19,13 +19,12 @@ load_library:
   library_file: data/jim_story_library.yaml
 
 # Canonical UI-facing step: 5 dropdowns for the beats; empty selection
-# falls back to the named story_id from data/jim_story_library.yaml.
+# falls back to recipe_defaults in data/jim_story_library.yaml.
 select_story_recipe:
   run: jim/select_story_recipe.coffee
   depends_on: [load_library]
   needs: [story_library]
   makes: [story_recipe]
-  story_id: jim_0001
   scene:       [ UI_grouped_dropdown, data/jim_story_library.yaml/library/scenes ]
   arrival:     [ UI_grouped_dropdown, data/jim_story_library.yaml/library/characters ]
   disturbance: [ UI_grouped_dropdown, data/jim_story_library.yaml/library/disturbances ]
@@ -49,6 +48,11 @@ assemble_ingredients:
   depends_on: [resolve_story_parts]
   needs: [story_library, story_parts]
   makes: [ingredient_bundle]
+  # Pick the day's trajectory and tone. Empty = use recipe_defaults.
+  arc_shape:   [ UI_dropdown, data/jim_story_library.yaml/arc_shapes ]
+  time_of_day: [ UI_dropdown, data/jim_story_library.yaml/time_of_day ]
+  # Motif is free-form metadata — just a one-line cue for the oracle.
+  motif:       [ UI_textarea, "" ]
 
 oracle_brief:
   run: jim/oracle_brief.coffee

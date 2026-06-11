@@ -35,7 +35,6 @@
     realizationKey = recipe?.realization
 
     out =
-      story_id: selected?.story_id
       keys:
         scene: sceneKey
         arrival: arrivalKey

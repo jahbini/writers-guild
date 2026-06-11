@@ -7,6 +7,12 @@
 
     modelId = M.getStepParam stepName, 'model'
     maxTok  = M.getStepParam(stepName, 'max_tokens') ? 1024
+    # Sampling — without these mlx_lm runs greedy (temp 0) and every
+    # run with the same inputs produces byte-identical output. Set
+    # temp > 0 to get variation across runs.
+    temp    = M.getStepParam(stepName, 'temp')
+    topP    = M.getStepParam(stepName, 'top_p')
+    seed    = M.getStepParam(stepName, 'seed')
     throw new Error "[#{stepName}] Missing 'model' param" unless modelId?
 
     beatsBlock = (bundle.anchor_seeds.map (b) ->
@@ -19,6 +25,7 @@
 
     chars = bundle.characters_in_play.join(', ') or '(none specified)'
     locs  = bundle.locations_in_play.join(', ')  or '(unconstrained)'
+    timeStr = bundle.time_of_day or '(let the day suggest its own time)'
 
     prompt = """
 You are a diary-brief composer for the St. John's Jim diary pipeline.
@@ -28,8 +35,9 @@ entry threading through five beats in order, with smooth transitions.
 
 Ingredients
 -----------
-Motif: #{bundle.motif ? '(unspecified)'}
+Motif (one-line preoccupation): #{bundle.motif ? '(unspecified)'}
 Arc shape: #{bundle.arc_shape} — #{bundle.arc_desc ? ''}
+Time of day at opening: #{timeStr}
 Characters in play: #{chars}
 Locations in play:  #{locs}
 Voice: #{bundle.voice_notes}
@@ -39,27 +47,37 @@ Beats (preserve this order; the diary must touch each):
 
 Instructions for the brief
 --------------------------
-- Establish time of day at the start and let it evolve plausibly across beats.
-- Thread the motif through every beat without naming it directly.
+- Each beat must name a CONCRETE ACTION — a verb, a subject, a physical
+  change or exchange. Who does what, what gets said, what shifts in the
+  room. Description is the setting; action is the substance. The diary
+  should TELL A SMALL STORY, not paint five tableaux.
+- Anchor the opening to the named time of day; let it evolve plausibly across beats.
+- Thread the motif (the curator's preoccupation for this day) through every
+  beat without naming it directly.
 - Use only the named characters and locations; do not invent proper nouns.
 - Specify the transition between each pair of beats (how does the
-  narrator get from one to the next?).
+  narrator get from one to the next? what physical movement, what trigger?).
 - Preserve the emotional arc; do not flatten to one tone.
 
 Return JSON of the form:
 {
   "brief": "<the unified narrative brief for the generator>",
-  "structure_hints": ["<one short line per beat in order>"],
+  "structure_hints": ["<one short line per beat, naming the concrete action: subject + verb + what changes>"],
   "transitions": ["<scene→arrival>", "<arrival→disturbance>", "<disturbance→reflection>", "<reflection→realization>"],
   "motif_thread": "<one-line description of how the motif threads the day>",
   "voice_target": "<one-line voice note>"
 }
 """
 
-    raw = M.callMLX 'generate',
+    args =
       model: modelId
       prompt: prompt
       'max-tokens': maxTok
+    args.temp  = temp if temp?
+    args['top-p'] = topP if topP?
+    args.seed  = seed if seed?
+
+    raw = M.callMLX 'generate', args
 
     # MLX wraps generation with `==========\n...==========\n` framing and
     # a trailing stats block. Strip both before searching for JSON, and
@@ -149,7 +167,6 @@ Return JSON of the form:
 
     parsed = extractJSON(raw)
     brief = parsed ? { brief: raw, parse_error: true }
-    brief.story_id  = bundle.story_id
     brief.motif     = bundle.motif
     brief.arc_shape = bundle.arc_shape
 

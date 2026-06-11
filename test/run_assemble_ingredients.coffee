@@ -106,8 +106,8 @@ runAssertions = (b) ->
   results = []
   push = (name, pass, detail) -> results.push { name, pass, detail }
 
-  push 'bundle has story_id',     b.story_id is STORY_ID,
-    "got #{b.story_id}"
+  push 'bundle has motif',        typeof b.motif is 'string',
+    "got #{b.motif}"
   push 'bundle has arc_shape',    typeof b.arc_shape is 'string'
   push 'bundle has voice_notes',  typeof b.voice_notes is 'string'
 

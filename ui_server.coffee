@@ -424,11 +424,17 @@ loadDropdownOptions = (specPath) ->
   for key in keyParts
     return [] unless node? and typeof node is 'object'
     node = node[key]
-  return [] unless node? and typeof node is 'object'
+  return [] unless node?
   rows = []
-  for own key, value of node
-    label = value?.text ? value?.character ? value?.label ? key
-    rows.push { key, label }
+  if Array.isArray(node)
+    # bare-list enum: each value is both the stored key and the label
+    for v in node
+      continue unless typeof v is 'string'
+      rows.push { key: v, label: v }
+  else if typeof node is 'object'
+    for own key, value of node
+      label = value?.text ? value?.character ? value?.label ? value?.desc ? key
+      rows.push { key, label }
   rows.sort (a, b) -> String(a.label).localeCompare String(b.label)
   rows
 

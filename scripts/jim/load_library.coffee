@@ -83,12 +83,25 @@ yaml = require 'js-yaml'
 
     # ─── flatten each shelf ────────────────────────────────────────────
     # Auto-detects shape: bare list, dict-of-lists, or legacy dict-of-leaves.
+    # List items may be either bare strings or objects with `{text, ...extra}`.
+    # Extra fields on an object item carry through onto the flattened entry
+    # (e.g., time_affinity on a scene).
+    processItem = (item, bucketName, makeEntry) ->
+      if typeof item is 'string'
+        return makeEntry(item, bucketName)
+      if item? and typeof item is 'object' and typeof item.text is 'string'
+        base = makeEntry(item.text, bucketName)
+        for own k, v of item when k isnt 'text'
+          base[k] = v
+        return base
+      null
+
     flatten = (sourceShelf, makeEntry) ->
       out = {}
       if Array.isArray(sourceShelf)
         for item in sourceShelf
-          continue unless typeof item is 'string'
-          entry = makeEntry(item, null)
+          entry = processItem(item, null, makeEntry)
+          continue unless entry?
           key = slug(entry.text, out)
           out[key] = entry
       else if sourceShelf? and typeof sourceShelf is 'object'
@@ -96,8 +109,8 @@ yaml = require 'js-yaml'
           if Array.isArray(items)
             # dict-of-lists: {harbor: [...], cafe: [...]}
             for item in items
-              continue unless typeof item is 'string'
-              entry = makeEntry(item, bucketName)
+              entry = processItem(item, bucketName, makeEntry)
+              continue unless entry?
               key = slug(entry.text, out)
               out[key] = entry
           else if items? and typeof items is 'object' and items.text?
@@ -134,7 +147,7 @@ yaml = require 'js-yaml'
         e.family = family if family?
         e)
 
-    # ─── stories: resolve literal-text beat refs to flat keys ─────────
+    # ─── recipe_defaults: resolve literal-text beat refs to flat keys ──
     beatShelf = {
       scene:       'scenes'
       arrival:     'characters'
@@ -150,30 +163,22 @@ yaml = require 'js-yaml'
       for k, v of entries
         textIndex[shelfName][v.text] = k
 
-    resolvedStories = {}
-    for storyId, story of (doc?.stories ? {})
-      copy = {}
-      for k, v of story
-        copy[k] = v
-      for beat, shelfName of beatShelf
-        ref = story[beat]
-        continue unless ref?
-        # Accept either the literal text or an already-flat key.
-        if textIndex[shelfName][ref]?
-          copy[beat] = textIndex[shelfName][ref]
-        else if flatLibrary[shelfName][ref]?
-          # already a flat key
-          copy[beat] = ref
-        else
-          console.warn "[#{stepName}] story #{storyId}.#{beat} = '#{ref}' not found in #{shelfName}"
-          copy[beat] = ref
-      resolvedStories[storyId] = copy
+    resolvedDefaults = {}
+    for own k, v of (doc?.recipe_defaults ? {})
+      resolvedDefaults[k] = v
+    for beat, shelfName of beatShelf
+      ref = resolvedDefaults[beat]
+      continue unless ref?
+      if textIndex[shelfName][ref]?
+        resolvedDefaults[beat] = textIndex[shelfName][ref]
+      else unless flatLibrary[shelfName][ref]?
+        console.warn "[#{stepName}] recipe_defaults.#{beat} = '#{ref}' not found in #{shelfName}"
 
     out =
       source_file: libraryPath
       library: flatLibrary
       arc_shapes: doc?.arc_shapes ? {}
-      stories: resolvedStories
+      recipe_defaults: resolvedDefaults
 
     M.saveThis "story_library", out
     M.saveThis "done:#{stepName}", true

@@ -67,10 +67,10 @@ runTag = ->
     doc =
       generated_at: new Date().toISOString()
       recipe: recipeName
-      story_id: bundle.story_id
       motif: bundle.motif
       arc_shape: bundle.arc_shape
       arc_desc: bundle.arc_desc
+      time_of_day: bundle.time_of_day
       voice_notes: bundle.voice_notes
       characters_in_play: bundle.characters_in_play
       locations_in_play:  bundle.locations_in_play

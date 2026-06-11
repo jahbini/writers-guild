@@ -11,3 +11,14 @@ oracle_brief:
   # the limit before motif_thread/voice_target could close); 800 is
   # comfortable budget for the full structured response.
   max_tokens: 800
+  # Sampling — without these mlx_lm runs greedy (temp 0) and every run
+  # with the same inputs produces byte-identical output.
+  #   temp:    0     deterministic / greedy
+  #            0.5   small variation, mostly stays on script
+  #            0.7   meaningful variation, what we recommend
+  #            1.0+  loose; structure_hints + transitions may drift
+  #   top_p:   0.95 keeps sampling inside the high-probability tail
+  #   seed:    leave unset for fresh runs each time; set an integer
+  #            (e.g. 42) when you want reproducible regression-test runs
+  temp: 0.7
+  top_p: 0.95
