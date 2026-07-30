@@ -435,3 +435,247 @@ recipe_defaults:
   disturbance: People repeating slogans without knowing their origin
   reflection: Ideas move through towns like fog
   realization: The loudest ideas are rarely the wisest
+
+# ─── Story Spine atoms ─────────────────────────────────────────────
+# Menu of atoms consumed by the story_spine step. Each entry is the
+# smallest reusable dramatic unit. The spine generator receives the
+# selected atoms verbatim and returns a deterministic JSON plan.
+#
+# UI: characters.protagonist / characters.antagonist / characters.witness
+# each render as a dropdown backed by story_atoms.characters (all optional
+# except protagonist). external_problem / internal_obstacle /
+# missed_opportunity / primary_consequence each render as a single dropdown
+# backed by their respective list.
+
+story_atoms:
+  characters:
+    - id: tommy
+      label: "Tommy"
+      role_hints: [ordinary, restless]
+      canonical_phrasing: "Tommy"
+    - id: old_girlfriend
+      label: "Old girlfriend"
+      role_hints: [past-relationship, foil]
+      canonical_phrasing: "his old girlfriend"
+    - id: southwick
+      label: "Southwick"
+      role_hints: [observer, reflective]
+      canonical_phrasing: "Southwick"
+    - id: the_stranger
+      label: "The stranger"
+      role_hints: [outsider, catalyst]
+      canonical_phrasing: "a stranger"
+    - id: the_old_friend
+      label: "Old friend"
+      role_hints: [past, familiar]
+      canonical_phrasing: "an old friend"
+    - id: the_child
+      label: "The child"
+      role_hints: [innocent, witness]
+      canonical_phrasing: "the child"
+    - id: the_barkeep
+      label: "The barkeep"
+      role_hints: [confidant, townie]
+      canonical_phrasing: "the barkeep"
+    - id: the_neighbor
+      label: "The neighbor"
+      role_hints: [ordinary, adjacent]
+      canonical_phrasing: "the neighbor"
+    - id: the_ex_partner
+      label: "Ex-partner"
+      role_hints: [past-relationship, unfinished]
+      canonical_phrasing: "the ex-partner"
+    - id: the_new_face
+      label: "The new face"
+      role_hints: [newcomer, unknown]
+      canonical_phrasing: "someone new to town"
+
+  external_problems:
+    - id: car_broke_down
+      label: "Car broke down"
+      tags: [mechanical, stranded, roadside]
+      canonical_phrasing: "the car will not start"
+    - id: lost_the_way
+      label: "Lost the way"
+      tags: [navigation, disorientation]
+      canonical_phrasing: "the road no longer looks familiar"
+    - id: caught_in_weather
+      label: "Caught in weather"
+      tags: [environment, exposure]
+      canonical_phrasing: "the weather turns against them"
+    - id: missed_the_ferry
+      label: "Missed the ferry"
+      tags: [transit, timing, stranded]
+      canonical_phrasing: "the ferry pulls away without them"
+    - id: locked_out
+      label: "Locked out"
+      tags: [barrier, access]
+      canonical_phrasing: "the door will not open"
+    - id: money_short
+      label: "Money short"
+      tags: [scarcity, transaction]
+      canonical_phrasing: "the money in hand is not enough"
+    - id: message_undelivered
+      label: "Message undelivered"
+      tags: [communication, failure]
+      canonical_phrasing: "the message never reaches its reader"
+    - id: appointment_missed
+      label: "Appointment missed"
+      tags: [obligation, timing]
+      canonical_phrasing: "the meeting takes place without them"
+    - id: package_never_arrived
+      label: "Package never arrived"
+      tags: [absence, waiting]
+      canonical_phrasing: "the thing they waited for does not come"
+    - id: wrong_stop
+      label: "Wrong stop"
+      tags: [navigation, error]
+      canonical_phrasing: "they step off at the wrong place"
+
+  internal_obstacles:
+    - id: embarrassed
+      label: "Embarrassed"
+      tags: [pride, shame]
+      canonical_phrasing: "cannot bring themself to speak"
+    - id: too_proud
+      label: "Too proud"
+      tags: [pride, self-image]
+      canonical_phrasing: "will not be seen as needing anything"
+    - id: afraid_to_hope
+      label: "Afraid to hope"
+      tags: [fear, longing]
+      canonical_phrasing: "does not trust the moment to hold"
+    - id: still_grieving
+      label: "Still grieving"
+      tags: [loss, weight]
+      canonical_phrasing: "carries a loss that will not lift"
+    - id: cannot_forgive
+      label: "Cannot forgive"
+      tags: [resentment, past]
+      canonical_phrasing: "the old wound will not close"
+    - id: does_not_believe_they_deserve_it
+      label: "Doesn't believe they deserve it"
+      tags: [worth, self-doubt]
+      canonical_phrasing: "does not think the good thing is theirs to take"
+    - id: keeping_a_secret
+      label: "Keeping a secret"
+      tags: [concealment, weight]
+      canonical_phrasing: "carries something they cannot say"
+    - id: rehearsing_the_wrong_line
+      label: "Rehearsing the wrong line"
+      tags: [preparation, self-defeat]
+      canonical_phrasing: "practices the speech that will not serve them"
+    - id: distracted_by_worry
+      label: "Distracted by worry"
+      tags: [anxiety, elsewhere]
+      canonical_phrasing: "is thinking about the wrong thing"
+    - id: tired_beyond_language
+      label: "Tired beyond language"
+      tags: [exhaustion, silence]
+      canonical_phrasing: "has nothing left with which to speak"
+
+  missed_opportunities:
+    - id: ask_for_help
+      label: "Ask for help"
+      tags: [social, vulnerability]
+      canonical_phrasing: "the moment to ask passes"
+    - id: say_the_true_thing
+      label: "Say the true thing"
+      tags: [honesty, connection]
+      canonical_phrasing: "the honest word is never spoken"
+    - id: reach_across
+      label: "Reach across"
+      tags: [reconciliation, touch]
+      canonical_phrasing: "the hand is not extended"
+    - id: apologize
+      label: "Apologize"
+      tags: [repair, humility]
+      canonical_phrasing: "the apology remains unmade"
+    - id: accept_the_offer
+      label: "Accept the offer"
+      tags: [receiving, trust]
+      canonical_phrasing: "the offered thing is not taken"
+    - id: name_what_is_happening
+      label: "Name what is happening"
+      tags: [clarity, courage]
+      canonical_phrasing: "the naming does not occur"
+    - id: stay_a_little_longer
+      label: "Stay a little longer"
+      tags: [presence, patience]
+      canonical_phrasing: "leaves before staying would have mattered"
+    - id: forgive
+      label: "Forgive"
+      tags: [release, grace]
+      canonical_phrasing: "the forgiveness is withheld"
+    - id: ask_the_real_question
+      label: "Ask the real question"
+      tags: [inquiry, risk]
+      canonical_phrasing: "asks something easier instead"
+    - id: reveal_the_gift
+      label: "Reveal the gift"
+      tags: [generosity, disclosure]
+      canonical_phrasing: "the gift stays in the pocket"
+
+  primary_consequences:
+    - id: walk_home
+      label: "Walk home"
+      tags: [physical, solitary]
+      canonical_phrasing: "sets out on foot"
+    - id: sit_with_it
+      label: "Sit with it"
+      tags: [interior, stillness]
+      canonical_phrasing: "remains where they are"
+    - id: turn_away
+      label: "Turn away"
+      tags: [departure, closure]
+      canonical_phrasing: "walks in the opposite direction"
+    - id: write_it_down
+      label: "Write it down"
+      tags: [record, private]
+      canonical_phrasing: "puts it into the diary instead"
+    - id: tell_someone_else
+      label: "Tell someone else"
+      tags: [displacement, confidant]
+      canonical_phrasing: "tells the story to the wrong ear"
+    - id: carry_it_home
+      label: "Carry it home"
+      tags: [burden, interior]
+      canonical_phrasing: "brings the weight back with them"
+    - id: pretend_nothing_happened
+      label: "Pretend nothing happened"
+      tags: [denial, resumption]
+      canonical_phrasing: "resumes the day as if untouched"
+    - id: change_course
+      label: "Change course"
+      tags: [decision, redirection]
+      canonical_phrasing: "chooses a different road"
+    - id: wait_it_out
+      label: "Wait it out"
+      tags: [patience, delay]
+      canonical_phrasing: "stays until the moment passes"
+    - id: burn_the_bridge
+      label: "Burn the bridge"
+      tags: [finality, break]
+      canonical_phrasing: "closes the door behind them"
+
+  # Interpretive lens the finished chapter reads through. Does not
+  # change events (that's what the axis atoms do); shapes how the
+  # narrator interprets them. Each lens references substrate files
+  # under ontologies/ or library/ that downstream stages may consult.
+  lenses:
+    - id: mind_worm
+      label: "Mind-worm"
+      substrate: null
+      interpretive_note: "A recurring intrusive idea colors the narration; every scene bends around it."
+    - id: tarot_major_arcana
+      label: "Tarot (Major Arcana)"
+      substrate: ontologies/four_forces_tarot_master.json
+      interpretive_note: "Beats named through Major Arcana cards; the card's shadow shapes each turn."
+    - id: four_forces
+      label: "Four Forces"
+      substrate: ontologies/four_forces_tarot_master.json
+      interpretive_note: "Events read through Logos / Ethos / Pathos / Anima; each scene shifts the balance."
+    - id: i_ching_hexagram
+      label: "I Ching hexagram"
+      substrate: library/hexagrams.yaml
+      interpretive_note: "One hexagram frames the chapter's movement; changing lines mark the turns."

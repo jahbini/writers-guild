@@ -6,19 +6,43 @@ Purpose:
 - single MLX call to compose a structured narrative brief from the
   ingredient bundle
 - the only stochastic step in the pipeline
-- output feeds `writediary`'s KAG generator as its prompt material
+- output feeds `write_diary` and (planned) the `story_spine` sidecar
+
+Style: sacred (in-process). Signature is `action: (S) ->` where `S` is
+the ledger. The step is `async` implicitly (CoffeeScript emits `async`
+when the body contains `await`).
 
 Inputs:
-- artifact `ingredient_bundle`
-- step params (all live in `override/jim_story.yaml`):
-  - `model`        — local MLX path, e.g. `build/model4`
-  - `max_tokens`   — 800 is comfortable budget for the full structured response
-  - `temp`         — 0.0 = greedy (identical runs); 0.7 = recommended variation
-  - `top_p`        — 0.95 nucleus sampling
-  - `seed`         — set integer for reproducible runs; unset for fresh each run
+- artifact `ingredient_bundle` — read via `await S.need 'ingredient_bundle'`.
+  `S.need` returns a Promise; forgetting `await` produces `bundle.map is
+  undefined` style errors because `bundle` is a Promise, not the object.
+
+Runtime tuning (in `override/jim_story.yaml` under `oracle_brief.mlx:`):
+```yaml
+oracle_brief:
+  mlx:
+    model: build/model4      # symlink → /Users/jahbini/writediary/pipes/diary/build/model4
+    max-tokens: 800          # canonical CLI flag name (dashes, not underscores)
+    temp: 0.7                # 0 = greedy/deterministic; 0.7 = recommended variation
+    top-p: 0.95
+    # seed: 42               # set for reproducible test runs
+```
+The ledger's `S.callMLX 'generate', payload` auto-injects the mlx block —
+the step body passes only `{ prompt }`. Do NOT read `model`/`max_tokens`/
+`temp`/`top_p` via `S.param` from the step body; the runner handles it.
+
+Model symlink:
+- `build/model4` is a symlink to a locally-hosted quantized MLX model
+  in the sibling `writediary` project. The writers-guild repo does not
+  ship model weights.
+- Current target: `/Users/jahbini/writediary/pipes/diary/build/model4`
+  (Qwen family, ~4.4 GB, config.json + model.safetensors + tokenizer).
+- Historical gotcha: an earlier symlink pointed at
+  `/Users/jahbini/writediary/build/model4`, which is empty. The real
+  model lives one level deeper under `pipes/diary/build/`.
 
 Outputs:
-- artifact `diary_brief`:
+- artifact `diary_brief` written with `S.make 'diary_brief', brief`:
   ```
   {
     brief:           <multi-paragraph narrative brief>,
@@ -30,6 +54,8 @@ Outputs:
     arc_shape:       <copied from bundle>
   }
   ```
+- `S.done()` closes the step. Do NOT write `done:<stepName>` manually;
+  the ledger owns that key.
 
 Parse fallback: if extraction fails, `{ brief: <raw output>, parse_error: true, motif, arc_shape }`.
 
@@ -50,18 +76,22 @@ JSON extraction (`extractJSON`):
    appends closing brackets/braces in reverse stack order.
 
 Sampling determinism:
-- WITHOUT `temp` / `top_p` / `seed` mlx_lm defaults to greedy (temp 0)
-  and identical inputs produce byte-identical output. Always set
-  `temp > 0` in override unless you want regression-test stability.
+- WITHOUT `temp` / `top-p` / `seed` mlx_lm defaults to greedy (temp 0)
+  and identical inputs produce byte-identical output. Set `temp > 0` in
+  the mlx block unless you want regression-test stability.
 
 Invariants:
-- writes `diary_brief` to memo and (via runner) to `out/diary_brief.json`
+- writes `diary_brief` via `S.make` (declared in the recipe's `makes:`)
+- input `ingredient_bundle` is declared in the recipe's `needs:` and
+  the runner enforces the contract — reaching across the wiring throws
 - does NOT emit `story_id` (obsolete)
 - meta-prompt requests JSON of an exact shape; relies on Qwen
   Instruct-tuned models to honor it
 
 Known pitfalls:
-- max_tokens 400 silently truncates the 5-field structured response;
+- forgetting `await` on `S.need` → downstream `.map is undefined` on
+  Promise objects. Sacred `need` is async.
+- `max_tokens` 400 silently truncates the 5-field structured response;
   raise to 800.
 - the meta-prompt is the main tuning knob. Watch for:
   - Qwen reflecting the prompt's "Ingredients" section back as the brief
@@ -73,3 +103,12 @@ Known pitfalls:
 - the test harness `test/test_extract_json.coffee` replays the verbatim
   broken output from the user's first failing run; use it to verify
   changes to the extractor.
+
+History (2026-07-30):
+- Migrated from legacy Memo-style API (`action: (M, stepName) ->`,
+  `M.getStepParam`, `M.callMLX`, `M.saveThis`) to sacred ledger style
+  (`action: (S) ->`, `S.need`, `S.callMLX`, `S.make`, `S.done`).
+- Flattened runtime params (`model:`, `max_tokens:`, `temp:`, `top_p:`)
+  collapsed into a nested `mlx:` block per pipeline_runner.coffee §9.
+- Model symlink repointed from empty `build/model4` to real weights
+  under `writediary/pipes/diary/build/model4`.

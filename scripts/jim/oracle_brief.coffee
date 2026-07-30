@@ -1,19 +1,8 @@
 @step =
   desc: "Synthesize a unified diary brief from the ingredient bundle"
 
-  action: (M, stepName) ->
-    bundle = M.theLowdown('ingredient_bundle').value
-    throw new Error "[#{stepName}] ingredient_bundle missing from memo" unless bundle?
-
-    modelId = M.getStepParam stepName, 'model'
-    maxTok  = M.getStepParam(stepName, 'max_tokens') ? 1024
-    # Sampling — without these mlx_lm runs greedy (temp 0) and every
-    # run with the same inputs produces byte-identical output. Set
-    # temp > 0 to get variation across runs.
-    temp    = M.getStepParam(stepName, 'temp')
-    topP    = M.getStepParam(stepName, 'top_p')
-    seed    = M.getStepParam(stepName, 'seed')
-    throw new Error "[#{stepName}] Missing 'model' param" unless modelId?
+  action: (S) ->
+    bundle = await S.need 'ingredient_bundle'
 
     beatsBlock = (bundle.anchor_seeds.map (b) ->
       extras = []
@@ -69,15 +58,9 @@ Return JSON of the form:
 }
 """
 
-    args =
-      model: modelId
-      prompt: prompt
-      'max-tokens': maxTok
-    args.temp  = temp if temp?
-    args['top-p'] = topP if topP?
-    args.seed  = seed if seed?
-
-    raw = M.callMLX 'generate', args
+    # Ledger auto-injects model / max-tokens / temp / top-p / seed from
+    # the step's `mlx:` block in override/jim_story.yaml. Body passes prompt only.
+    raw = S.callMLX 'generate', { prompt }
 
     # MLX wraps generation with `==========\n...==========\n` framing and
     # a trailing stats block. Strip both before searching for JSON, and
@@ -170,6 +153,6 @@ Return JSON of the form:
     brief.motif     = bundle.motif
     brief.arc_shape = bundle.arc_shape
 
-    M.saveThis 'diary_brief', brief
-    M.saveThis "done:#{stepName}", true
+    S.make 'diary_brief', brief
+    S.done()
     return

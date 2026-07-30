@@ -51,8 +51,10 @@ assemble_ingredients:
   # Pick the day's trajectory and tone. Empty = use recipe_defaults.
   arc_shape:   [ UI_dropdown, data/jim_story_library.yaml/arc_shapes ]
   time_of_day: [ UI_dropdown, data/jim_story_library.yaml/time_of_day ]
-  # Motif is free-form metadata — just a one-line cue for the oracle.
-  motif:       [ UI_textarea, "" ]
+  # Motif is now a lens selection — an interpretive frame the finished
+  # chapter reads through. Field name kept as `motif` for compatibility
+  # with existing coffee scripts; backing list is story_atoms.lenses.
+  motif:       [ UI_dropdown, data/jim_story_library.yaml/story_atoms/lenses ]
 
 oracle_brief:
   run: jim/oracle_brief.coffee

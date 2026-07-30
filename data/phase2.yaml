@@ -1,0 +1,183 @@
+# phase2.yaml — story shape derived from GPT/jim_story/character_board.md
+#
+# The original arc_shapes (in jim_story_library.yaml) describe a story
+# only by its emotional trajectory: five emotions, one per beat, in
+# beat order. That's adequate for interior-weather diary pieces but
+# it's too thin to generate the range Jim's writing actually shows —
+# roundtable columns, folk tales, tall tales, character studies,
+# Winnie/Pathy vignettes.
+#
+# phase2 is a richer shape. A story is described by:
+#
+#   - CAST: which gunas are present, which Daos are in play, is Wickie
+#     on duty.
+#   - CATALYST: the entering force that starts the day.
+#   - FRICTION: the dialectical pair foregrounded in the scene.
+#   - RESOLUTION: which character dominates the closing beat, which
+#     determines what kind of ending the piece has.
+#   - REGISTER: what genre the piece is in — column, folk tale, tall
+#     tale, character study, reflection.
+#
+# The five beats (scene / arrival / disturbance / reflection /
+# realization) still mark the rhythm, but their *semantics* are now
+# determined by who is present and how the friction unfolds. A
+# phase2-shaped piece runs the cast through their cards rather than
+# choosing emotions in isolation.
+#
+# This file is a SHAPE DEFINITION. It does not yet drive a pipeline
+# step; it's a design document that future tooling (a phase2 recipe,
+# a smarter assemble_ingredients) could consume. See the worked
+# examples below for what each shape feels like in practice.
+
+# ─── enumerated vocabulary ──────────────────────────────────────────
+
+gunas:     [ Southwick, Roger, Tommy ]
+daos:      [ Winnie, Pathy ]
+muse:      Wickie
+
+catalysts:
+  - tommy_bursts_in              # rajas enters a settled space
+  - stranger_arrives             # external disturbance, unknown valence
+  - news_item                    # the public world intrudes
+  - candle_is_lit                # Wickie is summoned (may not show)
+  - winnie_has_built_something   # hopeful structure presented
+  - pathy_submits_something      # art deflects sideways
+  - season_turns                 # natural catalyst, nobody at fault
+  - recurring_complaint          # the same disturbance, again
+
+frictions:
+  - tommy_x_southwick            # scheme meets discernment
+  - tommy_x_roger                # motion meets weight
+  - southwick_x_roger            # clarity meets stillness
+  - tommy_x_winnie               # scheme meets faith-building
+  - southwick_x_pathy            # discernment meets offering
+  - roger_x_pathy                # stillness meets receiving
+  - roger_x_winnie               # stillness meets building
+  - winnie_x_pathy               # active meets receptive (both least-form)
+  - anyone_x_wickie              # the muse on duty
+  - none                         # solo arc (e.g. Winnie alone)
+
+resolutions:
+  witnessed:  { owner: Southwick, feels_like: "nothing changes externally; consciousness shifts; the reader is the recipient" }
+  settled:    { owner: Roger,     feels_like: "the moment ends in stillness; the room exhales" }
+  triggered:  { owner: Tommy,     feels_like: "something happens with downstream consequence; the next column is foreshadowed" }
+  built:      { owner: Winnie,    feels_like: "she leaves something behind, possibly useful, possibly a treehouse" }
+  offered:    { owner: Pathy,     feels_like: "the gift is given; whether received is left ambiguous" }
+  visited:    { owner: Wickie,    feels_like: "the piece achieves a leap not in the data; the candle is spent" }
+
+registers:
+  - column            # roundtable bar life, address-the-reader, riff + pivot
+  - folk_tale         # third-person closed-form, parable structure, no Jim
+  - tall_tale         # mock-journalism, counterfactual mythology, deadpan
+  - character_study   # quiet observation of a single figure across one moment
+  - reflection        # interior-weather diary, the current pipeline's mode
+
+# ─── shape definitions ──────────────────────────────────────────────
+# Each phase2_shape names a recurring pattern in Jim's writing. The
+# fields are inputs to the generative recipe (character_board.md's
+# "Generative recipe" section). emotions are derived from the
+# resolution mode, not chosen independently — though a curator may
+# override.
+
+phase2_shapes:
+
+  roundtable_witness:
+    desc: |
+      The classic Jim column. Tommy bursts in with a scheme; Southwick
+      sees through it; Tommy makes the case anyway; Southwick lands the
+      orienting line; the table laughs; Tommy sits down.
+    cast:       { gunas: [Southwick, Tommy], daos: [], muse: false }
+    catalyst:   tommy_bursts_in
+    friction:   tommy_x_southwick
+    resolution: witnessed
+    register:   column
+    emotions:   [contentment, surprise, exasperation, recognition, wry_amusement]
+
+  still_center:
+    desc: |
+      Two gunas, no entering force. Southwick and Roger share a quiet
+      moment; nothing externally happens; both witness; the moment
+      deepens; the reader feels what neither character had to say.
+    cast:       { gunas: [Southwick, Roger], daos: [], muse: false }
+    catalyst:   season_turns
+    friction:   southwick_x_roger
+    resolution: settled
+    register:   reflection
+    emotions:   [contentment, stillness, attention, melancholy, release]
+
+  lighthouse_offering:
+    desc: |
+      Roger reads a poem Pathy entered in an elementary school
+      "Lighthouses of Oregon" contest. Roger says nothing. Pathy
+      stops defending the choice of venue. For a moment she suspects
+      her work was actually received. She walks home unsure.
+    cast:       { gunas: [Roger], daos: [Pathy], muse: false }
+    catalyst:   pathy_submits_something
+    friction:   roger_x_pathy
+    resolution: offered
+    register:   character_study
+    emotions:   [tender_hope, embarrassment, suspended_breath, dawning_dignity, quiet_uncertainty]
+
+  bookshelf_at_the_bus_stop:
+    desc: |
+      Winnie has built a small bookshelf next to the bus stop hoping
+      people will leave books. The books arrive; they don't leave. Rain
+      comes; she adds a tarp; the tarp is taken; she writes "Please
+      take a book" with a marker on the wood. Nothing changes.
+    cast:       { gunas: [], daos: [Winnie], muse: false }
+    catalyst:   winnie_has_built_something
+    friction:   none
+    resolution: built
+    register:   folk_tale
+    emotions:   [hopefulness, brief_satisfaction, mild_confusion, persistence, undimmed_hope]
+
+  walta_vault_night:
+    desc: |
+      Tommy starts riffing about Liberace and Walt Kelly's Pogo song.
+      Wickie descends. Tommy invents the Singapore casino, the
+      W-pronounced-V, the Walta-Vault. The piece becomes Anna. Wickie
+      leaves mid-sentence.
+    cast:       { gunas: [Tommy], daos: [], muse: true }
+    catalyst:   candle_is_lit
+    friction:   anyone_x_wickie
+    resolution: visited
+    register:   tall_tale
+    emotions:   [audacity, mounting_invention, gleeful_specificity, almost_belief, abrupt_silence]
+
+  first_frost:
+    desc: |
+      The two least-forms in collaboration. Winnie has built a "warm
+      spot" — cardboard and an old space heater — by the bulletin
+      board. Pathy has hand-lettered a sign: "Stand here a minute if
+      you're cold." Nobody stands. Winnie adjusts the cardboard. Pathy
+      considers entering the sign in a county-fair handwriting
+      contest. Full dignity, oblivious to its own beauty.
+    cast:       { gunas: [], daos: [Winnie, Pathy], muse: false }
+    catalyst:   season_turns
+    friction:   winnie_x_pathy
+    resolution: built     # primary; offered as secondary
+    register:   folk_tale
+    emotions:   [shared_purpose, small_hope, faint_disappointment, undimmed_collaboration, soft_acceptance]
+
+  susanna_run:
+    desc: |
+      A young Winnie before she became Winnie. A protagonist meets a
+      sequence of constraints — storm, swollen stream, missing
+      oarlocks, rival in a better dress — and each is solved by
+      improvisation. The mother's phrase becomes the engine. The
+      arrival is the kicker. This is Winnie energy in the moment
+      before the world stops cooperating.
+    cast:       { gunas: [], daos: [Winnie], muse: false }   # Winnie at her highest
+    catalyst:   recurring_complaint     # the mother's voice in her head
+    friction:   none
+    resolution: built     # the arrival succeeds; Winnie wins this once
+    register:   folk_tale
+    emotions:   [resignation, resolve, ingenuity, small_triumph, arrival]
+
+# ─── note on the obsolete arc_shapes ────────────────────────────────
+# The existing arc_shapes (settling, spiral, lift, st_johns_standard)
+# are not retired by phase2; they're a strict subset. Each one can be
+# expressed in phase2 terms — they're all interior-weather pieces with
+# minimal cast and a settled/triggered/witnessed resolution. Once a
+# phase2-aware pipeline is wired, the old arc_shapes can either stay
+# as a compatibility layer or be promoted into phase2_shapes entries.

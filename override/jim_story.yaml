@@ -4,21 +4,27 @@ pipeline: jim_story
 # lives here rather than in config/jim_story.yaml.
 
 oracle_brief:
-  # Local quantized MLX model — symlink build/model4 → a sibling project
-  # that already ran `download_model`, or run that recipe once here.
-  model: build/model4
-  # 400 truncated mid-JSON (brief + structure_hints + transitions hit
-  # the limit before motif_thread/voice_target could close); 800 is
-  # comfortable budget for the full structured response.
-  max_tokens: 800
-  # Sampling — without these mlx_lm runs greedy (temp 0) and every run
-  # with the same inputs produces byte-identical output.
-  #   temp:    0     deterministic / greedy
-  #            0.5   small variation, mostly stays on script
-  #            0.7   meaningful variation, what we recommend
-  #            1.0+  loose; structure_hints + transitions may drift
-  #   top_p:   0.95 keeps sampling inside the high-probability tail
-  #   seed:    leave unset for fresh runs each time; set an integer
-  #            (e.g. 42) when you want reproducible regression-test runs
-  temp: 0.7
-  top_p: 0.95
+  # Sacred `mlx:` block. Keys are the canonical mlx_lm CLI flag names
+  # (dashes, not underscores). The ledger's callMLX auto-injects these
+  # so the step body only passes `prompt`.
+  #
+  # build/model4 is a symlink to a local quantized MLX model
+  # (currently → /Users/jahbini/writediary/pipes/diary/build/model4).
+  #
+  # max-tokens: 400 truncated mid-JSON in earlier runs (brief +
+  # structure_hints + transitions consumed the budget before
+  # motif_thread/voice_target could close); 800 is comfortable.
+  #
+  # Sampling — without temp/top-p mlx_lm runs greedy and byte-identical
+  # runs are produced every time.
+  #   temp:  0    greedy / deterministic
+  #          0.5  small variation
+  #          0.7  meaningful variation (recommended)
+  #          1.0+ loose; structured output may drift
+  #   top-p: 0.95 keeps sampling in the high-probability tail
+  #   seed:  unset = fresh runs; set an integer for reproducible tests
+  mlx:
+    model: build/model4
+    max-tokens: 800
+    temp: 0.7
+    top-p: 0.95
